@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Kategori extends Model
 {
-	protected $table = 't00_m_kat';
-	protected $primaryKey = 'FK_KAT';
+	protected $table = 'T00_REF_MENU';
+	protected $primaryKey = 'FNO_KATEGORI';
 	protected $keyType = 'string';
 	public $timestamps = false;
 
 	protected $fillable = [
-		'FK_KAT', 'FN_KAT'
+		'FNO_KATEGORI', 'FN_KATEGORI'
 	];
 }
 
