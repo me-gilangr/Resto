@@ -21,7 +21,8 @@ class CreateMenusTable extends Migration
 					$table->double('FHARGA');
 					$table->double('DISC');
 					$table->string('FGAMBAR');
-					$table->integer('STATUS_MENU', 1);
+					$table->integer('STATUS_MENU');
+					$table->softDeletes();
 					$table->timestamps();
         });
     }
