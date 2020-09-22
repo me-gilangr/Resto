@@ -13,13 +13,15 @@ class CreateMenusTable extends Migration
      */
     public function up()
     {
-        Schema::create('t00_m_menu', function (Blueprint $table) {
-					$table->char('FK_MENU', 5)->primary();
-					$table->string('FN_MENU', 40);
-					$table->char('FK_KAT');
-					$table->foreign('FK_KAT')->references('FK_KAT')->on('t00_m_kat');
-					$table->string('FDESKRIPSI', 100);
+        Schema::create('T00_M_MENU', function (Blueprint $table) {
+					$table->char('FNO_MENU', 5)->primary();
+					$table->char('FNO_KATEGORI', 2);
+					$table->foreign('FNO_KATEGORI')->references('FNO_KATEGORI')->on('T00_REF_MENU');
+					$table->string('FN_NAMA', 50);
 					$table->double('FHARGA');
+					$table->double('DISC');
+					$table->string('FGAMBAR');
+					$table->integer('STATUS_MENU', 1);
 					$table->timestamps();
         });
     }
@@ -31,6 +33,6 @@ class CreateMenusTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('t00_m_menu');
+        Schema::dropIfExists('T00_M_MENU');
     }
 }
