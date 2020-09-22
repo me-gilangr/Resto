@@ -16,7 +16,7 @@
 
 @section('content')
 <div class="row"> 
-  <div class="col-12">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 pb-3">
     <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel"> 
       <div class="carousel-inner" style="border-radius: 10px !important;">
         <div class="carousel-item active">
@@ -51,32 +51,32 @@
       </a>
     </div>
   </div>
-</div>
-<div class="row pt-3">
-  <div class="col-6">
-    <div class="info-box pr-3 pl-3 pt-0 pb-0" style="border-radius: 10px !important;">
-      <span class="info-box-icon text-secondary"><i class="fa fa-utensils"></i></span>
-
-      <div class="info-box-content pt-0 pr-0">
-        <span class="info-box-text text-center">Daftar Makanan</span>
-        <div class="progress">
-          <div class="progress-bar bg-secondary" style="width: 100%"></div>
-        </div> 
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
+    <div class="row">
+      <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
+        <div class="info-box pr-3 pl-3 pt-0 pb-0" style="border-radius: 10px !important;">
+          <span class="info-box-icon text-secondary"><i class="fa fa-utensils"></i></span>
+    
+          <div class="info-box-content pt-0 pr-0">
+            <span class="info-box-text text-center">Daftar Makanan</span>
+            <div class="progress">
+              <div class="progress-bar bg-secondary" style="width: 100%"></div>
+            </div> 
+          </div>
+        </div>
       </div>
-      <!-- /.info-box-content -->
-    </div>
-  </div>
-  <div class="col-6">
-    <div class="info-box pr-3 pl-3 pt-0 pb-0" style="border-radius: 10px !important;">
-      <span class="info-box-icon text-secondary"><i class="fa fa-coffee"></i></span>
-
-      <div class="info-box-content pt-0 pr-0">
-        <span class="info-box-text text-center">Daftar Makanan</span>
-        <div class="progress">
-          <div class="progress-bar bg-secondary" style="width: 100%"></div>
-        </div> 
+      <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
+        <div class="info-box pr-3 pl-3 pt-0 pb-0" style="border-radius: 10px !important;">
+          <span class="info-box-icon text-secondary"><i class="fa fa-coffee"></i></span>
+    
+          <div class="info-box-content pt-0 pr-0">
+            <span class="info-box-text text-center">Daftar Makanan</span>
+            <div class="progress">
+              <div class="progress-bar bg-secondary" style="width: 100%"></div>
+            </div> 
+          </div>
+        </div>
       </div>
-      <!-- /.info-box-content -->
     </div>
   </div>
 </div>
