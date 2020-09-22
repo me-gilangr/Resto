@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Menu extends Model
 {
-	protected $table = 't00_m_menu';
-	protected $primaryKey = 'FK_MENU';
+	protected $table = 'T00_M_MENU';
+	protected $primaryKey = 'FNO_MENU';
 	protected $keyType = 'string';
 	public $timestamps = false;
 
 	protected $fillable = [
-		'FK_MENU', 'FN_MENU', 'FK_KAT', 'FDESKRIPSI', 'FHARGA'
+		'FNO_MENU', 'FNO_KATEGORI', 'FN_NAMA', 'FHARGA', 'DISC', 'FGAMBAR', 'STATUS_MENU'
 	];
 }

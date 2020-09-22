@@ -13,9 +13,9 @@ class CreateKategorisTable extends Migration
      */
     public function up()
     {
-        Schema::create('t00_m_kat', function (Blueprint $table) {
-					$table->char('FK_KAT', 3)->primary();
-					$table->string('FN_KAT', 20);
+        Schema::create('T00_REF_MENU', function (Blueprint $table) {
+					$table->char('FNO_KATEGORI', 2)->primary();
+					$table->string('FN_KATEGORI', 20);
 					$table->softDeletes();
 					$table->timestamps();
         });
@@ -28,6 +28,6 @@ class CreateKategorisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('t00_m_kat');
+        Schema::dropIfExists('T00_REF_MENU');
     }
 }
