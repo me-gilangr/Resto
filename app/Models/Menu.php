@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Menu extends Model
 {
-	protected $table = 'T00_M_MENU';
+	protected $table = 't00_m_menu';
 	protected $primaryKey = 'FNO_MENU';
 	protected $keyType = 'string';
 	public $timestamps = false;

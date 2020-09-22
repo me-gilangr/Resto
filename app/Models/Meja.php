@@ -4,15 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Kategori extends Model
+class Meja extends Model
 {
-	protected $table = 't00_ref_menu';
-	protected $primaryKey = 'FNO_KATEGORI';
+	protected $table = 't00_m_meja';
+	protected $primaryKey = 'FNO_MEJA';
 	protected $keyType = 'string';
 	public $timestamps = false;
 
 	protected $fillable = [
-		'FNO_KATEGORI', 'FN_KATEGORI'
+		'FNO_MEJA', 'JML_KAPASITAS', 'STATUS'
 	];
 }
-
