@@ -39,7 +39,6 @@
 <body class="hold-transition layout-top-nav">
 <div class="wrapper">
 
-  <!-- Navbar -->
   <nav class="main-header navbar navbar-expand-md navbar-dark navbar-danger text-sm">
     <div class="container">
       <a href="#" class="navbar-brand navbar-danger">
@@ -47,9 +46,9 @@
         <span class="brand-text font-weight-light pl-4" style="font-family: system-ui; font-weight: 400 !important;">CAFE ALLEGRA</span>
       </a>
       
-      <button class="navbar-toggler order-3" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      {{-- <button class="navbar-toggler order-3" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-      </button>
+      </button> --}}
 
       <div class="collapse navbar-collapse order-3" id="navbarCollapse">
         {{-- <!-- Left navbar links -->
@@ -108,8 +107,12 @@
         </form> --}}
       </div>
 
-      <!-- Right navbar links -->
       <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#" data-toggle="modal" data-target="#keranjangModal">
+            <i class="fa fa-shopping-cart"></i>
+          </a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="{{ route('login') }}">
             <i class="fa fa-user"></i>
@@ -118,45 +121,129 @@
       </ul>
     </div>
   </nav>
-  <!-- /.navbar -->
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    {{-- <div class="content-header">
-      <div class="container">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0 text-dark"> Top Navigation <small>Example 3.0</small></h1>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div> --}}
-    <!-- /.content-header -->
+  <div class="content-wrapper"> 
 
-    <!-- Main content -->
     <div class="content pt-3">
       <div class="container">
         @yield('content')
-      </div><!-- /.container-fluid -->
+      </div>
     </div>
-    <!-- /.content -->
   </div>
-  <!-- /.content-wrapper -->
 
-  <!-- Main Footer -->
   <footer class="main-footer text-center text-xs p-1">
-    <!-- To the right -->
     <div class="float-right d-none d-sm-inline">
       Self-Service
     </div>
-    <!-- Default to the left -->
     <strong>Copyright &copy; 2020 <a href="#">Cafe Allegra</a>.</strong>
   </footer>
 </div>
-<!-- ./wrapper -->
 
-<!-- REQUIRED SCRIPTS -->
+<div class="modal fade" id="keranjangModal" tabindex="-1" aria-labelledby="keranjangModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="keranjangModalLabel"><i class="fa fa-edit text-danger"></i> Menu Yang Akan di-Pesan.</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body p-0">
+        <div class="table-responsive">
+          <table class="table mb-0">
+            <thead>
+              <tr>
+                <td class="pl-3">Nama Menu</td>
+                <td class="text-center">Jumlah</td>
+                <td class="text-center">Aksi</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="pl-3">
+                  Coffee Latte A <br>
+                  <span class="badge badge-primary badge-pill">Rp. 20.000</span> 
+                </td>
+                <td class="text-center">
+                  1 Item <br>
+                  <span class="badge badge-success badge-pill">Sub Total : Rp. 20.000</span> 
+                </td>
+                <td class="text-center" style="vertical-align: inherit;">
+                  <button class="btn btn-xs btn-danger">
+                    <span class="fa fa-trash"></span>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td class="pl-3">
+                  Coffee Latte B <br>
+                  <span class="badge badge-primary badge-pill">Rp. 25.000</span> 
+                </td>
+                <td class="text-center">
+                  2 Item <br>
+                  <span class="badge badge-success badge-pill">Sub Total : Rp. 50.000</span> 
+                </td>
+                <td class="text-center" style="vertical-align: inherit;">
+                  <button class="btn btn-xs btn-danger">
+                    <span class="fa fa-trash"></span>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td class="pl-3">
+                  Coffee Latte C <br>
+                  <span class="badge badge-primary badge-pill">Rp. 30.000</span> 
+                </td>
+                <td class="text-center">
+                  1 Item <br>
+                  <span class="badge badge-success badge-pill">Sub Total : Rp. 30.000</span> 
+                </td>
+                <td class="text-center" style="vertical-align: inherit;">
+                  <button class="btn btn-xs btn-danger">
+                    <span class="fa fa-trash"></span>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="2" class="text-right">Total &ensp; : </td>
+                <td>Rp. 100.000</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        {{-- <ul class="list-group">
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <p>
+              Nama Menu
+            </p>
+            <span class="badge badge-primary badge-pill">Jumlah</span> 
+            <button class="btn btn-xs btn-danger">
+              <span class="fa fa-trash"></span>
+            </button>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <p>
+              Caffee Latte A <br>
+              Harga : Rp. <u>20.000</u> <br>
+              SubTotal : Rp. <u>20.000</u>
+            </p>
+            <span class="badge badge-primary badge-pill">1</span>
+            <button class="btn btn-xs btn-danger">
+              <span class="fa fa-trash"></span>
+            </button>
+          </li> 
+        </ul> --}}
+      </div>
+      <div class="modal-footer"> 
+        <button type="button" class="btn btn-sm btn-outline-secondary" data-dismiss="modal">Tutup</button>
+        <button type="button" class="btn btn-sm btn-outline-success"><i class="fa fa-paper-plane"></i> &ensp; Lakukan Pemesanan</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <!-- jQuery -->
 <script src="{{ asset('backend') }}/plugins/jquery/jquery.min.js"></script>
