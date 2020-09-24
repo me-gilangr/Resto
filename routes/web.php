@@ -21,5 +21,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['middleware' => ['auth']], function () {
 	Route::group(['prefix' => 'Internal'], function () {
 		Route::get('/', 'Backend\IndexController@index')->name('backend.index');
+		Route::get('/data-pesanan', 'Backend\IndexController@dataPesanan')->name('backend.data-pesanan');
 	});
 });

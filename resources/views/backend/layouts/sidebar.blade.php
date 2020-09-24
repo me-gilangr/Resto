@@ -50,7 +50,7 @@
       </li>
       <li class="nav-header pt-2 pl-3"><b><u>Pelayan</u></b></li>
       <li class="nav-item">
-        <a href="{{ route('backend.index') }}" class="nav-link">
+        <a href="{{ route('backend.data-pesanan') }}" class="nav-link">
           <i class="nav-icon fa fa-tag"></i>
           <p>
             Pemesanan Customer

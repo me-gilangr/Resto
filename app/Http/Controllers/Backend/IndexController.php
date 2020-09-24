@@ -11,4 +11,9 @@ class IndexController extends Controller
     {
       return view('backend.index');
     }
+
+    public function dataPesanan()
+    {
+      return view('backend.data-pesanan');
+    }
 }
