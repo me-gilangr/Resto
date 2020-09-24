@@ -41,10 +41,10 @@
       </li>
       <li class="nav-header pt-2 pl-3"><b><u>Dapur</u></b></li>
       <li class="nav-item">
-        <a href="{{ route('backend.index') }}" class="nav-link">
-          <i class="nav-icon fa fa-list"></i>
+        <a href="{{ route('backend.dapur') }}" class="nav-link">
+          <i class="nav-icon fa fa-utensils"></i>
           <p>
-            Data Pesanan
+            Data Pemasakan
           </p>
         </a>
       </li>
