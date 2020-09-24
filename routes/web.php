@@ -12,10 +12,17 @@
 */
 
 Route::get('/', 'IndexController@index')->name('index');
-Route::get('/welcome', 'IndexController@welcome')->name('welcome');
-Auth::routes(['register' => false]);
 
+// Route::get('/welcome', 'IndexController@welcome')->name('welcome');
+
+Auth::routes(['register' => false]);
 Route::get('/home', 'HomeController@index')->name('home');
+
 Route::group(['middleware' => ['auth']], function () {
-	Route::resource('kategori', 'Master\KategoriController');
+	Route::group(['prefix' => 'Internal'], function () {
+		Route::get('/', 'Backend\IndexController@index')->name('backend.index');
+		Route::get('/data-pesanan', 'Backend\IndexController@dataPesanan')->name('backend.data-pesanan');
+    Route::get('/transaksi-meja', 'Backend\IndexController@transaksiMeja')->name('backend.transaksi-meja');
+    Route::get('/dapur', 'Backend\IndexController@dapur')->name('backend.dapur');
+	});
 });
