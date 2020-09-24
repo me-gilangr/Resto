@@ -57,6 +57,14 @@
           </p>
         </a>
       </li>
+      <li class="nav-item">
+        <a href="{{ route('backend.transaksi-meja') }}" class="nav-link">
+          <i class="nav-icon fa fa-table"></i>
+          <p>
+            Transaksi Meja
+          </p>
+        </a>
+      </li>
     </ul>
   </nav>
 </div>

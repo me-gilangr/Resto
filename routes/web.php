@@ -22,5 +22,6 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::group(['prefix' => 'Internal'], function () {
 		Route::get('/', 'Backend\IndexController@index')->name('backend.index');
 		Route::get('/data-pesanan', 'Backend\IndexController@dataPesanan')->name('backend.data-pesanan');
+		Route::get('/transaksi-meja', 'Backend\IndexController@transaksiMeja')->name('backend.transaksi-meja');
 	});
 });

@@ -39,6 +39,16 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
+  <style>
+    .borad-0 {
+      border-radius: 0px !important;
+    }
+
+    .borad-5 {
+      border-radius: 5px !important;
+    }
+  </style>
+
   @yield('css')
   @stack('css')
 

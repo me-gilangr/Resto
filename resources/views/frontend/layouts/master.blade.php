@@ -110,7 +110,7 @@
       <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
         <li class="nav-item">
           <a class="nav-link" href="#" data-toggle="modal" data-target="#keranjangModal">
-            <i class="fa fa-shopping-cart"></i>
+            <i class="fa fa-shopping-basket"></i>
           </a>
         </li>
         <li class="nav-item">
@@ -143,7 +143,7 @@
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="keranjangModalLabel"><i class="fa fa-edit text-danger"></i> Menu Yang Akan di-Pesan.</h5>
+        <h5 class="modal-title" id="keranjangModalLabel"><i class="fa fa-shopping-basket text-danger"></i> &ensp; Menu Yang Akan di-Pesan.</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

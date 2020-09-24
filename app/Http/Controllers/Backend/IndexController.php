@@ -16,4 +16,9 @@ class IndexController extends Controller
     {
       return view('backend.data-pesanan');
     }
+
+    public function transaksiMeja()
+    {
+      return view('backend.transaksi-meja');
+    }
 }
