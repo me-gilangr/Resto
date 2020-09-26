@@ -49,6 +49,7 @@
     }
   </style>
 
+  @livewireStyles
   @yield('css')
   @stack('css')
 
@@ -162,8 +163,10 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('backend') }}/dist/js/demo.js"></script> 
 
+@livewireScripts
 @yield('script')
 @stack('script')
+
 
 </body>
 </html>
