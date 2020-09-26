@@ -2,8 +2,7 @@
 
 @section('content')
 @livewire('meja.index')
-
-<form action="#" method="post">
+{{-- <form action="#" method="post">
   <div class="modal fade" id="modalAdd" tabindex="-1" aria-labelledby="modalAddLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
       <div class="modal-content">
@@ -38,7 +37,7 @@
       </div>
     </div>
   </div>
-</form> 
+</form>  --}}
 @endsection
 
 @section('script')

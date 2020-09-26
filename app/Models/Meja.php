@@ -12,6 +12,6 @@ class Meja extends Model
 	public $timestamps = false;
 
 	protected $fillable = [
-		'FNO_MEJA', 'JML_KAPASITAS', 'STATUS'
+		'FNO_MEJA', 'FJENIS', 'STATUS'
 	];
 }

@@ -1,40 +1,62 @@
-<?php
+<?php 
 
-namespace App\Http\Controllers;
+namespace App\Http\Config;
 
-use App\Http\Config\JsonDatatable;
+use App\Satuan;
+use DataTables;
 use Illuminate\Http\Request;
 
-class SatuanController extends Controller
+trait JsonDatatable
 {
-		use JsonDatatable;
+	public $pk;
+	public $rawCols = ['action'];
 
-    public function index()
-    {
-      return view('satuan.index', compact('title'));
-		}
-		
-		public function datatable(Request $request)
-		{
-			return $this->jsonGetData('App\Satuan', $request->trashed);
+	public function jsonGetData($model, $trashed)
+	{
+		$model = new $model;
+		$this->pk = $model->getKeyName();
+		if($trashed == 'true'){
+			$model = $model->onlyTrashed();
 		}
 
-		public function _dataColumn($dataTables)
-		{
-			$dataTables->addColumn('created_at', function ($data) {
-				$date = '<u>'. date('d/m/Y H:i:s',strtotime($data->created_at)).'</u>';
-				return $date;
+		$a = $model->newQuery();
+		$dataTables =  DataTables::eloquent($a);
+		$dataTables->addColumn('action', function ($data) use($trashed) {
+				if ($trashed == 'true') {
+					$btn = '
+						<div class="btn-group">
+							<button type="submit" class="btn btn-sm btn-info restore" data-id="'.$data[$this->pk].'" style="border-radius: 0px;">
+								<i class="fa fa-undo"></i> &ensp; Pulihkan Data
+							</button>
+						</div>
+					';
+				} else {
+					$btn = '
+						<div class="btn-group">
+							<a href="#" class="btn btn-sm btn-info edit" data-toggle="tooltip" wire:click="edit()" data-placement="top" title="Edit Data" data-original-title="Edit Data" data-id="'.$data[$this->pk].'">
+									<i class="fa fa-edit"></i>
+							</a>
+							<button type="submit" class="btn btn-sm btn-danger hapus" data-id="'.$data[$this->pk].'" style="border-radius: 0px;">
+								<i class="fa fa-trash"></i>
+							</button>
+						</div>
+						';
+				}
+				return $btn;
 			});
 
-			$dataTables->addColumn('deleted_at', function ($data) {
-				$date = '<u>'. date('d/m/Y H:i:s',strtotime($data->deleted_at)).'</u>';
-				return $date;
-			});
 		
-			
+			if(method_exists($this, '_dataColumn')){
+				$dataTables = $this->_dataColumn($dataTables);
+			}
+			$dataTables->rawColumns($this->rawCols);
+		return $dataTables->addIndexColumn()->toJson();
+	}
 
-			$this->rawColumns(['created_at', 'deleted_at']);
-
-			return $dataTables;
+	public function rawColumns($rawCols)
+	{
+		foreach ($rawCols as $key => $value) {
+			array_push($this->rawCols, $value);
 		}
+	}
 }

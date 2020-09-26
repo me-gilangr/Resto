@@ -25,6 +25,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/transaksi-meja', 'Backend\IndexController@transaksiMeja')->name('backend.transaksi-meja');
     Route::get('/dapur', 'Backend\IndexController@dapur')->name('backend.dapur');
 
-    Route::resource('meja', 'Backend\MejaController');
+		Route::resource('meja', 'Backend\MejaController');
+	});
+
+	Route::group(['prefix' => 'datatable', 'as' => 'datatable.'], function () {
+		Route::post('meja', 'Backend\MejaController@datatable')->name('meja');
 	});
 });
