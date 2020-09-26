@@ -24,5 +24,7 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::get('/data-pesanan', 'Backend\IndexController@dataPesanan')->name('backend.data-pesanan');
     Route::get('/transaksi-meja', 'Backend\IndexController@transaksiMeja')->name('backend.transaksi-meja');
     Route::get('/dapur', 'Backend\IndexController@dapur')->name('backend.dapur');
+
+    Route::resource('meja', 'Backend\MejaController');
 	});
 });
