@@ -23,7 +23,7 @@
 								</div>
 								<div class="form-group">
 									<label for="">Jenis Meja : <span class="text-danger">*</span></label>
-									<input type="text" wire:model.lazy="FJENIS" name="FJENIS" id="FJENIS" class="form-control borad-0 {{ $errors->has('FJENIS') ? 'is-invalid':'' }}" placeholder="Masukan Jenis Meja..." maxlength="3" autofocus required>
+									<input type="text" wire:model.lazy="FJENIS" name="FJENIS" id="FJENIS" class="form-control borad-0 {{ $errors->has('FJENIS') ? 'is-invalid':'' }}" placeholder="Masukan Jenis Meja..." maxlength="20" autofocus required>
 									<span class="invalid-feedback">
 										{{ $errors->first('FJENIS') }}
 									</span>

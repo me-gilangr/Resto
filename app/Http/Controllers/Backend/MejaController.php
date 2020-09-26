@@ -24,4 +24,5 @@ class MejaController extends Controller
 		{
 			return $this->jsonGetData('App\Models\Meja', $request->trashed);
 		}
+
 }
