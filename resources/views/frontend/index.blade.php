@@ -184,4 +184,7 @@
     </div>
   </div>
 </div>
+
+{{-- Modul --}}
+{{-- https://ourcodeworld.com/articles/read/1093/how-to-access-the-htdocs-directory-of-xampp-from-a-computer-or-mobile-device-in-the-same-local-area-network-lan --}}
 @endsection
