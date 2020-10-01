@@ -51,7 +51,7 @@
       <form method="POST" action="{{ route('login') }}">
         @csrf
         <div class="input-group mb-3">
-          <input type="email" name="email" class="form-control {{ $errors->has('email') ? 'is-invalid':'' }}" placeholder="Masukan E-Mail Pengguna...">
+          <input type="email" name="email" class="form-control {{ $errors->has('email') ? 'is-invalid':'' }}" placeholder="Masukan E-Mail Pengguna..." value="admin@mail.com" autofocus required>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -65,7 +65,7 @@
           @enderror
         </div>
         <div class="input-group mb-3">
-          <input type="password" name="password" class="form-control" placeholder="Password">
+          <input type="password" name="password" class="form-control" placeholder="Password" value="admin" required>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>

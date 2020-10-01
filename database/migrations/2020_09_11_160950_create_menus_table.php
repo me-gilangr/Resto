@@ -13,10 +13,10 @@ class CreateMenusTable extends Migration
      */
     public function up()
     {
-        Schema::create('T00_M_MENU', function (Blueprint $table) {
-					$table->char('FNO_MENU', 5)->primary();
+        Schema::create('T00_M_PRODUK', function (Blueprint $table) {
+					$table->char('FNO_PRODUK', 5)->primary();
 					$table->char('FNO_KATEGORI', 2);
-					$table->foreign('FNO_KATEGORI')->references('FNO_KATEGORI')->on('T00_REF_MENU');
+					$table->foreign('FNO_KATEGORI')->references('FNO_KATEGORI')->on('T00_REF_PRODUK');
 					$table->string('FN_NAMA', 50);
 					$table->double('FHARGA');
 					$table->double('DISC');
@@ -34,6 +34,6 @@ class CreateMenusTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('T00_M_MENU');
+        Schema::dropIfExists('T00_M_PRODUK');
     }
 }

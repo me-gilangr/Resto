@@ -30,7 +30,8 @@
   <!-- Ionicons -->
   {{-- <link rel="stylesheet" href="{{ asset('backend') }}/external/ionicons.min.css"> --}}
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  
+  <!-- Toastr -->
+  <link rel="stylesheet" href="{{ asset('backend') }}/plugins/toastr/toastr.min.css">
   <!-- DataTables -->
   <link rel="stylesheet" href="{{ asset('backend') }}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="{{ asset('backend') }}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -38,6 +39,9 @@
   <link rel="stylesheet" href="{{ asset('backend') }}/dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+	<script src="{{ asset('external/pace/pace.min.js') }}"></script>
+	<link rel="stylesheet" href="{{ asset('external/pace/pace.css') }}">
 
   <style>
     .borad-0 {
@@ -47,6 +51,10 @@
     .borad-5 {
       border-radius: 5px !important;
     }
+
+		.p17 {
+			padding-top: 17px !important;
+		}
   </style>
 
   @livewireStyles
@@ -153,6 +161,8 @@
 <script src="{{ asset('backend') }}/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="{{ asset('backend') }}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Toastr -->
+<script src="{{ asset('backend') }}/plugins/toastr/toastr.min.js"></script>
 <!-- DataTables -->
 <script src="{{ asset('backend') }}/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="{{ asset('backend') }}/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -163,7 +173,29 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('backend') }}/dist/js/demo.js"></script> 
 
+
 @livewireScripts
+
+<script>
+	$(document).ready(function() {
+		window.livewire.on('success', success => {
+			toastr.success(success, 'Berhasil !');
+		});
+		
+		window.livewire.on('info', info => {			
+			toastr.info(info, 'Informasi !');
+		});
+
+		window.livewire.on('warning', warning => {			
+			toastr.warning(warning, 'Peringatan !');
+		});
+
+		window.livewire.on('error', error => {			
+			toastr.error(error, 'Kesalahan !');
+		});
+	});
+</script>
+
 @yield('script')
 @stack('script')
 

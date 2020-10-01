@@ -1,5 +1,5 @@
 <div>
-	<form wire:submit.prevent="{{ !$edit ? 'tambah()':'updateData("'.$edit->FK_SATUAN.'")' }}">	
+	<form wire:submit.prevent="{{ !$edit ? 'tambah()':'updateData("'.$edit->FNO_MEJA.'")' }}">	
 		<div wire:ignore.self class="modal fade" id="modalCreate" tabindex="-1" aria-labelledby="modalCreateLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -16,7 +16,7 @@
 							<div class="col-12">
 								<div class="form-group">
 									<label for="">Nomor Meja : <span class="text-danger">*</span></label>
-									<input type="text" wire:model.lazy="FNO_MEJA" name="FNO_MEJA" id="FNO_MEJA" class="form-control borad-0 {{ $errors->has('FNO_MEJA') ? 'is-invalid':'' }}" placeholder="Masukan Nomor Meja..." maxlength="3" autofocus required>
+									<input type="text" wire:model.lazy="FNO_MEJA" name="FNO_MEJA" id="FNO_MEJA" class="form-control borad-0 {{ $errors->has('FNO_MEJA') ? 'is-invalid':'' }}" placeholder="Masukan Nomor Meja..." maxlength="3" {{ !$edit ? 'autofocus':'disabled' }} required>
 									<span class="invalid-feedback">
 										{{ $errors->first('FNO_MEJA') }}
 									</span>
@@ -42,3 +42,25 @@
 		</div>
 	</form>
 </div>
+
+@push('script')
+<script>
+	$(document).ready(function() {
+		window.livewire.on('tutupModal', function(){
+			$('#modalCreate').modal('hide');
+		});
+
+		window.livewire.on('bukaModal', function(){
+			$('#modalCreate').modal('show');
+		});
+
+		$('#modalCreate').on('hidden.bs.modal', function (e) {
+			window.livewire.emit('editFalse');
+		})
+		
+		$('#modalCreate').on('shown.bs.modal', function(e) {
+      $('input:text:visible:first', this).focus();
+    });
+	});
+</script>
+@endpush

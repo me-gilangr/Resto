@@ -16,7 +16,7 @@ class CreateMejasTable extends Migration
         Schema::create('T00_M_MEJA', function (Blueprint $table) {
 					$table->char('FNO_MEJA', 3)->primary();
 					$table->string('FJENIS', 20);
-					$table->integer('STATUS');
+					$table->boolean('STATUS');
 					$table->softDeletes();
 					$table->timestamps();
         });

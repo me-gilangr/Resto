@@ -25,7 +25,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/transaksi-meja', 'Backend\IndexController@transaksiMeja')->name('backend.transaksi-meja');
     Route::get('/dapur', 'Backend\IndexController@dapur')->name('backend.dapur');
 
-		Route::resource('meja', 'Backend\MejaController');
+		// Route::resource('meja', 'Backend\MejaController');
+		Route::get('/meja', 'Backend\MejaController@index')->name('meja.index');
+		Route::get('/kategori', 'Backend\KategoriController@index')->name('kategori.index');
 	});
 
 	Route::group(['prefix' => 'datatable', 'as' => 'datatable.'], function () {

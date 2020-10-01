@@ -10,6 +10,7 @@ trait JsonDatatable
 {
 	public $pk;
 	public $rawCols = ['action'];
+	public $trashed = false;
 
 	public function jsonGetData($model, $trashed)
 	{
@@ -17,39 +18,39 @@ trait JsonDatatable
 		$this->pk = $model->getKeyName();
 		if($trashed == 'true'){
 			$model = $model->onlyTrashed();
+			$this->trashed = true;
+		} else {
+			$this->trashed = false;
 		}
 
 		$a = $model->newQuery();
 		$dataTables =  DataTables::eloquent($a);
 		$dataTables->addColumn('action', function ($data) use($trashed) {
-				if ($trashed == 'true') {
-					$btn = '
-						<div class="btn-group">
-							<button type="submit" class="btn btn-sm btn-info restore" data-id="'.$data[$this->pk].'" style="border-radius: 0px;">
-								<i class="fa fa-undo"></i> &ensp; Pulihkan Data
-							</button>
-						</div>
-					';
-				} else {
-					$btn = '
-						<div class="btn-group">
-							<a href="#" class="btn btn-sm btn-info edit" data-toggle="tooltip" wire:click="edit()" data-placement="top" title="Edit Data" data-original-title="Edit Data" data-id="'.$data[$this->pk].'">
-									<i class="fa fa-edit"></i>
-							</a>
-							<button type="submit" class="btn btn-sm btn-danger hapus" data-id="'.$data[$this->pk].'" style="border-radius: 0px;">
-								<i class="fa fa-trash"></i>
-							</button>
-						</div>
-						';
-				}
-				return $btn;
-			});
-
+			return 'OK';
+		}); 
 		
-			if(method_exists($this, '_dataColumn')){
-				$dataTables = $this->_dataColumn($dataTables);
-			}
-			$dataTables->rawColumns($this->rawCols);
+		if (method_exists($this, '_button')) {
+			$dataTables = $this->_button($dataTables, $trashed);
+		} else {
+			$dataTables->editColumn('action', function ($data) use($trashed) {
+				if ($trashed == 'true') {
+					$btn = $this->restoreBtn($data[$this->pk]);
+				} else {
+					$btn = $this->editBtn($data[$this->pk]).$this->delBtn($data[$this->pk]);
+				}
+				return '
+					<div class="btn-group">
+						'.$btn.'
+					</div>
+				';
+			});
+		}
+
+		if (method_exists($this, '_dataColumn')){
+			$dataTables = $this->_dataColumn($dataTables);
+		}
+
+		$dataTables->rawColumns($this->rawCols);
 		return $dataTables->addIndexColumn()->toJson();
 	}
 
@@ -58,5 +59,20 @@ trait JsonDatatable
 		foreach ($rawCols as $key => $value) {
 			array_push($this->rawCols, $value);
 		}
+	}
+
+	public function editBtn($id)
+	{
+		return '<a href="#" class="btn btn-sm btn-info borad-0 edit" data-toggle="tooltip" wire:click="edit()" data-placement="top" title="Edit Data" data-original-title="Edit Data" data-id="'.$id.'"> <i class="fa fa-edit"></i> </a>';
+	}
+
+	public function delBtn($id)
+	{
+		return '<button type="submit" class="btn btn-sm borad-0 btn-danger hapus" data-id="'.$id.'" style="border-radius: 0px;"><i class="fa fa-trash"></i> </button>';
+	}
+
+	public function restoreBtn($id)
+	{
+		return '<button type="submit" class="btn btn-sm borad-0 btn-info restore" data-id="'.$id.'" style="border-radius: 0px;"> <i class="fa fa-undo"></i> &ensp; Pulihkan Data </button> ';
 	}
 }

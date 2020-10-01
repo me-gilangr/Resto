@@ -13,7 +13,7 @@ class CreateKategorisTable extends Migration
      */
     public function up()
     {
-        Schema::create('T00_REF_MENU', function (Blueprint $table) {
+        Schema::create('T00_REF_PRODUK', function (Blueprint $table) {
 					$table->char('FNO_KATEGORI', 2)->primary();
 					$table->string('FN_KATEGORI', 20);
 					$table->softDeletes();
@@ -28,6 +28,6 @@ class CreateKategorisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('T00_REF_MENU');
+        Schema::dropIfExists('T00_REF_PRODUK');
     }
 }

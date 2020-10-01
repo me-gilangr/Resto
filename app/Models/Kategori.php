@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Kategori extends Model
 {
-	protected $table = 't00_ref_menu';
+	protected $table = 't00_ref_produk';
 	protected $primaryKey = 'FNO_KATEGORI';
 	protected $keyType = 'string';
 	public $timestamps = false;
