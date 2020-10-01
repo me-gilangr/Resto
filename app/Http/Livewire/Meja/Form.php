@@ -28,6 +28,46 @@ class Form extends Component
 		return view('livewire.meja.form');
 	}
 
+	public function updatedFNOMEJA($value)
+	{
+		$data = Validator::make(
+			[
+				'FNO_MEJA' => $this->FNO_MEJA,
+			],
+			[
+				'FNO_MEJA' => 'required|alpha_num|max:3|unique:t00_m_meja,FNO_MEJA',
+			],
+			[
+				'alpha_num' => 'Isi Harus Berupa Alphanumeric (A-Z, 0-9, a-z) !',
+				'required' => 'Field Wajib di-Isi / Tidak Boleh Kosong !',
+				'max' => 'Jumlah Huruf Tidak Boleh Lebih Dari :max Karakter',
+				'unique' => 'Data Sudah Ada !',
+			]
+		)->validate();
+
+		return $data;
+	}
+
+	public function updatedFJENIS()
+	{
+		$data = Validator::make(
+			[
+				'FJENIS' => $this->FJENIS,
+			],
+			[
+				'FJENIS' => 'required|string|max:20',
+			],
+			[
+				'string' => 'Isi Harus Berupa String (A-Z, 0-9, a-z) !',
+				'required' => 'Field Wajib di-Isi / Tidak Boleh Kosong !',
+				'max' => 'Jumlah Huruf Tidak Boleh Lebih Dari :max Karakter',
+				'unique' => 'Data Sudah Ada !',
+			]
+		)->validate();
+
+		return $data;
+	}
+
 	public function tambah()
 	{
 		$data = $this->validating();
