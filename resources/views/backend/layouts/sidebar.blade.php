@@ -22,7 +22,7 @@
           <li class="nav-item">
             <a href="{{ route('kategori.index') }}" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
-              <p>Kategori Menu</p>
+              <p>Kategori Produk</p>
             </a>
           </li>
           <li class="nav-item">
@@ -30,13 +30,19 @@
               <i class="far fa-circle nav-icon"></i>
               <p>Daftar Produk</p>
             </a>
-          </li>
+					</li>
+					<li class="nav-item">
+            <a href="{{ route('menu.index') }}" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Daftar Menu</p>
+            </a>
+					</li>
           <li class="nav-item">
             <a href="{{ route('meja.index') }}" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>Daftar Meja</p>
             </a>
-          </li>
+					</li>
         </ul>
       </li>
       <li class="nav-header pt-2 pl-3"><b><u>Dapur</u></b></li>
