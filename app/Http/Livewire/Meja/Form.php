@@ -35,12 +35,13 @@ class Form extends Component
 				'FNO_MEJA' => $this->FNO_MEJA,
 			],
 			[
-				'FNO_MEJA' => 'required|alpha_num|max:3|unique:t00_m_meja,FNO_MEJA',
+				'FNO_MEJA' => 'required|alpha_num|min:3|max:3|unique:t00_m_meja,FNO_MEJA',
 			],
 			[
 				'alpha_num' => 'Isi Harus Berupa Alphanumeric (A-Z, 0-9, a-z) !',
 				'required' => 'Field Wajib di-Isi / Tidak Boleh Kosong !',
 				'max' => 'Jumlah Huruf Tidak Boleh Lebih Dari :max Karakter',
+				'min' => 'Jumlah Huruf Harus Berjumlah :min Karakter',
 				'unique' => 'Data Sudah Ada !',
 			]
 		)->validate();
@@ -92,13 +93,14 @@ class Form extends Component
 				'FJENIS' => $this->FJENIS,
 			],
 			[
-				'FNO_MEJA' => 'required|string|max:3|unique:t00_m_meja,FNO_MEJA',
+				'FNO_MEJA' => 'required|string|min:3|max:3|unique:t00_m_meja,FNO_MEJA',
 				'FJENIS' => 'required|string|max:20',
 			],
 			[
 				'string' => 'Isi Harus Berupa Alphanumeric (A-Z, 0-9, a-z) !',
 				'required' => 'Field Wajib di-Isi / Tidak Boleh Kosong !',
 				'max' => 'Jumlah Huruf Tidak Boleh Lebih Dari :max Karakter',
+				'min' => 'Jumlah Huruf Harus Berjumlah :min Karakter',
 				'unique' => 'Data Sudah Ada !',
 			]
 		)->validate();

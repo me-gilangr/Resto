@@ -39,12 +39,13 @@ class Form extends Component
 				'FNO_PRODUK' => $this->FNO_KATEGORI . $this->FNO_PRODUK,
 			],
 			[
-				'FNO_PRODUK' => 'required|alpha_num|max:5|unique:t00_m_produk,FNO_PRODUK',
+				'FNO_PRODUK' => 'required|alpha_num|min:5|max:5|unique:t00_m_produk,FNO_PRODUK',
 			],
 			[
 				'alpha_num' => 'Isi Harus Berupa Alphanumeric (A-Z, 0-9, a-z) !',
 				'required' => 'Field Wajib di-Isi / Tidak Boleh Kosong !',
 				'max' => 'Jumlah Huruf Tidak Boleh Lebih Dari :max Karakter',
+				'min' => 'Jumlah Huruf Harus Berjumlah :min Karakter (Kode Kategori + Kode Produk)',
 				'unique' => 'Data Sudah Ada !',
 			]
 		)->validate();
@@ -59,12 +60,13 @@ class Form extends Component
 				'FNO_KATEGORI' => $this->FNO_KATEGORI,
 			],
 			[
-				'FNO_KATEGORI' => 'required|alpha_num|max:2|exists:t00_ref_produk,FNO_KATEGORI',
+				'FNO_KATEGORI' => 'required|alpha_num|min:2|max:2|exists:t00_ref_produk,FNO_KATEGORI',
 			],
 			[
 				'alpha_num' => 'Isi Harus Berupa Alphanumeric (A-Z, 0-9, a-z) !',
 				'required' => 'Field Wajib di-Isi / Tidak Boleh Kosong !',
 				'max' => 'Jumlah Huruf Tidak Boleh Lebih Dari :max Karakter',
+				'min' => 'Jumlah Huruf Harus Berjumlah :min Karakter',
 				'exists' => 'Data Tidak Ada !',
 			]
 		)->validate();
@@ -117,14 +119,15 @@ class Form extends Component
 				'FN_NAMA' => $this->FN_NAMA,
 			],
 			[
-				'FNO_PRODUK' => 'required|string|max:5|unique:t00_m_produk,FNO_PRODUK',
-				'FNO_KATEGORI' => 'required|alpha_num|max:2|exists:t00_ref_produk,FNO_KATEGORI',
+				'FNO_PRODUK' => 'required|string|min:5|max:5|unique:t00_m_produk,FNO_PRODUK',
+				'FNO_KATEGORI' => 'required|alpha_num|min:2|max:2|exists:t00_ref_produk,FNO_KATEGORI',
 				'FN_NAMA' => 'required|string|max:20',
 			],
 			[
 				'string' => 'Isi Harus Berupa Alphanumeric (A-Z, 0-9, a-z) !',
 				'required' => 'Field Wajib di-Isi / Tidak Boleh Kosong !',
 				'max' => 'Jumlah Huruf Tidak Boleh Lebih Dari :max Karakter',
+				'min' => 'Jumlah Huruf Harus Berjumlah :min Karakter',
 				'unique' => 'Data Sudah Ada !',
 				'exists' => 'Data Tidak Ada !',
 			]

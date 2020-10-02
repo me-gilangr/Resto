@@ -35,12 +35,13 @@ class Form extends Component
 				'FNO_KATEGORI' => $this->FNO_KATEGORI,
 			],
 			[
-				'FNO_KATEGORI' => 'required|alpha_num|max:2|unique:t00_ref_produk,FNO_KATEGORI',
+				'FNO_KATEGORI' => 'required|alpha_num|min:2|max:2|unique:t00_ref_produk,FNO_KATEGORI',
 			],
 			[
 				'alpha_num' => 'Isi Harus Berupa Alphanumeric (A-Z, 0-9, a-z) !',
 				'required' => 'Field Wajib di-Isi / Tidak Boleh Kosong !',
 				'max' => 'Jumlah Huruf Tidak Boleh Lebih Dari :max Karakter',
+				'min' => 'Jumlah Huruf Harus Berjumlah :min Karakter',
 				'unique' => 'Data Sudah Ada !',
 			]
 		)->validate();
@@ -92,13 +93,14 @@ class Form extends Component
 				'FN_KATEGORI' => $this->FN_KATEGORI,
 			],
 			[
-				'FNO_KATEGORI' => 'required|string|max:2|unique:t00_ref_produk,FNO_KATEGORI',
+				'FNO_KATEGORI' => 'required|string|min:2|max:2|unique:t00_ref_produk,FNO_KATEGORI',
 				'FN_KATEGORI' => 'required|string|max:20',
 			],
 			[
 				'string' => 'Isi Harus Berupa Alphanumeric (A-Z, 0-9, a-z) !',
 				'required' => 'Field Wajib di-Isi / Tidak Boleh Kosong !',
 				'max' => 'Jumlah Huruf Tidak Boleh Lebih Dari :max Karakter',
+				'min' => 'Jumlah Huruf Harus Berjumlah :min Karakter',
 				'unique' => 'Data Sudah Ada !',
 			]
 		)->validate();

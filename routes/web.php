@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::get('/kategori', 'Backend\KategoriController@index')->name('kategori.index');
 		Route::get('/produk', 'Backend\ProdukController@index')->name('produk.index');
 		Route::get('/menu', 'Backend\MenuController@index')->name('menu.index');
+		Route::get('/menu/create', 'Backend\MenuController@create')->name('menu.create');
 	});
 
 	Route::group(['prefix' => 'datatable', 'as' => 'datatable.'], function () {

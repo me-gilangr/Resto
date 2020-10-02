@@ -10,8 +10,6 @@ class Index extends Component
 	protected $listeners = [
 		'hapus' => 'deleting',
 		'restore' => 'restoring',
-		'activate' => 'activating',
-		'deactivate' => 'deactivating',
 	];
 
 	public function render()
