@@ -16,7 +16,7 @@
 							<div class="col-12">
 								<div class="form-group">
 									<label for="">Kode Kategori : <span class="text-danger">*</span></label>
-									<input type="text" wire:model.lazy="FNO_KATEGORI" name="FNO_KATEGORI" id="FNO_KATEGORI" class="form-control borad-0 {{ $errors->has('FNO_KATEGORI') ? 'is-invalid':'' }}" placeholder="Masukan Kode Kategori..." maxlength="2" {{ !$edit ? 'autofocus':'disabled' }} required>
+									<input type="text" wire:model.lazy="FNO_KATEGORI" name="FNO_KATEGORI" id="FNO_KATEGORI" class="form-control borad-0 {{ $errors->has('FNO_KATEGORI') ? 'is-invalid':'' }}" placeholder="Masukan Kode Kategori..." minlength="2" maxlength="2" {{ !$edit ? 'autofocus':'disabled' }} required>
 									<span class="invalid-feedback">
 										{{ $errors->first('FNO_KATEGORI') }}
 									</span>

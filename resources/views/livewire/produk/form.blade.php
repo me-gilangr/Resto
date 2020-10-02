@@ -39,7 +39,7 @@
 										<div class="input-group-prepend">
 											<span class="input-group-text borad-0">{{ $FNO_KATEGORI !== '' ? $FNO_KATEGORI:'SILAHKAN PILIH KATEGORI' }}</span>
 										</div>
-										<input type="text" wire:model.lazy="FNO_PRODUK" name="FNO_PRODUK" id="FNO_PRODUK" class="form-control borad-0 {{ $errors->has('FNO_PRODUK') ? 'is-invalid':'' }}" placeholder="Masukan Kode Produk..." maxlength="3" {{ !$edit ? 'autofocus':'disabled' }} required>
+										<input type="text" wire:model.lazy="FNO_PRODUK" name="FNO_PRODUK" id="FNO_PRODUK" class="form-control borad-0 {{ $errors->has('FNO_PRODUK') ? 'is-invalid':'' }}" placeholder="Masukan Kode Produk..." minlength="3" maxlength="3" {{ !$edit ? 'autofocus':'disabled' }} required>
 										<span class="invalid-feedback">
 											{{ $errors->first('FNO_PRODUK') }}
 										</span>

@@ -16,7 +16,7 @@
 							<div class="col-12">
 								<div class="form-group">
 									<label for="">Nomor Meja : <span class="text-danger">*</span></label>
-									<input type="text" wire:model.lazy="FNO_MEJA" name="FNO_MEJA" id="FNO_MEJA" class="form-control borad-0 {{ $errors->has('FNO_MEJA') ? 'is-invalid':'' }}" placeholder="Masukan Nomor Meja..." maxlength="3" {{ !$edit ? 'autofocus':'disabled' }} required>
+									<input type="text" wire:model.lazy="FNO_MEJA" name="FNO_MEJA" id="FNO_MEJA" class="form-control borad-0 {{ $errors->has('FNO_MEJA') ? 'is-invalid':'' }}" placeholder="Masukan Nomor Meja..." minlength="3" maxlength="3" {{ !$edit ? 'autofocus':'disabled' }} required>
 									<span class="invalid-feedback">
 										{{ $errors->first('FNO_MEJA') }}
 									</span>
