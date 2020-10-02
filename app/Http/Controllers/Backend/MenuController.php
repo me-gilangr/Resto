@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Config\JsonDatatable;
 use App\Http\Controllers\Controller;
+use App\Models\Produk;
 use Illuminate\Http\Request;
 
 class MenuController extends Controller
@@ -17,7 +18,8 @@ class MenuController extends Controller
 
 	public function create()
 	{
-		return view('backend.menu.create');
+		$produk = Produk::orderBy('FN_NAMA', 'ASC')->get();
+		return view('backend.menu.create', compact('produk'));
 	}
 	
 	public function datatable(Request $request)
