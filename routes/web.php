@@ -27,9 +27,12 @@ Route::group(['middleware' => ['auth']], function () {
 
 		Route::get('/meja', 'Backend\MejaController@index')->name('meja.index');
 		Route::get('/kategori', 'Backend\KategoriController@index')->name('kategori.index');
+		Route::get('/produk', 'Backend\ProdukController@index')->name('produk.index');
 	});
 
 	Route::group(['prefix' => 'datatable', 'as' => 'datatable.'], function () {
 		Route::post('meja', 'Backend\MejaController@datatable')->name('meja');
+		Route::post('kategori', 'Backend\KategoriController@datatable')->name('kategori');
+		Route::post('produk', 'Backend\ProdukController@datatable')->name('produk');
 	});
 });

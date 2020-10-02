@@ -18,10 +18,6 @@ class CreateProductsTable extends Migration
 					$table->char('FNO_KATEGORI', 2);
 					$table->foreign('FNO_KATEGORI')->references('FNO_KATEGORI')->on('T00_REF_PRODUK');
 					$table->string('FN_NAMA', 50);
-					$table->double('FHARGA');
-					$table->double('DISC');
-					$table->string('FGAMBAR');
-					$table->integer('STATUS_MENU');
 					$table->softDeletes();
 					$table->timestamps();
         });
