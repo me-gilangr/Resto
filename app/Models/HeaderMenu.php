@@ -18,11 +18,12 @@ class HeaderMenu extends Model
 	];
 
 	protected $attributes = [
-		'FSTATUS' => 0,
+		'FSTATUS' => 1,
 	];
 
 	public function detail()
 	{
 		return $this->hasMany('App\Models\DetailMenu', 'FNO_H_MENU', 'FNO_H_MENU');
+
 	}
 }
