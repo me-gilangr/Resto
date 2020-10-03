@@ -13,11 +13,10 @@
   }
 
 	.image-preview {
-		min-height: 200px;
-		max-height: 200px;
+		min-height: 270px;
+		max-height: 300px;
 		border: 2px solid #dddddd;
 		margin: 0 auto;
-		margin-bottom: 10px !important;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -100,8 +99,15 @@
 								border-bottom-right-radius: 0px;
 								padding: 10px 15px 10px 15px;
 							">
-								<p class="card-text mb-1">{{ $item->FN_MENU }}</p>
-								<p class="card-text mb-1">{{ 'Rp. '.number_format($item->FHARGAJUAL, 0, ',', '.') }}</p>
+								<p class="card-text mb-1" style="
+									max-height: 80px;
+									overflow: auto;
+									font-size: 14px;
+								">{{ $item->FN_MENU }}</p>
+								<p class="card-text mb-1" style="
+									font-size: 12px;
+									font-weight: 600;
+								">{{ 'Rp. '.number_format($item->FHARGAJUAL, 0, ',', '.') }}</p>
 								<hr class="mb-2 mt-1">
 								<button class="btn btn-xs btn-outline-success float-right pr-2 pl-2">
 									<i class="fa fa-shopping-cart"></i> &ensp; Masukan Daftar Pesan
