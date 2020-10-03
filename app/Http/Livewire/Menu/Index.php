@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Menu;
 
+use App\Models\HeaderMenu;
 use Livewire\Component;
 
 class Index extends Component
@@ -21,14 +22,14 @@ class Index extends Component
 	public function deleting($kode)
 	{
 		try {
-			$meja = Meja::findOrFail($kode);
-			$meja->update([
+			$menu = HeaderMenu::findOrFail($kode);
+			$menu->update([
 				'FSTATUS' => 0
 			]);
-			$meja->delete();
+			$menu->delete();
 			
 			$this->emit('updatedDataTable');
-			$this->emit('warning', 'Data Meja di-Hapus !');
+			$this->emit('warning', 'Data Menu di-Hapus !');
 			
 		} catch (\Exception $e) {
 			$this->emit('error', 'Terjadi Kesalahan !');
@@ -38,8 +39,8 @@ class Index extends Component
 	public function restoring($kode)
 	{
 		try {
-			$meja = Meja::onlyTrashed()->findOrFail($kode);
-			$meja->restore();
+			$menu = HeaderMenu::onlyTrashed()->findOrFail($kode);
+			$menu->restore();
 
 			$this->emit('updatedDataTable');
 			$this->emit('info', 'Data di-Pulihkan !');
@@ -51,7 +52,7 @@ class Index extends Component
 	public function activating($kode)
 	{
 		try {
-			$activate = Meja::findOrFail($kode);
+			$activate = HeaderMenu::findOrFail($kode);
 			$activate->update([
 				'FSTATUS' => 1
 			]);
@@ -66,7 +67,7 @@ class Index extends Component
 	public function deactivating($kode)
 	{
 		try {
-			$activate = Meja::findOrFail($kode);
+			$activate = HeaderMenu::findOrFail($kode);
 			$activate->update([
 				'FSTATUS' => 0
 			]);

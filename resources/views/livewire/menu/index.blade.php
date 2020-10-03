@@ -27,7 +27,6 @@
 									<th>Pajak</th>
 									<th>Harga Jual</th>
 									<th>Status</th>
-									<th>Gambar</th>
 									<th>Tanggal Input</th>
                   <th>Aksi</th>
                 </tr>
@@ -63,7 +62,6 @@
 									<th>Pajak</th>
 									<th>Harga Jual</th>
 									<th>Status</th>
-									<th>Gambar</th>
 									<th>Tanggal Hapus</th>
                   <th>Aksi</th>
 								</tr>
@@ -94,7 +92,6 @@
 					{ "data": 'FMARGIN', "name": 'FMARGIN', "orderable": true, "searchable": true, "className": "p17", },
 					{ "data": 'FPAJAK', "name": 'FPAJAK', "orderable": true, "searchable": true, "className": "p17", },
 					{ "data": 'FHARGAJUAL', "name": 'FHARGAJUAL', "orderable": true, "searchable": true, "className": "p17", },
-					{ "data": 'FGAMBAR', "name": 'FGAMBAR', "orderable": true, "searchable": true, "className": "p17", },
 					{ "data": 'FSTATUS', "name": 'FSTATUS', "orderable": true, "searchable": true, "className": "p17", },
 					{ "data": 'deleted_at', "name": 'deleted_at', "orderable": true, "searchable": true, "className": "p17", },
 					{ "data": "action", "name": "action", "searchable": false, "orderable": false, "className": "text-center" },
@@ -107,7 +104,6 @@
 					{ "data": 'FMARGIN', "name": 'FMARGIN', "orderable": true, "searchable": true, "className": "p17", },
 					{ "data": 'FPAJAK', "name": 'FPAJAK', "orderable": true, "searchable": true, "className": "p17", },
 					{ "data": 'FHARGAJUAL', "name": 'FHARGAJUAL', "orderable": true, "searchable": true, "className": "p17", },
-					{ "data": 'FGAMBAR', "name": 'FGAMBAR', "orderable": true, "searchable": true, "className": "p17", },
 					{ "data": 'FSTATUS', "name": 'FSTATUS', "orderable": true, "searchable": true, "className": "p17", },
 					{ "data": 'created_at', "name": 'created_at', "orderable": true, "searchable": true, "className": "p17", },
 					{ "data": "action", "name": "action", "searchable": false, "orderable": false, "className": "text-center" },

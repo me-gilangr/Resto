@@ -30,12 +30,18 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::get('/produk', 'Backend\ProdukController@index')->name('produk.index');
 		Route::get('/menu', 'Backend\MenuController@index')->name('menu.index');
 		Route::get('/menu/create', 'Backend\MenuController@create')->name('menu.create');
+		Route::post('/menu', 'Backend\MenuController@store')->name('menu.store');
+		Route::get('/menu/{menu}/edit', 'Backend\MenuController@edit')->name('menu.edit');
+		Route::put('/menu/{menu}', 'Backend\MenuController@update')->name('menu.update');
+		Route::delete('/menu/{menu}', 'Backend\MenuController@destroy')->name('menu.destroy');
+
+		// Route::resource('menu', 'Backend\MenuController');
 	});
 
 	Route::group(['prefix' => 'datatable', 'as' => 'datatable.'], function () {
 		Route::post('meja', 'Backend\MejaController@datatable')->name('meja');
 		Route::post('kategori', 'Backend\KategoriController@datatable')->name('kategori');
 		Route::post('produk', 'Backend\ProdukController@datatable')->name('produk');
-		Route::post('menu', 'Backend\ProdukController@datatable')->name('menu');
+		Route::post('menu', 'Backend\MenuController@datatable')->name('menu');
 	});
 });

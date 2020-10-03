@@ -32,6 +32,12 @@
 			width: 100%;
 			max-height: 300px;
 		}
+		
+		.image-preview__now {
+			display: none;
+			width: 100%;
+			max-height: 300px;
+		}
 	</style>
 @endpush
 
@@ -48,17 +54,19 @@
 				</div>
 			</div>
 			<div class="card-body">
-				<form action="{{ route('menu.store') }}" method="post" enctype="multipart/form-data">
+				<form action="{{ route('menu.update', $edit->FNO_H_MENU) }}" method="post" enctype="multipart/form-data">
 					@csrf 
+					@method('PUT')
 					<div class="row">
 						<div class="col-md-4 col-lg-4 col-xl-4">
 							<h5 class="pl-2"><i class="fa fa-edit text-primary"></i> &ensp; Gambar / Foto Menu</h5>
 							<hr>
 							<div class="row pr-3 pl-3">
 								<div class="col-12">
-									<div class="image-preview" id="imagePreview">
+									<div class="image-preview" id="imagePreview" style="{{ $edit->FGAMBAR != null ? "background-color: #413d3d;":"" }}">
+										<img src="{{ $edit->FGAMBAR != null ? asset('images/Menu/'.$edit->FGAMBAR):'' }}" alt="Image Preview" class="image-preview__now" style="{{ $edit->FGAMBAR != null ? 'display:block;':'display:none;' }}">
 										<img src="" alt="Image Preview" class="image-preview__image">
-										<span class="image-preview__default-text">Klik Untuk Mengupload Gambar</span>
+										<span class="image-preview__default-text" style="{{ $edit->FGAMBAR != null ? 'display: none;':'display: block;' }}">Klik Untuk Mengupload Gambar</span>
 									</div>
 									<div class="form-group">
                     <div class="custom-file">
@@ -76,7 +84,7 @@
 								<div class="col-12">
 									<div class="form-group">
 										<label for="">Nama Menu : <span class="text-danger">*</span></label>
-										<input type="text" name="FN_MENU" id="FN_MENU" class="form-control borad-0 {{ $errors->has('FN_MENU') ? 'is-invalid':'' }}" placeholder="Masukan Nama Menu..." maxlength="50" autofocus required>
+										<input type="text" name="FN_MENU" id="FN_MENU" class="form-control borad-0 {{ $errors->has('FN_MENU') ? 'is-invalid':'' }}" placeholder="Masukan Nama Menu..." maxlength="50" value="{{ $edit->FN_MENU }}" autofocus required>
 										<span class="invalid-feedback">
 											{{ $errors->first('FN_MENU') }}
 										</span>
@@ -89,7 +97,7 @@
 											<div class="input-group-prepend">
 												<span class="input-group-text borad-0">Rp. </span>
 											</div>
-											<input type="number" name="FHARGAPOKOK" id="FHARGAPOKOK" class="form-control borad-0 {{ $errors->has('FHARGAPOKOK') ? 'is-invalid':'' }}" min="1" placeholder="Masukan Harga Pokok..." required>
+											<input type="number" name="FHARGAPOKOK" id="FHARGAPOKOK" class="form-control borad-0 {{ $errors->has('FHARGAPOKOK') ? 'is-invalid':'' }}" min="1" placeholder="Masukan Harga Pokok..." value="{{ $edit->FHARGAPOKOK }}" required>
 											<span class="invalid-feedback">
 												{{ $errors->first('FHARGAPOKOK') }}
 											</span>
@@ -99,7 +107,7 @@
 								<div class="col-md-2 col-lg-2 col-xl-2">
 									<div class="form-group">
 										<label for="">Margin : <span class="text-danger">*</span></label>
-										<input type="number" name="FMARGIN" id="FMARGIN" class="form-control borad-0 {{ $errors->has('FMARGIN') ? 'is-invalid':'' }}" min="1" value="1.00" step="0.01" placeholder="Masukan Harga Pokok..." required>
+										<input type="number" name="FMARGIN" id="FMARGIN" class="form-control borad-0 {{ $errors->has('FMARGIN') ? 'is-invalid':'' }}" min="1" value="1.00" step="0.01" placeholder="Masukan Harga Pokok..." value="{{ $edit->FMARGIN }}" required>
 										<span class="invalid-feedback">
 											{{ $errors->first('FMARGIN') }}
 										</span>
@@ -108,7 +116,7 @@
 								<div class="col-md-3 col-lg-3 col-xl-3">
 									<div class="form-group">
 										<label for="">Pajak : <span class="text-danger">*</span></label>
-										<input type="number" name="FPAJAK" id="FPAJAK" class="form-control borad-0 {{ $errors->has('FPAJAK') ? 'is-invalid':'' }}" min="0.1" value="0.1" step="0.01" placeholder="Masukan Pajak..." required>
+										<input type="number" name="FPAJAK" id="FPAJAK" class="form-control borad-0 {{ $errors->has('FPAJAK') ? 'is-invalid':'' }}" min="0.1" value="0.1" step="0.01" placeholder="Masukan Pajak..." value="{{ $edit->FPAJAK }}" required>
 										<span class="invalid-feedback">
 											{{ $errors->first('FPAJAK') }}
 										</span>
@@ -121,7 +129,7 @@
 											<div class="input-group-prepend">
 												<span class="input-group-text borad-0">Rp. </span>
 											</div>
-											<input type="number" name="FHARGAJUAL" id="FHARGAJUAL" class="form-control disabled borad-0 {{ $errors->has('FHARGAJUAL') ? 'is-invalid':'' }}" min="1" value="0" step="0.01" placeholder="0" readonly required>
+											<input type="number" name="FHARGAJUAL" id="FHARGAJUAL" class="form-control disabled borad-0 {{ $errors->has('FHARGAJUAL') ? 'is-invalid':'' }}" min="1" step="0.01" placeholder="0" readonly value="{{ $edit->FHARGAJUAL }}" required>
 											<span class="invalid-feedback">
 												{{ $errors->first('FHARGAJUAL') }}
 											</span>
@@ -129,20 +137,26 @@
 									</div>
 								</div>
 								<div class="col-12">
-									<div class="form-group">
+									<div class="form-group {{ $errors->has('produk') ? 'text-danger':'' }}">
 										<label for="">Pilih Data Produk : </label>
 										<select class="select2" name="produk[]" id="produk" multiple="multiple" data-placeholder="== Pilih Data Produk ==" data-dropdown-css-class="select2-red" style="width: 100%;">
 											<option value=""></option>
+											@php
+												$items = $edit->detail()->pluck('FNO_PRODUK')->toArray();
+											@endphp
 											@foreach ($produk as $item)
-												<option value="{{ $item->FNO_PRODUK }}">{{ $item->FN_NAMA }}</option>
+												<option value="{{ $item->FNO_PRODUK }}" {{ in_array($item->FNO_PRODUK, $items) ? 'selected':'' }}>{{ $item->FN_NAMA }}</option>
 											@endforeach
 										</select>
+										<span class="text-danger">
+											{{ $errors->first('produk') }}
+										</span>
 									</div>
 								</div>
 								<div class="col-md-6 col-lg-6 col-xl-6 mt-1">
 									<button type="submit" class="btn btn-success btn-block">
-										<i class="fa fa-plus"></i> &ensp;
-										Tambah Data Menu
+										<i class="fa fa-check"></i> &ensp;
+											Simpan Perubahan
 									</button>
 								</div>
 								<div class="col-md-6 col-lg-6 col-xl-6 mt-1">
@@ -166,6 +180,7 @@
 	const upload = document.getElementById("FGAMBAR");
 	const previewContainer = document.getElementById("imagePreview");
 	const previewImage = previewContainer.querySelector(".image-preview__image");
+	const previewNow = previewContainer.querySelector(".image-preview__now");
 	const previewDefaultText = previewContainer.querySelector(".image-preview__default-text");
 
 	upload.addEventListener("change", function() {
@@ -177,6 +192,7 @@
 
 			previewDefaultText.style.display = "none";
 			previewImage.style.display = "block";
+			previewNow.style.display = "none";
 
 			reader.addEventListener("load", function() {
 				previewImage.setAttribute("src", this.result);
@@ -187,6 +203,7 @@
 		} else {
 			previewDefaultText.style.display = null;
 			previewImage.style.display = null;
+			previewImage.style.display = "block";
 			previewImage.setAttribute("src", "");
 			previewContainer.style.backgroundColor = null;
 		}

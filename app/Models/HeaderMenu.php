@@ -14,6 +14,15 @@ class HeaderMenu extends Model
 	protected $keyType = 'string';
 
 	protected $fillable = [
-		'FNO_H_MENU', 'FN_MENU', 'FHARGAPOKOKO', 'FMARGIN', 'FPAJAK', 'FHARGAJUAL', 'FSTATUS', 'FGAMBAR'
+		'FNO_H_MENU', 'FN_MENU', 'FHARGAPOKOK', 'FMARGIN', 'FPAJAK', 'FHARGAJUAL', 'FSTATUS', 'FGAMBAR'
 	];
+
+	protected $attributes = [
+		'FSTATUS' => 0,
+	];
+
+	public function detail()
+	{
+		return $this->hasMany('App\Models\DetailMenu', 'FNO_H_MENU', 'FNO_H_MENU');
+	}
 }
