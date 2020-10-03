@@ -20,8 +20,8 @@ class DetailMenu extends Model
 		return $this->belongsTo('App\Models\HeaderMenu', 'FNO_H_MENU', 'FNO_H_MENU');
 	}
 
-	public function product()
+	public function produk()
 	{
-		return $this->hasOne('App\Models\Product', 'FNO_PRODUK', 'FNO_PRODUK');
+		return $this->hasOne('App\Models\Produk', 'FNO_PRODUK', 'FNO_PRODUK');
 	}
 }

@@ -27,7 +27,7 @@
           </div>
         </div>
         <div class="carousel-item">
-          <img src="{{ asset('images/Menu/Latte.jpg') }}" class="d-block w-100 img-fluid" style="min-height: 220px !important; max-height: 300px !important;" alt="Img Menu">
+          <img src="{{ asset('images/Menu/Latte.jpg') }}" class="d-block w-100 img-fluid" style="min-height: 220px !important; max-height: 300px !important; max-width: 300px;" alt="Img Menu">
           <div class="carousel-caption d-block">
             <h5>Coffee Latte</h5>
             <p>Kopi Nikmat. Temani Obrolanmu.</p>
@@ -53,7 +53,8 @@
   </div>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
     <div class="row">
-      <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
+			@foreach ($kategori as $item)
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
         <div class="card">
           <div class="card-body" style="margin-top: -30px !important;">
             <span style="
@@ -65,7 +66,7 @@
               font-weight: 500; 
               font-size: 14px;
             ">
-              DAFTAR MENU
+              {{ $item->FN_KATEGORI }}
             </span>
 
             <div id="carouselMakanan" class="carousel slide" data-ride="carousel" style="margin-top: 20px;"> 
@@ -169,18 +170,7 @@
           </div>
         </div> --}}
       </div>
-      <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
-        <div class="info-box pr-3 pl-3 pt-0 pb-0" style="border-radius: 10px !important;">
-          <span class="info-box-icon text-secondary"><i class="fa fa-coffee"></i></span>
-    
-          <div class="info-box-content pt-0 pr-0">
-            <span class="info-box-text text-center">Daftar Minuman</span>
-            <div class="progress">
-              <div class="progress-bar bg-secondary" style="width: 100%"></div>
-            </div> 
-          </div>
-        </div>
-      </div>
+			@endforeach
     </div>
   </div>
 </div>

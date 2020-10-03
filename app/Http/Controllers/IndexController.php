@@ -2,13 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HeaderMenu;
+use App\Models\Kategori;
+use App\Models\Produk;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
 	public function index()
 	{
-		return view('frontend.index');
+		$kategori = Kategori::get();
+		$menu = HeaderMenu::get();
+		// dd($menu[0]->detail[0]->produk->FNO_KATEGORI);
+		return view('frontend.index', compact('kategori', 'menu'));
 	}
 
 	public function welcome(Request $request)
