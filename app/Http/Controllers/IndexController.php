@@ -12,7 +12,7 @@ class IndexController extends Controller
 	public function index()
 	{
 		$kategori = Kategori::get();
-		$menu = HeaderMenu::get();
+		$menu = HeaderMenu::where('FSTATUS', '=', 1)->get();
 		// dd($menu[0]->detail[0]->produk->FNO_KATEGORI);
 		return view('frontend.index', compact('kategori', 'menu'));
 	}

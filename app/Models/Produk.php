@@ -21,4 +21,9 @@ class Produk extends Model
 	{
 		return $this->hasOne('App\Models\Kategori', 'FNO_KATEGORI', 'FNO_KATEGORI');
 	}
+
+	public function menu()
+	{
+		return $this->belongsTo('App\Models\DetailMenu', 'FNO_PRODUK', 'FNO_PRODUK');
+	}
 }

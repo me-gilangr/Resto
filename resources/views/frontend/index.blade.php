@@ -27,7 +27,7 @@
           </div>
         </div>
         <div class="carousel-item">
-          <img src="{{ asset('images/Menu/Latte.jpg') }}" class="d-block w-100 img-fluid" style="min-height: 220px !important; max-height: 300px !important; max-width: 300px;" alt="Img Menu">
+          <img src="{{ asset('images/Menu/Latte.jpg') }}" class="d-block w-100 img-fluid" style="min-height: 220px !important; max-height: 300px !important;" alt="Img Menu">
           <div class="carousel-caption d-block">
             <h5>Coffee Latte</h5>
             <p>Kopi Nikmat. Temani Obrolanmu.</p>
@@ -71,7 +71,43 @@
 
             <div id="carouselMakanan" class="carousel slide" data-ride="carousel" style="margin-top: 20px;"> 
               <div class="carousel-inner">
-                <div class="carousel-item active">
+								@php
+									$no = 1;
+								@endphp
+								@foreach ($menu as $item2)
+									@if ($item2->detail[0]->produk->FNO_KATEGORI == $item->FNO_KATEGORI)
+										<div class="carousel-item {{ $no == 1 ? 'active':'' }}">
+											<div class="card" style="width: 100%;">
+												<img src="{{ asset('images/Menu/'.$item2->FGAMBAR) }}" class="card-img-top img-fluid" alt="Foto Menu"
+													style="
+														border-top-left-radius: 5px;
+														border-top-right-radius: 5px;
+														max-height: 150px;
+														min-height: 100px;
+														align-items: center;
+													"
+												>
+												<div class="card-body" style="
+													border: 1px solid rgb(0 0 0 / 16%);
+													border-bottom-left-radius: 5px; 
+													border-bottom-right-radius: 5px;
+													padding: 10px 15px 10px 15px;
+												">
+													<p class="card-text mb-1">{{ $item2->FN_MENU }}</p>
+													<p class="card-text mb-1">{{ 'Rp. '.number_format($item2->FHARGAJUAL, 0, ',', '.') }}</p>
+													<hr class="mb-2 mt-1">
+													<button class="btn btn-xs btn-outline-success float-right pr-2 pl-2">
+														<i class="fa fa-shopping-cart"></i> &ensp; Masukan Daftar Pesan
+													</button>
+												</div>
+											</div>
+										</div>
+									@endif
+								@php
+									$no++;
+								@endphp
+								@endforeach
+                {{-- <div class="carousel-item active">
                   <div class="card" style="width: 100%;">
                     <img src="{{ asset('images/Menu/Latte.jpg') }}" class="card-img-top img-fluid" alt="Foto Menu"
                       style="
@@ -145,7 +181,7 @@
                       </button>
                     </div>
                   </div>
-                </div>
+                </div> --}}
               </div>
               <a class="carousel-control-prev" href="#carouselMakanan" style="bottom: 120px;" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
