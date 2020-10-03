@@ -128,11 +128,11 @@ class MenuController extends Controller
 			'FPAJAK' => 'required|numeric|between:0,99.99',
 			'produk' => 'required|array',
 			'produk.*' => 'exists:t00_m_produk,FNO_PRODUK',
-			'FGAMBAR' => 'nullable|image|mimes:jpg,jpeg,png',
+			'FGAMBAR' => 'nullable|image|mimes:jpeg,jpg,png',
 		], [
 			'required' => 'Field Tidak Boleh Kosong !',
 			'numeric' => 'Inputan Harus Berupa Angka !',
-			'mimes' => 'Format Gambar Harus Berupa :mimes !',
+			'mimes' => 'Format Gambar Harus Berupa .jpg, .jpeg, .png !',
 			'image' => 'Upload Harus Berupa Gambar !',
 			'string' => 'Inputan Harus Berupa Alphanumerik !',
 			'max' => 'Maksimal Karakter :max !',

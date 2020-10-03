@@ -62,9 +62,12 @@
 									</div>
 									<div class="form-group">
                     <div class="custom-file">
-                      <input type="file" name="FGAMBAR" id="FGAMBAR" class="custom-file-input" id="customFile" value="{{ old('FGAMBAR') }}" required>
+                      <input type="file" name="FGAMBAR" id="FGAMBAR" class="custom-file-input" id="customFile" required>
                       <label class="custom-file-label" for="customFile">Upload Gambar</label>
-                    </div>
+										</div>
+										<span class="text-danger">
+											{{ $errors->first('FGAMBAR') }}
+										</span>
                   </div>
 								</div>
 							</div>
@@ -76,7 +79,7 @@
 								<div class="col-12">
 									<div class="form-group">
 										<label for="">Nama Menu : <span class="text-danger">*</span></label>
-										<input type="text" name="FN_MENU" id="FN_MENU" class="form-control borad-0 {{ $errors->has('FN_MENU') ? 'is-invalid':'' }}" placeholder="Masukan Nama Menu..." maxlength="50" autofocus required>
+										<input type="text" name="FN_MENU" id="FN_MENU" class="form-control borad-0 {{ $errors->has('FN_MENU') ? 'is-invalid':'' }}" placeholder="Masukan Nama Menu..." maxlength="50" value="{{ old('FN_MENU') }}" autofocus required>
 										<span class="invalid-feedback">
 											{{ $errors->first('FN_MENU') }}
 										</span>
@@ -89,7 +92,7 @@
 											<div class="input-group-prepend">
 												<span class="input-group-text borad-0">Rp. </span>
 											</div>
-											<input type="number" name="FHARGAPOKOK" id="FHARGAPOKOK" class="form-control borad-0 {{ $errors->has('FHARGAPOKOK') ? 'is-invalid':'' }}" min="1" placeholder="Masukan Harga Pokok..." required>
+											<input type="number" name="FHARGAPOKOK" id="FHARGAPOKOK" class="form-control borad-0 {{ $errors->has('FHARGAPOKOK') ? 'is-invalid':'' }}" min="1" placeholder="Masukan Harga Pokok..." value="{{ old('FHARGAPOKOK') }}" required>
 											<span class="invalid-feedback">
 												{{ $errors->first('FHARGAPOKOK') }}
 											</span>
@@ -99,7 +102,7 @@
 								<div class="col-md-2 col-lg-2 col-xl-2">
 									<div class="form-group">
 										<label for="">Margin : <span class="text-danger">*</span></label>
-										<input type="number" name="FMARGIN" id="FMARGIN" class="form-control borad-0 {{ $errors->has('FMARGIN') ? 'is-invalid':'' }}" min="1" value="1.00" step="0.01" placeholder="Masukan Harga Pokok..." required>
+										<input type="number" name="FMARGIN" id="FMARGIN" class="form-control borad-0 {{ $errors->has('FMARGIN') ? 'is-invalid':'' }}" min="1" value="{{ $errors->has('FMARGIN') ? old('FMARGIN'):'1.00'}}" step="0.01" placeholder="Masukan Harga Pokok..." required>
 										<span class="invalid-feedback">
 											{{ $errors->first('FMARGIN') }}
 										</span>
@@ -108,7 +111,7 @@
 								<div class="col-md-3 col-lg-3 col-xl-3">
 									<div class="form-group">
 										<label for="">Pajak : <span class="text-danger">*</span></label>
-										<input type="number" name="FPAJAK" id="FPAJAK" class="form-control borad-0 {{ $errors->has('FPAJAK') ? 'is-invalid':'' }}" min="0.1" value="0.1" step="0.01" placeholder="Masukan Pajak..." required>
+										<input type="number" name="FPAJAK" id="FPAJAK" class="form-control borad-0 {{ $errors->has('FPAJAK') ? 'is-invalid':'' }}" min="0.1" value="{{ $errors->has('FPAJAK') ? old('FPAJAK'):'0.1'}}" step="0.01" placeholder="Masukan Pajak..." required>
 										<span class="invalid-feedback">
 											{{ $errors->first('FPAJAK') }}
 										</span>
@@ -121,7 +124,7 @@
 											<div class="input-group-prepend">
 												<span class="input-group-text borad-0">Rp. </span>
 											</div>
-											<input type="number" name="FHARGAJUAL" id="FHARGAJUAL" class="form-control disabled borad-0 {{ $errors->has('FHARGAJUAL') ? 'is-invalid':'' }}" min="1" value="0" step="0.01" placeholder="0" readonly required>
+											<input type="number" name="FHARGAJUAL" id="FHARGAJUAL" class="form-control disabled borad-0 {{ $errors->has('FHARGAJUAL') ? 'is-invalid':'' }}" min="1"  value="{{ $errors->has('FHARGAJUAL') ? old('FHARGAJUAL'):'0'}}" step="0.01" placeholder="0" readonly required>
 											<span class="invalid-feedback">
 												{{ $errors->first('FHARGAJUAL') }}
 											</span>

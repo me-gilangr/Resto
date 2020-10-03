@@ -70,9 +70,12 @@
 									</div>
 									<div class="form-group">
                     <div class="custom-file">
-                      <input type="file" name="FGAMBAR" id="FGAMBAR" class="custom-file-input" id="customFile" value="{{ old('FGAMBAR') }}" required>
+                      <input type="file" name="FGAMBAR" id="FGAMBAR" class="custom-file-input" id="customFile" required>
                       <label class="custom-file-label" for="customFile">Upload Gambar</label>
-                    </div>
+										</div>
+										<span class="text-danger">
+											{{ $errors->first('FGAMBAR') }}
+										</span>
                   </div>
 								</div>
 							</div>
@@ -107,7 +110,7 @@
 								<div class="col-md-2 col-lg-2 col-xl-2">
 									<div class="form-group">
 										<label for="">Margin : <span class="text-danger">*</span></label>
-										<input type="number" name="FMARGIN" id="FMARGIN" class="form-control borad-0 {{ $errors->has('FMARGIN') ? 'is-invalid':'' }}" min="1" value="1.00" step="0.01" placeholder="Masukan Harga Pokok..." value="{{ $edit->FMARGIN }}" required>
+										<input type="number" name="FMARGIN" id="FMARGIN" class="form-control borad-0 {{ $errors->has('FMARGIN') ? 'is-invalid':'' }}" min="1" value="{{ $edit->FMARGIN }}" step="0.01" placeholder="Masukan Harga Pokok..." value="{{ $edit->FMARGIN }}" required>
 										<span class="invalid-feedback">
 											{{ $errors->first('FMARGIN') }}
 										</span>
@@ -116,7 +119,7 @@
 								<div class="col-md-3 col-lg-3 col-xl-3">
 									<div class="form-group">
 										<label for="">Pajak : <span class="text-danger">*</span></label>
-										<input type="number" name="FPAJAK" id="FPAJAK" class="form-control borad-0 {{ $errors->has('FPAJAK') ? 'is-invalid':'' }}" min="0.1" value="0.1" step="0.01" placeholder="Masukan Pajak..." value="{{ $edit->FPAJAK }}" required>
+										<input type="number" name="FPAJAK" id="FPAJAK" class="form-control borad-0 {{ $errors->has('FPAJAK') ? 'is-invalid':'' }}" min="0.1" value="{{ $edit->FPAJAK }}" step="0.01" placeholder="Masukan Pajak..." value="{{ $edit->FPAJAK }}" required>
 										<span class="invalid-feedback">
 											{{ $errors->first('FPAJAK') }}
 										</span>

@@ -90,7 +90,7 @@
 						<div class="card" style="width: 100%; margin-bottom: 0px;">
 							<div class="card-img-top">
 								<div class="image-preview" id="imagePreview">
-									<img src="{{ asset('images/Menu/'.$item->FGAMBAR) }}" alt="Image Preview" class="image-preview__image">
+									<img src="{{ asset('images/Menu/'.$item->FGAMBAR) }}" alt="Image Preview" class="image-preview__image" style="max-height: 300px;">
 								</div>
 							</div>
 							<div class="card-body" style="
