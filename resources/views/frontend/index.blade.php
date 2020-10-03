@@ -53,11 +53,11 @@
   </div>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
     <div class="row">
-			@foreach ($kategori as $item)
+			@foreach ($menu as $item)
       <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
         <div class="card">
           <div class="card-body" style="margin-top: -30px !important;">
-            <span style="
+            {{-- <span style="
               border: 1px solid rgb(202 202 202 / 77%); 
               background-color: #f3f3f3; 
               border-radius: .25rem; 
@@ -67,18 +67,16 @@
               font-size: 14px;
             ">
               {{ $item->FN_KATEGORI }}
-            </span>
+            </span> --}}
 
             <div id="carouselMakanan" class="carousel slide" data-ride="carousel" style="margin-top: 20px;"> 
               <div class="carousel-inner">
 								@php
 									$no = 1;
 								@endphp
-								@foreach ($menu as $item2)
-									@if ($item2->detail[0]->produk->FNO_KATEGORI == $item->FNO_KATEGORI)
 										<div class="carousel-item {{ $no == 1 ? 'active':'' }}">
 											<div class="card" style="width: 100%;">
-												<img src="{{ asset('images/Menu/'.$item2->FGAMBAR) }}" class="card-img-top img-fluid" alt="Foto Menu"
+												<img src="{{ asset('images/Menu/'.$item->FGAMBAR) }}" class="card-img-top img-fluid" alt="Foto Menu"
 													style="
 														border-top-left-radius: 5px;
 														border-top-right-radius: 5px;
@@ -93,8 +91,8 @@
 													border-bottom-right-radius: 5px;
 													padding: 10px 15px 10px 15px;
 												">
-													<p class="card-text mb-1">{{ $item2->FN_MENU }}</p>
-													<p class="card-text mb-1">{{ 'Rp. '.number_format($item2->FHARGAJUAL, 0, ',', '.') }}</p>
+													<p class="card-text mb-1">{{ $item->FN_MENU }}</p>
+													<p class="card-text mb-1">{{ 'Rp. '.number_format($item->FHARGAJUAL, 0, ',', '.') }}</p>
 													<hr class="mb-2 mt-1">
 													<button class="btn btn-xs btn-outline-success float-right pr-2 pl-2">
 														<i class="fa fa-shopping-cart"></i> &ensp; Masukan Daftar Pesan
@@ -102,86 +100,9 @@
 												</div>
 											</div>
 										</div>
-									@endif
 								@php
 									$no++;
 								@endphp
-								@endforeach
-                {{-- <div class="carousel-item active">
-                  <div class="card" style="width: 100%;">
-                    <img src="{{ asset('images/Menu/Latte.jpg') }}" class="card-img-top img-fluid" alt="Foto Menu"
-                      style="
-                        border-top-left-radius: 5px;
-                        border-top-right-radius: 5px;
-                        max-height: 150px;
-                        min-height: 100px;
-                      "
-                    >
-                    <div class="card-body" style="
-                      border: 1px solid rgb(0 0 0 / 16%);
-                      border-bottom-left-radius: 5px; 
-                      border-bottom-right-radius: 5px;
-                      padding: 10px 15px 10px 15px;
-                    ">
-                      <p class="card-text mb-1">Coffee Latte A</p>
-                      <p class="card-text mb-1">Rp. 20.000</p>
-                      <hr class="mb-2 mt-1">
-                      <button class="btn btn-xs btn-outline-success float-right pr-2 pl-2">
-                        <i class="fa fa-shopping-cart"></i> Masukan Keranjang
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div class="carousel-item">
-                  <div class="card" style="width: 100%;">
-                    <img src="{{ asset('images/Menu/Latte.jpg') }}" class="card-img-top img-fluid" alt="Foto Menu"
-                      style="
-                        border-top-left-radius: 5px;
-                        border-top-right-radius: 5px;
-                        max-height: 150px;
-                        min-height: 100px;
-                      "
-                    >
-                    <div class="card-body" style="
-                      border: 1px solid rgb(0 0 0 / 16%);
-                      border-bottom-left-radius: 5px; 
-                      border-bottom-right-radius: 5px;
-                      padding: 10px 15px 10px 15px;
-                    ">
-                      <p class="card-text mb-1">Coffee Latte B</p>
-                      <p class="card-text mb-1">Rp. 25.000</p>
-                      <hr class="mb-2 mt-1">
-                      <button class="btn btn-xs btn-outline-success float-right pr-2 pl-2">
-                        <i class="fa fa-shopping-cart"></i> Masukan Keranjang
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div class="carousel-item">
-                  <div class="card" style="width: 100%;">
-                    <img src="{{ asset('images/Menu/Latte.jpg') }}" class="card-img-top img-fluid" alt="Foto Menu"
-                      style="
-                        border-top-left-radius: 5px;
-                        border-top-right-radius: 5px;
-                        max-height: 150px;
-                        min-height: 100px;
-                      "
-                    >
-                    <div class="card-body" style="
-                      border: 1px solid rgb(0 0 0 / 16%);
-                      border-bottom-left-radius: 5px; 
-                      border-bottom-right-radius: 5px;
-                      padding: 10px 15px 10px 15px;
-                    ">
-                      <p class="card-text mb-1">Coffee Latte C</p>
-                      <p class="card-text mb-1">Rp. 30.000</p>
-                      <hr class="mb-2 mt-1">
-                      <button class="btn btn-xs btn-outline-success float-right pr-2 pl-2">
-                        <i class="fa fa-shopping-cart"></i> Masukan Keranjang
-                      </button>
-                    </div>
-                  </div>
-                </div> --}}
               </div>
               <a class="carousel-control-prev" href="#carouselMakanan" style="bottom: 120px;" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
