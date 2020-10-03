@@ -11,6 +11,26 @@
     color: white;
     margin: 0;
   }
+
+	.image-preview {
+		min-height: 200px;
+		max-height: 200px;
+		border: 2px solid #dddddd;
+		margin: 0 auto;
+		margin-bottom: 10px !important;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-weight: bold;
+		color: #cccccc;
+		background-color: #413d3d;
+	}
+
+	.image-preview__image {
+		display: block;
+		width: 100%;
+		max-height: 300px;
+	}
 </style>
 @endsection
 
@@ -56,7 +76,7 @@
 			@foreach ($menu as $item)
       <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
         <div class="card">
-          <div class="card-body" style="margin-top: -30px !important;">
+          <div class="card-body">
             {{-- <span style="
               border: 1px solid rgb(202 202 202 / 77%); 
               background-color: #f3f3f3; 
@@ -68,51 +88,26 @@
             ">
               {{ $item->FN_KATEGORI }}
             </span> --}}
-
-            <div id="carouselMakanan" class="carousel slide" data-ride="carousel" style="margin-top: 20px;"> 
-              <div class="carousel-inner">
-								@php
-									$no = 1;
-								@endphp
-										<div class="carousel-item {{ $no == 1 ? 'active':'' }}">
-											<div class="card" style="width: 100%;">
-												<img src="{{ asset('images/Menu/'.$item->FGAMBAR) }}" class="card-img-top img-fluid" alt="Foto Menu"
-													style="
-														border-top-left-radius: 5px;
-														border-top-right-radius: 5px;
-														max-height: 150px;
-														min-height: 100px;
-														align-items: center;
-													"
-												>
-												<div class="card-body" style="
-													border: 1px solid rgb(0 0 0 / 16%);
-													border-bottom-left-radius: 5px; 
-													border-bottom-right-radius: 5px;
-													padding: 10px 15px 10px 15px;
-												">
-													<p class="card-text mb-1">{{ $item->FN_MENU }}</p>
-													<p class="card-text mb-1">{{ 'Rp. '.number_format($item->FHARGAJUAL, 0, ',', '.') }}</p>
-													<hr class="mb-2 mt-1">
-													<button class="btn btn-xs btn-outline-success float-right pr-2 pl-2">
-														<i class="fa fa-shopping-cart"></i> &ensp; Masukan Daftar Pesan
-													</button>
-												</div>
-											</div>
-										</div>
-								@php
-									$no++;
-								@endphp
-              </div>
-              <a class="carousel-control-prev" href="#carouselMakanan" style="bottom: 120px;" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a class="carousel-control-next" href="#carouselMakanan" style="bottom: 120px;" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-              </a>
-            </div>
+						<div class="card" style="width: 100%; margin-bottom: 0px;">
+							<div class="card-img-top">
+								<div class="image-preview" id="imagePreview">
+									<img src="{{ asset('images/Menu/'.$item->FGAMBAR) }}" alt="Image Preview" class="image-preview__image">
+								</div>
+							</div>
+							<div class="card-body" style="
+								border: 1px solid rgb(0 0 0 / 16%);
+								border-bottom-left-radius: 0px; 
+								border-bottom-right-radius: 0px;
+								padding: 10px 15px 10px 15px;
+							">
+								<p class="card-text mb-1">{{ $item->FN_MENU }}</p>
+								<p class="card-text mb-1">{{ 'Rp. '.number_format($item->FHARGAJUAL, 0, ',', '.') }}</p>
+								<hr class="mb-2 mt-1">
+								<button class="btn btn-xs btn-outline-success float-right pr-2 pl-2">
+									<i class="fa fa-shopping-cart"></i> &ensp; Masukan Daftar Pesan
+								</button>
+							</div>
+						</div>
           </div>
         </div>
         
