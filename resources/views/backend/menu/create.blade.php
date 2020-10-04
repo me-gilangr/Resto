@@ -131,7 +131,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-12">
+								<div class="col-md-12 col-lg-12 col-xl-12">
 									<div class="form-group">
 										<label for="">Pilih Data Produk : </label>
 										<select class="select2" name="produk[]" id="produk" multiple="multiple" data-placeholder="== Pilih Data Produk ==" data-dropdown-css-class="select2-red" style="width: 100%;">
@@ -142,6 +142,11 @@
 										</select>
 									</div>
 								</div>
+								{{-- <div class="col-md-4 col-lg-4 col-xl-4" style="padding-top: 31px;">
+									<button type="button" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#modalCreate">
+										<i class="fas fa-plus"></i> &ensp; Tambah Data Produk
+									</button>
+								</div> --}}
 								<div class="col-md-6 col-lg-6 col-xl-6 mt-1">
 									<button type="submit" class="btn btn-success btn-block">
 										<i class="fa fa-plus"></i> &ensp;
@@ -162,6 +167,8 @@
 		</div>
 	</div>
 </div>
+{{-- @livewire('produk.form') --}}
+
 @endsection
 
 @push('script')

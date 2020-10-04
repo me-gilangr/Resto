@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Http\Livewire\Kategori;
+namespace App\Http\Livewire\KodeGroup;
 
-use App\Models\Kategori;
 use App\Models\KodeGroup;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 
 class Form extends Component
 {
-	public $FNO_KATEGORI = '';
-	public $FN_KATEGORI = '';
+	public $FK_GROUP = '';
+	public $FN_GROUP = '';
 	public $edit = false;
 
 	protected $listeners = [
@@ -26,18 +25,17 @@ class Form extends Component
 
 	public function render()
 	{
-		$group = KodeGroup::get();
-		return view('livewire.kategori.form', compact('group'));
+		return view('livewire.kode-group.form');
 	}
 
-	public function updatedFNOKategori($value)
+	public function updatedFKGroup($value)
 	{
 		$data = Validator::make(
 			[
-				'FNO_KATEGORI' => $this->FNO_KATEGORI,
+				'FK_GROUP' => $this->FK_GROUP,
 			],
 			[
-				'FNO_KATEGORI' => 'required|alpha_num|min:2|max:2|unique:t00_ref_produk,FNO_KATEGORI',
+				'FK_GROUP' => 'required|alpha_num|min:1|max:1|unique:t00_ref_kategori,FK_GROUP',
 			],
 			[
 				'alpha_num' => 'Isi Harus Berupa Alphanumeric (A-Z, 0-9, a-z) !',
@@ -51,14 +49,14 @@ class Form extends Component
 		return $data;
 	}
 
-	public function updatedFJENIS()
+	public function updatedFNGroup()
 	{
 		$data = Validator::make(
 			[
-				'FN_KATEGORI' => $this->FN_KATEGORI,
+				'FN_GROUP' => $this->FN_GROUP,
 			],
 			[
-				'FN_KATEGORI' => 'required|string|max:20',
+				'FN_GROUP' => 'required|string|max:20',
 			],
 			[
 				'string' => 'Isi Harus Berupa String (A-Z, 0-9, a-z) !',
@@ -76,7 +74,7 @@ class Form extends Component
 		$data = $this->validating();
 
 		try {
-			$simpan = Kategori::firstOrCreate($data);
+			$simpan = KodeGroup::firstOrCreate($data);
 
 			$this->clear();
 			$this->emit('tutupModal');
@@ -91,12 +89,12 @@ class Form extends Component
 	{
 		$data = Validator::make(
 			[
-				'FNO_KATEGORI' => $this->FNO_KATEGORI,
-				'FN_KATEGORI' => $this->FN_KATEGORI,
+				'FK_GROUP' => $this->FK_GROUP,
+				'FN_GROUP' => $this->FN_GROUP,
 			],
 			[
-				'FNO_KATEGORI' => 'required|string|min:2|max:2|unique:t00_ref_produk,FNO_KATEGORI',
-				'FN_KATEGORI' => 'required|string|max:20',
+				'FK_GROUP' => 'required|string|min:1|max:1|unique:t00_ref_kategori,FK_GROUP',
+				'FN_GROUP' => 'required|string|max:20',
 			],
 			[
 				'string' => 'Isi Harus Berupa Alphanumeric (A-Z, 0-9, a-z) !',
@@ -114,12 +112,13 @@ class Form extends Component
 	{
 		try {
 			$this->edit = false;
-			$kategori = Kategori::findOrFail($id);
-			$this->edit = $kategori;
+			$group = KodeGroup::findOrFail($id);
+			$this->edit = $group;
 			$this->emit('bukaModal');
-			$this->FNO_KATEGORI = $kategori->FNO_KATEGORI;
-			$this->FN_KATEGORI = $kategori->FN_KATEGORI;
+			$this->FK_GROUP = $group->FK_GROUP;
+			$this->FN_GROUP = $group->FN_GROUP;
 		} catch (\Exception $e) {
+			dd($e);
 			$edit = false;
 			$this->emit('error', 'Terjadi Kesalahan !');
 		}
@@ -128,9 +127,9 @@ class Form extends Component
 	public function updateData($kode)
 	{
 		try {
-			$kategori = Kategori::findOrFail($kode);
-			$kategori->update([
-				'FN_KATEGORI' => $this->FN_KATEGORI,
+			$group = KodeGroup::findOrFail($kode);
+			$group->update([
+				'FN_GROUP' => $this->FN_GROUP,
 			]);
 
 			$this->clear();
@@ -145,8 +144,8 @@ class Form extends Component
 	public function clear()
 	{
 		$this->edit = false;
-		$this->FNO_KATEGORI = '';
-		$this->FN_KATEGORI = '';
+		$this->FK_GROUP = '';
+		$this->FN_GROUP = '';
 	}
 
 	public function editFalse()

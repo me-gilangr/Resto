@@ -35,6 +35,7 @@ class IndexController extends Controller
 		on c.FNO_PRODUK=a.FNO_PRODUK
 		INNER JOIN t00_ref_produk as d
 		on d.FNO_KATEGORI=c.FNO_KATEGORI
+		WHERE b.deleted_at IS NULL
 		GROUP BY d.FNO_KATEGORI, d.FN_KATEGORI,	b.FN_MENU,	b.FHARGAJUAL,	b.FGAMBAR') );
 		return view('frontend.index', compact('kategori', 'menu'));
 	}

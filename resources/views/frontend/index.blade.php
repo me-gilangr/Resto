@@ -37,8 +37,25 @@
 <div class="row"> 
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 pb-4">
     <div id="carouselMain" class="carousel slide" data-ride="carousel"> 
-      <div class="carousel-inner" style="border-radius: 10px !important;">
-        <div class="carousel-item active">
+			<div class="carousel-inner" style="border-radius: 10px !important;">
+				@php
+					$caro = 1;
+				@endphp
+				@foreach ($menu as $item)
+					<div class="carousel-item {{ $caro == 1 ? 'active':'' }}">
+						<div class="image-preview" id="imagePreview">
+							<img src="{{ asset('images/Menu/'.$item->FGAMBAR) }}" alt="Image Preview" class="image-preview__image" style="max-height: 300px;">
+						</div>
+						<div class="carousel-caption d-block">
+							<h5 style="margin-bottom: 20px;">{{ $item->FN_MENU }}</h5>
+							{{-- <p>Kopi Nikmat. Temani Obrolanmu.</p> --}}
+						</div>
+					</div>
+				@php
+					$caro++;
+				@endphp
+				@endforeach
+        {{-- <div class="carousel-item">
           <img src="{{ asset('images/Menu/Latte.jpg') }}" class="d-block w-100 img-fluid" style="min-height: 220px !important; max-height: 300px !important;" alt="Img Menu">
           <div class="carousel-caption d-block">
             <h5>Coffee Latte</h5>
@@ -51,14 +68,7 @@
             <h5>Coffee Latte</h5>
             <p>Kopi Nikmat. Temani Obrolanmu.</p>
           </div>
-        </div>
-        <div class="carousel-item">
-          <img src="{{ asset('images/Menu/Latte.jpg') }}" class="d-block w-100 img-fluid" style="min-height: 220px !important; max-height: 300px !important;" alt="Img Menu">
-          <div class="carousel-caption d-block">
-            <h5>Coffee Latte</h5>
-            <p>Kopi Nikmat. Temani Obrolanmu.</p>
-          </div>
-        </div>
+        </div> --}}
       </div>
       <a class="carousel-control-prev" href="#carouselMain" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>

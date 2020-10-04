@@ -26,6 +26,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/dapur', 'Backend\IndexController@dapur')->name('backend.dapur');
 
 		Route::get('/meja', 'Backend\MejaController@index')->name('meja.index');
+		Route::get('/kode-group', 'Backend\KodeGroupController@index')->name('kode-group.index');
 		Route::get('/kategori', 'Backend\KategoriController@index')->name('kategori.index');
 		Route::get('/produk', 'Backend\ProdukController@index')->name('produk.index');
 		Route::get('/menu', 'Backend\MenuController@index')->name('menu.index');
@@ -40,6 +41,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 	Route::group(['prefix' => 'datatable', 'as' => 'datatable.'], function () {
 		Route::post('meja', 'Backend\MejaController@datatable')->name('meja');
+		Route::post('kode-group', 'Backend\KodeGroupController@datatable')->name('kode-group');
 		Route::post('kategori', 'Backend\KategoriController@datatable')->name('kategori');
 		Route::post('produk', 'Backend\ProdukController@datatable')->name('produk');
 		Route::post('menu', 'Backend\MenuController@datatable')->name('menu');

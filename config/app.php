@@ -179,7 +179,8 @@ return [
 				// External Service
 				Spatie\Permission\PermissionServiceProvider::class,
 				Yajra\DataTables\DataTablesServiceProvider::class,
-    ],
+				Darryldecode\Cart\CartServiceProvider::class,
+			],
 
     /*
     |--------------------------------------------------------------------------
@@ -232,6 +233,7 @@ return [
 
 				// External Service Aliases
 				'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+				'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
     ],
 
 ];
