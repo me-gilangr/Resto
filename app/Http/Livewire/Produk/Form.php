@@ -81,7 +81,7 @@ class Form extends Component
 				'FN_NAMA' => $this->FN_NAMA,
 			],
 			[
-				'FN_NAMA' => 'required|string|max:20',
+				'FN_NAMA' => 'required|string|max:50',
 			],
 			[
 				'string' => 'Isi Harus Berupa String (A-Z, 0-9, a-z) !',
@@ -121,7 +121,7 @@ class Form extends Component
 			[
 				'FNO_PRODUK' => 'required|string|min:5|max:5|unique:t00_m_produk,FNO_PRODUK',
 				'FNO_KATEGORI' => 'required|alpha_num|min:2|max:2|exists:t00_ref_produk,FNO_KATEGORI',
-				'FN_NAMA' => 'required|string|max:20',
+				'FN_NAMA' => 'required|string|max:50',
 			],
 			[
 				'string' => 'Isi Harus Berupa Alphanumeric (A-Z, 0-9, a-z) !',

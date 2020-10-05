@@ -14,10 +14,34 @@
 					<div class="modal-body">
 						<div class="row">
 							<div class="col-12">
+								@if ($edit != false)
+										<label for="">Kode Group : <span class="text-danger">*</span></label>
+										<input type="text" wire:model.lazy="FN_GROUP" name="FN_GROUP" id="FN_GROUP" class="form-control borad-0 mb-2 {{ $errors->has('FN_GROUP') ? 'is-invalid':'' }}" placeholder="Nama Group..." disabled required>
+										<span class="invalid-feedback">
+											{{ $errors->first('FN_GROUP') }}
+										</span>
+								@else
+									<div class="form-group" wire:ignore>
+										<label for="">Kode Group : <span class="text-danger">*</span></label>
+										<select wire:model="FK_GROUP" name="FK_GROUP" id="FK_GROUP" class="form-control {{ $errors->has('FK_GROUP') ? 'is-invalid':'' }}" required>
+											<option value="">-- Pilih Kode Group --</option>
+											@foreach ($group as $item)
+												<option value="{{ $item->FK_GROUP }}" {{ $item->FK_GROUP == $FK_GROUP ? 'selected':'' }}>{{  $item->FK_GROUP .' - '. $item->FN_GROUP }}</option>
+											@endforeach
+										</select>
+										<span class="invalid-feedback">
+											{{ $errors->first('FNO_KATEGORI') }}
+										</span>
+									</div>	
+								@endif
+
 								<div class="form-group">
 									<label for="">Kode Kategori : <span class="text-danger">*</span></label>
-									<input type="text" wire:model.lazy="FNO_KATEGORI" name="FNO_KATEGORI" id="FNO_KATEGORI" class="form-control borad-0 {{ $errors->has('FNO_KATEGORI') ? 'is-invalid':'' }}" placeholder="Masukan Kode Kategori..." minlength="2" maxlength="2" {{ !$edit ? 'autofocus':'disabled' }} required>
-									<span class="invalid-feedback">
+									<div class="input-group-prepend">
+										<span class="input-group-text borad-0">{{ $FK_GROUP !== '' ? $FK_GROUP:'SILAHKAN PILIH KODE GROUP' }}</span>
+										<input type="text" wire:model.lazy="FNO_KATEGORI" name="FNO_KATEGORI" id="FNO_KATEGORI" class="form-control borad-0 {{ $errors->has('FNO_KATEGORI') ? 'is-invalid':'' }}" placeholder="Masukan Kode Kategori..." minlength="1" maxlength="1" {{ !$edit ? 'autofocus':'disabled' }} required>
+									</div>
+									<span class="text-danger">
 										{{ $errors->first('FNO_KATEGORI') }}
 									</span>
 								</div>
@@ -56,7 +80,7 @@
 
 		$('#modalCreate').on('hidden.bs.modal', function (e) {
 			window.livewire.emit('editFalse');
-		})
+		});
 		
 		$('#modalCreate').on('shown.bs.modal', function(e) {
       $('input:text:visible:first', this).focus();

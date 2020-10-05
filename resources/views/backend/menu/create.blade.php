@@ -134,12 +134,15 @@
 								<div class="col-md-12 col-lg-12 col-xl-12">
 									<div class="form-group">
 										<label for="">Pilih Data Produk : </label>
-										<select class="select2" name="produk[]" id="produk" multiple="multiple" data-placeholder="== Pilih Data Produk ==" data-dropdown-css-class="select2-red" style="width: 100%;">
+										<select class="select2" name="produk[]" id="produk" multiple="multiple" data-placeholder="== Pilih Data Produk ==" data-dropdown-css-class="select2-red" style="width: 100%;" required>
 											<option value=""></option>
 											@foreach ($produk as $item)
 												<option value="{{ $item->FNO_PRODUK }}">{{ $item->FN_NAMA }}</option>
 											@endforeach
 										</select>
+										<span class="invalid-feedback">
+											{{ $errors->first('produk') }}
+										</span>
 									</div>
 								</div>
 								{{-- <div class="col-md-4 col-lg-4 col-xl-4" style="padding-top: 31px;">

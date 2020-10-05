@@ -10,6 +10,8 @@ use Livewire\Component;
 class Form extends Component
 {
 	public $FNO_KATEGORI = '';
+	public $FK_GROUP = '';
+	public $FN_GROUP = '';
 	public $FN_KATEGORI = '';
 	public $edit = false;
 
@@ -34,7 +36,7 @@ class Form extends Component
 	{
 		$data = Validator::make(
 			[
-				'FNO_KATEGORI' => $this->FNO_KATEGORI,
+				'FNO_KATEGORI' => $this->FK_GROUP . $this->FNO_KATEGORI,
 			],
 			[
 				'FNO_KATEGORI' => 'required|alpha_num|min:2|max:2|unique:t00_ref_produk,FNO_KATEGORI',
@@ -45,6 +47,28 @@ class Form extends Component
 				'max' => 'Jumlah Huruf Tidak Boleh Lebih Dari :max Karakter',
 				'min' => 'Jumlah Huruf Harus Berjumlah :min Karakter',
 				'unique' => 'Data Sudah Ada !',
+			]
+		)->validate();
+
+		return $data;
+	}
+
+	public function updatedFKGroup($value)
+	{
+		$data = Validator::make(
+			[
+				'FK_GROUP' => $this->FK_GROUP,
+			],
+			[
+				'FK_GROUP' => 'required|alpha_num|min:1|max:1|exists:t00_ref_kategori,FK_GROUP',
+			],
+			[
+				'alpha_num' => 'Isi Harus Berupa Alphanumeric (A-Z, 0-9, a-z) !',
+				'required' => 'Field Wajib di-Isi / Tidak Boleh Kosong !',
+				'max' => 'Jumlah Huruf Tidak Boleh Lebih Dari :max Karakter',
+				'min' => 'Jumlah Huruf Harus Berjumlah :min Karakter',
+				'unique' => 'Data Sudah Ada !',
+				'exists' => 'Data Tidak Ada !',
 			]
 		)->validate();
 
@@ -91,11 +115,13 @@ class Form extends Component
 	{
 		$data = Validator::make(
 			[
-				'FNO_KATEGORI' => $this->FNO_KATEGORI,
+				'FNO_KATEGORI' => $this->FK_GROUP . $this->FNO_KATEGORI,
+				'FK_GROUP' => $this->FK_GROUP,
 				'FN_KATEGORI' => $this->FN_KATEGORI,
 			],
 			[
 				'FNO_KATEGORI' => 'required|string|min:2|max:2|unique:t00_ref_produk,FNO_KATEGORI',
+				'FK_GROUP' => 'required|alpha_num|min:1|max:1|exists:t00_ref_kategori,FK_GROUP',
 				'FN_KATEGORI' => 'required|string|max:20',
 			],
 			[
@@ -104,6 +130,7 @@ class Form extends Component
 				'max' => 'Jumlah Huruf Tidak Boleh Lebih Dari :max Karakter',
 				'min' => 'Jumlah Huruf Harus Berjumlah :min Karakter',
 				'unique' => 'Data Sudah Ada !',
+				'exists' => 'Data Tidak Ada !',
 			]
 		)->validate();
 
@@ -117,10 +144,12 @@ class Form extends Component
 			$kategori = Kategori::findOrFail($id);
 			$this->edit = $kategori;
 			$this->emit('bukaModal');
-			$this->FNO_KATEGORI = $kategori->FNO_KATEGORI;
+			$this->FNO_KATEGORI = substr($kategori->FNO_KATEGORI, 1,1);
+			$this->FK_GROUP = $kategori->FK_GROUP;
+			$this->FN_GROUP = $kategori->group->FN_GROUP;
 			$this->FN_KATEGORI = $kategori->FN_KATEGORI;
 		} catch (\Exception $e) {
-			$edit = false;
+			$this->edit = false;
 			$this->emit('error', 'Terjadi Kesalahan !');
 		}
 	}
@@ -147,6 +176,7 @@ class Form extends Component
 		$this->edit = false;
 		$this->FNO_KATEGORI = '';
 		$this->FN_KATEGORI = '';
+		$this->FK_GROUP = '';
 	}
 
 	public function editFalse()

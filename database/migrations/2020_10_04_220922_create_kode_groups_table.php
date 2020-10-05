@@ -14,7 +14,7 @@ class CreateKodeGroupsTable extends Migration
     public function up()
     {
         Schema::create('t00_ref_kategori', function (Blueprint $table) {
-					$table->char('FK_GROUP')->primary();
+					$table->char('FK_GROUP', 1)->primary();
 					$table->string('FN_GROUP', 20);
 					$table->softDeletes();
 					$table->timestamps();

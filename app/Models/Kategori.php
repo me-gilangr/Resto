@@ -14,12 +14,17 @@ class Kategori extends Model
 	protected $keyType = 'string';
 
 	protected $fillable = [
-		'FNO_KATEGORI', 'FN_KATEGORI'
+		'FNO_KATEGORI', 'FK_GROUP', 'FN_KATEGORI'
 	];
 
 	public function produk()
 	{
 		return $this->belongsTo('App\Models\Produk', 'FNO_KATEGORI', 'FNO_KATEGORI');
+	}
+
+	public function group()
+	{
+		return $this->hasOne('App\Models\KodeGroup', 'FK_GROUP', 'FK_GROUP');
 	}
 }
 

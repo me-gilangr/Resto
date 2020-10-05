@@ -35,7 +35,7 @@
 
 @section('content')
 <div class="row"> 
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 pb-4">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 pb-4">
     <div id="carouselMain" class="carousel slide" data-ride="carousel"> 
 			<div class="carousel-inner" style="border-radius: 10px !important;">
 				@php
@@ -55,20 +55,6 @@
 					$caro++;
 				@endphp
 				@endforeach
-        {{-- <div class="carousel-item">
-          <img src="{{ asset('images/Menu/Latte.jpg') }}" class="d-block w-100 img-fluid" style="min-height: 220px !important; max-height: 300px !important;" alt="Img Menu">
-          <div class="carousel-caption d-block">
-            <h5>Coffee Latte</h5>
-            <p>Kopi Nikmat. Temani Obrolanmu.</p>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <img src="{{ asset('images/Menu/Latte.jpg') }}" class="d-block w-100 img-fluid" style="min-height: 220px !important; max-height: 300px !important;" alt="Img Menu">
-          <div class="carousel-caption d-block">
-            <h5>Coffee Latte</h5>
-            <p>Kopi Nikmat. Temani Obrolanmu.</p>
-          </div>
-        </div> --}}
       </div>
       <a class="carousel-control-prev" href="#carouselMain" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -80,66 +66,8 @@
       </a>
     </div>
   </div>
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
-    <div class="row">
-			@foreach ($menu as $item)
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-        <div class="card">
-          <div class="card-body">
-            {{-- <span style="
-              border: 1px solid rgb(202 202 202 / 77%); 
-              background-color: #f3f3f3; 
-              border-radius: .25rem; 
-              padding: 2px 24px; 
-              font-family: revert; 
-              font-weight: 500; 
-              font-size: 14px;
-            ">
-              {{ $item->FN_KATEGORI }}
-            </span> --}}
-						<div class="card" style="width: 100%; margin-bottom: 0px;">
-							<div class="card-img-top">
-								<div class="image-preview" id="imagePreview">
-									<img src="{{ asset('images/Menu/'.$item->FGAMBAR) }}" alt="Image Preview" class="image-preview__image" style="max-height: 300px;">
-								</div>
-							</div>
-							<div class="card-body" style="
-								border: 1px solid rgb(0 0 0 / 16%);
-								border-bottom-left-radius: 0px; 
-								border-bottom-right-radius: 0px;
-								padding: 10px 15px 10px 15px;
-							">
-								<p class="card-text mb-1" style="
-									max-height: 80px;
-									overflow: auto;
-									font-size: 14px;
-								">{{ $item->FN_MENU }}</p>
-								<p class="card-text mb-1" style="
-									font-size: 12px;
-									font-weight: 600;
-								">{{ 'Rp. '.number_format($item->FHARGAJUAL, 0, ',', '.') }}</p>
-								<hr class="mb-2 mt-1">
-								<button class="btn btn-xs btn-outline-success float-right pr-2 pl-2">
-									<i class="fa fa-shopping-cart"></i> &ensp; Masukan Daftar Pesan
-								</button>
-							</div>
-						</div>
-          </div>
-        </div>
-        
-        {{-- <div class="info-box pr-3 pl-3 pt-0 pb-0" style="border-radius: 10px !important;">
-          <span class="info-box-icon text-secondary"><i class="fa fa-utensils"></i></span>
-    
-          <div class="info-box-content pt-0 pr-0">
-            <span class="info-box-text text-center">Daftar Makanan</span>
-            <div class="progress">
-              <div class="progress-bar bg-secondary" style="width: 100%"></div>
-            </div> 
-          </div>
-        </div> --}}
-      </div>
-			@endforeach
-    </div>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+		@livewire('frontend.daftar-menu')
   </div>
 </div>
 

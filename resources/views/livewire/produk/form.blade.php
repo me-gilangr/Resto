@@ -14,25 +14,26 @@
 					<div class="modal-body">
 						<div class="row">
 							<div class="col-12">
+								@if ($edit != false)
+								<label for="">Kategori Produk <span class="text-danger">*</span></label>
+								<input type="text" wire:model.lazy="FN_KATEGORI" name="FN_KATEGORI" id="FN_KATEGORI" class="form-control borad-0 mb-2 {{ $errors->has('FN_KATEGORI') ? 'is-invalid':'' }}" placeholder="Masukan Nama Kategori..." disabled required>
+								<span class="invalid-feedback">
+									{{ $errors->first('FN_KATEGORI') }}
+								</span>
+								@else
 								<div class="form-group" wire:ignore>
 									<label for="">Kategori Produk : <span class="text-danger">*</span></label>
-									@if (!$edit)
-										<select wire:model="FNO_KATEGORI" name="FNO_KATEGORI" id="FNO_KATEGORI" class="form-control {{ $errors->has('FNO_KATEGORI') ? 'is-invalid':'' }}" required>
-											<option value="">-- Pilih Kategori --</option>
-											@foreach ($kategori as $item)
-												<option value="{{ $item->FNO_KATEGORI }}" {{ $item->FNO_KATEGORI == $FNO_KATEGORI ? 'selected':'' }}>{{ $item->FN_KATEGORI }}</option>
-											@endforeach
-										</select>
-									@else
-										<input type="text" wire:model.lazy="FN_KATEGORI" name="FN_KATEGORI" id="FN_KATEGORI" class="form-control borad-0 {{ $errors->has('FN_KATEGORI') ? 'is-invalid':'' }}" placeholder="Masukan Nama Kategori..." disabled required>
-										<span class="invalid-feedback">
-											{{ $errors->first('FN_KATEGORI') }}
-										</span>
-									@endif
+									<select wire:model="FNO_KATEGORI" name="FNO_KATEGORI" id="FNO_KATEGORI" class="form-control {{ $errors->has('FNO_KATEGORI') ? 'is-invalid':'' }}" required>
+										<option value="">-- Pilih Kategori --</option>
+										@foreach ($kategori as $item)
+											<option value="{{ $item->FNO_KATEGORI }}" {{ $item->FNO_KATEGORI == $FNO_KATEGORI ? 'selected':'' }}>{{ $item->FN_KATEGORI }}</option>
+										@endforeach
+									</select>
 									<span class="invalid-feedback">
-										{{ $errors->first('FNO_KATEGORI') }}
+										{{ $errors->first('FN_KATEGORI') }}
 									</span>
-								</div>								
+								</div>
+								@endif								
 								<div class="form-group">
 									<label for="">Kode Produk : <span class="text-danger">*</span></label>
 									<div class="input-group mb-3">
@@ -47,7 +48,7 @@
 								</div>
 								<div class="form-group">
 									<label for="">Nama Produk : <span class="text-danger">*</span></label>
-									<input type="text" wire:model.lazy="FN_NAMA" name="FN_NAMA" id="FN_NAMA" class="form-control borad-0 {{ $errors->has('FN_NAMA') ? 'is-invalid':'' }}" placeholder="Masukan Nama Produk..." maxlength="20" autofocus required>
+									<input type="text" wire:model.lazy="FN_NAMA" name="FN_NAMA" id="FN_NAMA" class="form-control borad-0 {{ $errors->has('FN_NAMA') ? 'is-invalid':'' }}" placeholder="Masukan Nama Produk..." maxlength="50" autofocus required>
 									<span class="invalid-feedback">
 										{{ $errors->first('FN_NAMA') }}
 									</span>
