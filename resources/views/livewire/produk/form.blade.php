@@ -29,8 +29,8 @@
 											<option value="{{ $item->FNO_KATEGORI }}" {{ $item->FNO_KATEGORI == $FNO_KATEGORI ? 'selected':'' }}>{{ $item->FN_KATEGORI }}</option>
 										@endforeach
 									</select>
-									<span class="invalid-feedback">
-										{{ $errors->first('FN_KATEGORI') }}
+									<span class="text-danger">
+										{{ $errors->first('FNO_KATEGORI') }}
 									</span>
 								</div>
 								@endif								

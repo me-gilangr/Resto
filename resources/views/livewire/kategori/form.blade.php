@@ -39,7 +39,7 @@
 									<label for="">Kode Kategori : <span class="text-danger">*</span></label>
 									<div class="input-group-prepend">
 										<span class="input-group-text borad-0">{{ $FK_GROUP !== '' ? $FK_GROUP:'SILAHKAN PILIH KODE GROUP' }}</span>
-										<input type="text" wire:model.lazy="FNO_KATEGORI" name="FNO_KATEGORI" id="FNO_KATEGORI" class="form-control borad-0 {{ $errors->has('FNO_KATEGORI') ? 'is-invalid':'' }}" placeholder="Masukan Kode Kategori..." minlength="1" maxlength="1" {{ !$edit ? 'autofocus':'disabled' }} required>
+										<input type="text" wire:model.lazy="FNO_KATEGORI" name="FNO_KATEGORI" id="FNO_KATEGORI" class="form-control borad-0 {{ $errors->has('FNO_KATEGORI') ? 'is-invalid':'' }}" placeholder="Masukan Kode Kategori..." minlength="2" maxlength="2" {{ !$edit ? 'autofocus':'disabled' }} required>
 									</div>
 									<span class="text-danger">
 										{{ $errors->first('FNO_KATEGORI') }}

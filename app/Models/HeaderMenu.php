@@ -19,6 +19,8 @@ class HeaderMenu extends Model
 
 	protected $attributes = [
 		'FSTATUS' => 1,
+		'FPAJAK' => 0.1,
+		'FMARGIN' => 1,
 	];
 
 	public function detail()

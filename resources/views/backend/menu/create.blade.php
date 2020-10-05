@@ -13,6 +13,10 @@
 			margin-left: 10px;
 			color: #ffffff;
 		}
+		.select2-container .select2-selection--single{
+			height: 38px;
+			border-radius: 0px;
+		}
 
 		.image-preview {
 			min-height: 300px;
@@ -75,6 +79,28 @@
 						<div class="col-md-8 col-lg-8 col-xl-8">
 							<h5 class="pl-2"><i class="fa fa-edit text-primary"></i> &ensp; Detail Menu</h5>
 							<hr>
+							@livewire('menu.form')
+							<div class="row pr-3 pl-3">
+								<div class="col-5">
+									<div class="form-group">
+										<label for="">Kode Group : <span class="text-danger">*</span></label>
+										<select name="FK_GROUP" id="FK_GROUP" class="select2 form-control" data-placeholder="Pilih Kode Group..." style="width: 100%;" required>
+											<option value=""></option>
+											@foreach ($kodeGroup as $item)
+												<option value="{{ $item->FK_GROUP }}">{{ $item->FK_GROUP }} - {{ $item->FN_GROUP }} </option>
+											@endforeach
+										</select>
+									</div>
+								</div>
+								<div class="col-7">
+									<div class="form-group" wire:ignore>
+										<label for="">Kategori : <span class="text-danger">*</span></label>
+										<select name="FNO_KATEGORI" id="FNO_KATEGORI" class="select2 form-control" style="width: 100%;" data-placeholder="Pilih Kategori..." required>
+											<option value=""></option>
+										</select>
+									</div>
+								</div>
+							</div>
 							<div class="row pr-3 pl-3">
 								<div class="col-12">
 									<div class="form-group">
@@ -85,7 +111,7 @@
 										</span>
 									</div>
 								</div>
-								<div class="col-md-3 col-lg-3 col-xl-3">
+								<div class="col-md-5 col-lg-5 col-xl-5">
 									<div class="form-group">
 										<label for="">Harga Pokok : <span class="text-danger">*</span></label>
 										<div class="input-group">
@@ -99,7 +125,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-md-2 col-lg-2 col-xl-2">
+								{{-- <div class="col-md-2 col-lg-2 col-xl-2">
 									<div class="form-group">
 										<label for="">Margin : <span class="text-danger">*</span></label>
 										<input type="number" name="FMARGIN" id="FMARGIN" class="form-control borad-0 {{ $errors->has('FMARGIN') ? 'is-invalid':'' }}" min="1" value="{{ $errors->has('FMARGIN') ? old('FMARGIN'):'1.00'}}" step="0.01" placeholder="Masukan Harga Pokok..." required>
@@ -107,16 +133,7 @@
 											{{ $errors->first('FMARGIN') }}
 										</span>
 									</div>
-								</div>
-								<div class="col-md-3 col-lg-3 col-xl-3">
-									<div class="form-group">
-										<label for="">Pajak : <span class="text-danger">*</span></label>
-										<input type="number" name="FPAJAK" id="FPAJAK" class="form-control borad-0 {{ $errors->has('FPAJAK') ? 'is-invalid':'' }}" min="0.1" value="{{ $errors->has('FPAJAK') ? old('FPAJAK'):'0.1'}}" step="0.01" placeholder="Masukan Pajak..." required>
-										<span class="invalid-feedback">
-											{{ $errors->first('FPAJAK') }}
-										</span>
-									</div>
-								</div>
+								</div> --}}
 								<div class="col-md-4 col-lg-4 col-xl-4">
 									<div class="form-group">
 										<label for="">Harga Jual : <span class="text-danger">*</span></label>
@@ -124,11 +141,20 @@
 											<div class="input-group-prepend">
 												<span class="input-group-text borad-0">Rp. </span>
 											</div>
-											<input type="number" name="FHARGAJUAL" id="FHARGAJUAL" class="form-control disabled borad-0 {{ $errors->has('FHARGAJUAL') ? 'is-invalid':'' }}" min="1"  value="{{ $errors->has('FHARGAJUAL') ? old('FHARGAJUAL'):'0'}}" step="0.01" placeholder="0" readonly required>
+											<input type="number" name="FHARGAJUAL" id="FHARGAJUAL" class="form-control borad-0 {{ $errors->has('FHARGAJUAL') ? 'is-invalid':'' }}" min="1"  value="{{ $errors->has('FHARGAJUAL') ? old('FHARGAJUAL'):'0'}}" placeholder="0" required>
 											<span class="invalid-feedback">
 												{{ $errors->first('FHARGAJUAL') }}
 											</span>
 										</div>
+									</div>
+								</div>
+								<div class="col-md-3 col-lg-3 col-xl-3">
+									<div class="form-group">
+										<label for="">Pajak (10%) : <span class="text-danger">*</span></label>
+										<input type="number" name="FPAJAK" id="FPAJAK" class="form-control borad-0 {{ $errors->has('FPAJAK') ? 'is-invalid':'' }}" value="{{ $errors->has('FPAJAK') ? old('FPAJAK'):'0'}}" placeholder="Masukan Pajak..." disabled required>
+										<span class="invalid-feedback">
+											{{ $errors->first('FPAJAK') }}
+										</span>
 									</div>
 								</div>
 								<div class="col-md-12 col-lg-12 col-xl-12">
@@ -209,29 +235,39 @@
 <script src="{{ asset('backend') }}/plugins/select2/js/select2.full.min.js"></script>
 <script>
 	$(document).ready(function() {
-		function hitungHarga() {
-			var hargaPokok = $('#FHARGAPOKOK').val();
-			var margin = $('#FMARGIN').val();
-			var pajak = $('#FPAJAK').val();
-			var hargaJual = 0;
+		// function hitungHarga() {
+		// 	var hargaPokok = $('#FHARGAPOKOK').val();
+		// 	var margin = $('#FMARGIN').val();
+		// 	var pajak = $('#FPAJAK').val();
+		// 	var hargaJual = 0;
 
-			var hitungMargin = (hargaPokok * margin);
-			var hitungPajak = (hitungMargin * pajak);
-			hargaJual = (hitungMargin + hitungPajak);
+		// 	var hitungMargin = (hargaPokok * margin);
+		// 	var hitungPajak = (hitungMargin * pajak);
+		// 	hargaJual = (hitungMargin + hitungPajak);
 
-			$('#FHARGAJUAL').val(hargaJual);
+		// 	$('#FHARGAJUAL').val(hargaJual);
+		// }
+
+		// $('#FHARGAPOKOK').on('input', function() {
+		// 	hitungHarga();
+		// });
+
+		// $('#FMARGIN').on('input', function() {
+		// 	hitungHarga();
+		// });
+		
+		// $('#FPAJAK').on('input', function() {
+		// 	hitungHarga();
+		// });
+
+		function hitungPajak() {
+			var hargaJual = $('#FHARGAJUAL').val();
+			var pajak = hargaJual * 10 / 100;
+			$('#FPAJAK').val(pajak);
 		}
 
-		$('#FHARGAPOKOK').on('input', function() {
-			hitungHarga();
-		});
-
-		$('#FMARGIN').on('input', function() {
-			hitungHarga();
-		});
-		
-		$('#FPAJAK').on('input', function() {
-			hitungHarga();
+		$('#FHARGAJUAL').on('input', function() {
+			hitungPajak();
 		});
 
 		$('.select2').select2()
@@ -242,6 +278,11 @@
 
 		$('#imagePreview').on('click', function() {
 			$('#FGAMBAR').trigger('click');
+		});
+
+		$('#FK_GROUP').on('change', function() {
+			var fk = $(this).val();
+			console.log(fk);
 		});
 	});
 </script>

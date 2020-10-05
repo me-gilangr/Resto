@@ -14,7 +14,7 @@ class CreateKategorisTable extends Migration
     public function up()
     {
         Schema::create('T00_REF_PRODUK', function (Blueprint $table) {
-					$table->char('FNO_KATEGORI', 2)->primary();
+					$table->char('FNO_KATEGORI', 3)->primary();
 					$table->string('FN_KATEGORI', 20);
 					$table->softDeletes();
 					$table->timestamps();

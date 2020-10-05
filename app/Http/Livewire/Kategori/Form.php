@@ -39,7 +39,7 @@ class Form extends Component
 				'FNO_KATEGORI' => $this->FK_GROUP . $this->FNO_KATEGORI,
 			],
 			[
-				'FNO_KATEGORI' => 'required|alpha_num|min:2|max:2|unique:t00_ref_produk,FNO_KATEGORI',
+				'FNO_KATEGORI' => 'required|alpha_num|min:3|max:3|unique:t00_ref_produk,FNO_KATEGORI',
 			],
 			[
 				'alpha_num' => 'Isi Harus Berupa Alphanumeric (A-Z, 0-9, a-z) !',
@@ -120,7 +120,7 @@ class Form extends Component
 				'FN_KATEGORI' => $this->FN_KATEGORI,
 			],
 			[
-				'FNO_KATEGORI' => 'required|string|min:2|max:2|unique:t00_ref_produk,FNO_KATEGORI',
+				'FNO_KATEGORI' => 'required|string|min:3|max:3|unique:t00_ref_produk,FNO_KATEGORI',
 				'FK_GROUP' => 'required|alpha_num|min:1|max:1|exists:t00_ref_kategori,FK_GROUP',
 				'FN_KATEGORI' => 'required|string|max:20',
 			],
@@ -144,7 +144,7 @@ class Form extends Component
 			$kategori = Kategori::findOrFail($id);
 			$this->edit = $kategori;
 			$this->emit('bukaModal');
-			$this->FNO_KATEGORI = substr($kategori->FNO_KATEGORI, 1,1);
+			$this->FNO_KATEGORI = substr($kategori->FNO_KATEGORI, 1,2);
 			$this->FK_GROUP = $kategori->FK_GROUP;
 			$this->FN_GROUP = $kategori->group->FN_GROUP;
 			$this->FN_KATEGORI = $kategori->FN_KATEGORI;

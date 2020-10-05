@@ -6,6 +6,7 @@ use App\Http\Config\JsonDatatable;
 use App\Http\Controllers\Controller;
 use App\Models\DetailMenu;
 use App\Models\HeaderMenu;
+use App\Models\KodeGroup;
 use App\Models\Produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -24,7 +25,8 @@ class MenuController extends Controller
 	public function create()
 	{
 		$produk = Produk::orderBy('FN_NAMA', 'ASC')->get();
-		return view('backend.menu.create', compact('produk'));
+		$kodeGroup = KodeGroup::get();
+		return view('backend.menu.create', compact('produk', 'kodeGroup'));
 	}
 
 	public function store(Request $request)
@@ -32,8 +34,8 @@ class MenuController extends Controller
 		$this->validate($request, [
 			'FN_MENU' => 'required|string|max:50',
 			'FHARGAPOKOK' => 'required|numeric|min:1',
-			'FMARGIN' => 'required|numeric|min:1',
-			'FPAJAK' => 'required|numeric|between:0,99.99',
+			// 'FMARGIN' => 'required|numeric|min:1',
+			// 'FPAJAK' => 'required|numeric|between:0,99.99',
 			'produk' => 'required|array',
 			'produk.*' => 'exists:t00_m_produk,FNO_PRODUK',
 			'FGAMBAR' => 'required|image|mimes:jpg,jpeg,png',
@@ -71,17 +73,17 @@ class MenuController extends Controller
 				$kodemenu = $date.'001';
 			}
 
-			$hargaMargin = ($request->FHARGAPOKOK * $request->FMARGIN);
-			$pajak = ($hargaMargin * $request->FPAJAK);
-			$hargaJual = $hargaMargin + $pajak;
+			// $hargaMargin = ($request->FHARGAPOKOK * $request->FMARGIN);
+			// $pajak = ($hargaMargin * $request->FPAJAK);
+			// $hargaJual = $hargaMargin + $pajak;
 
 			$header = HeaderMenu::firstOrCreate([
 				'FNO_H_MENU' => $kodemenu,
 				'FN_MENU' => $request->FN_MENU,
 				'FHARGAPOKOK' => $request->FHARGAPOKOK,
-				'FMARGIN' => $request->FMARGIN,
-				'FPAJAK' => $request->FPAJAK,
-				'FHARGAJUAL' => $hargaJual,
+				// 'FMARGIN' => $request->FMARGIN,
+				// 'FPAJAK' => $request->FPAJAK,
+				'FHARGAJUAL' => $request->FHARGAJUAL,
 				'FGAMBAR' => $name,
 			]);
 
@@ -101,6 +103,7 @@ class MenuController extends Controller
 		} catch (\Exception $e) {
 			DB::rollback();
 			Storage::disk('images')->delete('Menu/' . $this->name);
+			dd($e);
 			session()->flash('error', 'Terjadi Kesalahan !');
 			return redirect()->back()->withInput($request->all());
 		}
@@ -124,8 +127,8 @@ class MenuController extends Controller
 		$this->validate($request, [
 			'FN_MENU' => 'required|string|max:50',
 			'FHARGAPOKOK' => 'required|numeric|min:1',
-			'FMARGIN' => 'required|numeric|min:1',
-			'FPAJAK' => 'required|numeric|between:0,99.99',
+			// 'FMARGIN' => 'required|numeric|min:1',
+			// 'FPAJAK' => 'required|numeric|between:0,99.99',
 			'produk' => 'required|array',
 			'produk.*' => 'exists:t00_m_produk,FNO_PRODUK',
 			'FGAMBAR' => 'nullable|image|mimes:jpeg,jpg,png',
@@ -151,16 +154,16 @@ class MenuController extends Controller
 				$request->file('FGAMBAR')->storeAs('Menu', $name, 'images');
 			}
 
-			$hargaMargin = ($request->FHARGAPOKOK * $request->FMARGIN);
-			$pajak = ($hargaMargin * $request->FPAJAK);
-			$hargaJual = $hargaMargin + $pajak;
+			// $hargaMargin = ($request->FHARGAPOKOK * $request->FMARGIN);
+			// $pajak = ($hargaMargin * $request->FPAJAK);
+			// $hargaJual = $hargaMargin + $pajak;
 
 			$menu->update([
 				'FN_MENU' => $request->FN_MENU,
 				'FHARGAPOKOK' => $request->FHARGAPOKOK,
-				'FMARGIN' => $request->FMARGIN,
-				'FPAJAK' => $request->FPAJAK,
-				'FHARGAJUAL' => $hargaJual,
+				// 'FMARGIN' => $request->FMARGIN,
+				// 'FPAJAK' => $request->FPAJAK,
+				'FHARGAJUAL' => $request->FHARGAJUAL,
 				'FGAMBAR' => $name,
 			]);
 
@@ -215,16 +218,16 @@ class MenuController extends Controller
 		});
 		
 		$dataTables->editColumn('FPAJAK', function($data) {
-			$hitungMargin = ($data->FHARGAPOKOK * $data->FMARGIN);
-			$pajak = ($hitungMargin * $data->FPAJAK);
+			// $hitungMargin = ($data->FHARGAPOKOK * $data->FMARGIN);
+			$pajak = ($data->FHARGAJUAL * $data->FPAJAK);
 			return 'Rp. ' . number_format($pajak, 0, ',', '.');
 		});
 
 		$dataTables->editColumn('FHARGAJUAL', function($data) {
-			$hitungMargin = ($data->FHARGAPOKOK * $data->FMARGIN);
-			$pajak = ($hitungMargin * $data->FPAJAK);
-			$jual = $hitungMargin + $pajak;
-			return 'Rp. ' . number_format($jual, 0, ',', '.');
+			// $hitungMargin = ($data->FHARGAPOKOK * $data->FMARGIN);
+			// $pajak = ($hitungMargin * $data->FPAJAK);
+			// $jual = $hitungMargin + $pajak;
+			return 'Rp. ' . number_format($data->FHARGAJUAL, 0, ',', '.');
 		});
 
 
@@ -275,6 +278,19 @@ class MenuController extends Controller
 		});
 
 		return $dataTables;
+	}
+
+	public function kategori(Request $request)
+	{
+		$this->validate($request, [
+			''
+		]);
+		
+		try {
+			
+		} catch (\Exception $e) {
+			return response()->json($data, 200, $headers);
+		}
 	}
 }
 
