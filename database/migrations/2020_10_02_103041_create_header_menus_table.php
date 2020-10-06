@@ -14,7 +14,7 @@ class CreateHeaderMenusTable extends Migration
     public function up()
     {
         Schema::create('T00_H_MENU', function (Blueprint $table) {
-					$table->char('FNO_H_MENU', 7)->primary();
+					$table->char('FNO_H_MENU', 5)->primary();
 					$table->string('FN_MENU', 50);
 					$table->double('FHARGAPOKOK');
 					$table->decimal('FMARGIN');
