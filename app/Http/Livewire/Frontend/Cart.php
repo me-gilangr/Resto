@@ -56,8 +56,9 @@ class Cart extends Component
 		$cart->update($id, [
 			'quantity' => +1
 		]);
-
+		
 		$this->refreshCart();
+		$this->emit('reDraw');
 	}
 	
 	public function minusQty($id)
@@ -73,6 +74,7 @@ class Cart extends Component
 		]);
 
 		$this->refreshCart();
+		$this->emit('reDraw');
 	}
 
 	public function deleteItem($id)

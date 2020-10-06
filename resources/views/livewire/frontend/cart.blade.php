@@ -181,14 +181,20 @@
 		});
 
 		$('#isi-cart').on('click', '.add', function() {
+			var id = $(this).data('id');
+			console.log(id);
 			window.livewire.emit('addQtyE', $(this).data('id'));
 		});
 
 		$('#isi-cart').on('click', '.minus', function() {
+			var id = $(this).data('id');
+			console.log(id);
 			window.livewire.emit('minusQtyE', $(this).data('id'));
 		});
 
 		$('#isi-cart').on('click', '.del', function() {
+			var id = $(this).data('id');
+			console.log(id);
 			window.livewire.emit('delItem', $(this).data('id'));
 		});
 	});

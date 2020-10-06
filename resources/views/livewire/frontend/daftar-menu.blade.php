@@ -129,9 +129,6 @@
 					<button class="btn btn-outline-success btn-block pr-2 pl-2" wire:click="addCart('{{ $detail['FNO_H_MENU'] }}')">
 						<i class="fa fa-shopping-cart"></i> &ensp; Masukan Daftar Pesan
 					</button>
-					<button class="btn btn-outline-danger btn-block pr-2 pl-2" wire:click="destroySession()">
-						<i class="fa fa-shopping-cart"></i> &ensp; DESTROY !! 
-					</button>
 				</div>
 			</div>
 		</div>
