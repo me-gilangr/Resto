@@ -15,7 +15,7 @@ class CreateProductsTable extends Migration
     {
         Schema::create('T00_M_PRODUK', function (Blueprint $table) {
 					$table->char('FNO_PRODUK', 6)->primary();
-					$table->char('FNO_KATEGORI', 2);
+					$table->char('FNO_KATEGORI', 3);
 					$table->foreign('FNO_KATEGORI')->references('FNO_KATEGORI')->on('T00_REF_PRODUK');
 					$table->string('FN_NAMA', 50);
 					$table->softDeletes();
