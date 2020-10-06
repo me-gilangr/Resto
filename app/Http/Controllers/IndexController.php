@@ -7,19 +7,13 @@ use App\Models\Kategori;
 use App\Models\Produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use ShoppingCart;
 
 class IndexController extends Controller
 {
 	public function index()
 	{
 		$kategori = Kategori::get();
-
-		// $menu = DB::table('t00_d_menu')
-		// 	->join('t00_h_menu', 't00_d_menu.FNO_H_MENU', '=','t00_h_menu.FNO_H_MENU')
-		// 	->join('t00_m_produk', 't00_d_menu.FNO_PRODUK', '=','t00_m_produk.FNO_PRODUK')
-		// 	->join('t00_ref_produk', 't00_m_produk.FNO_KATEGORI', '=','t00_ref_produk.FNO_KATEGORI')
-		// 	->select('t00_ref_produk.FN_KATEGORI', 't00_h_menu.FN_MENU', 't00_h_menu.FGAMBAR', 't00_h_menu.FHARGAJUAL')
-		// 	->get();
 
 		$menu = DB::select( DB::raw('
 		SELECT
@@ -48,5 +42,15 @@ class IndexController extends Controller
 			$qr = "Silahkan Scan Ulang QR"; 
 		}
 		return view('welcome', compact('qr'));
+	}
+
+	public function cartData(Request $request)
+	{
+		try {
+			$cart = ShoppingCart::session($request->id)->getContent()->toArray();
+			return response()->json($cart, 200);
+		} catch (\Exception $e) {
+			return response()->json($e, 200);
+		}
 	}
 }

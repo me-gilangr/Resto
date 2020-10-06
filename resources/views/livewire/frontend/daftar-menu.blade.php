@@ -16,7 +16,7 @@
 						{{ $item->FN_KATEGORI }}
 					</span> --}}
 					<div class="card" style="width: 100%; margin-bottom: 0px;">
-						<div class="card-img-top" wire:click="test({{ $item->FNO_H_MENU }})">
+						<div class="card-img-top" wire:click="test('{{ $item->FNO_H_MENU }}')">
 							<div class="image-preview" id="imagePreview">
 								<img src="{{ asset('images/Menu/'.$item->FGAMBAR) }}" alt="Image Preview" class="image-preview__image" style="max-height: 300px;">
 							</div>
@@ -126,8 +126,11 @@
 							</div>
 						</div>
 					</div>
-					<button class="btn btn-outline-success btn-block pr-2 pl-2" wire:click="addCart({{ $detail['FNO_H_MENU'] }})">
+					<button class="btn btn-outline-success btn-block pr-2 pl-2" wire:click="addCart('{{ $detail['FNO_H_MENU'] }}')">
 						<i class="fa fa-shopping-cart"></i> &ensp; Masukan Daftar Pesan
+					</button>
+					<button class="btn btn-outline-danger btn-block pr-2 pl-2" wire:click="destroySession()">
+						<i class="fa fa-shopping-cart"></i> &ensp; DESTROY !! 
 					</button>
 				</div>
 			</div>
@@ -144,10 +147,6 @@
 
 		window.livewire.on('bukaModal', function(){
 			$('#modalDetail').modal('show');
-		});
-
-		$('#modalDetail').on('hidden.bs.modal', function (e) {
-			window.livewire.emit('editFalse');
 		});
 	});
 </script>

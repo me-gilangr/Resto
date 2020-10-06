@@ -37,7 +37,6 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::delete('/menu/{menu}', 'Backend\MenuController@destroy')->name('menu.destroy');
 
 		Route::post('/json/kategori', 'Backend\MenuController@kategori')->name('json.kategori');
-
 		// Route::resource('menu', 'Backend\MenuController');
 	});
 
@@ -49,3 +48,5 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::post('menu', 'Backend\MenuController@datatable')->name('menu');
 	});
 });
+
+Route::post('/json/cart', 'IndexController@cartData')->name('json.cart');

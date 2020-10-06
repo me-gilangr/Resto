@@ -6,7 +6,7 @@ use App\Models\DetailMenu;
 use App\Models\HeaderMenu;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
-use Cart;
+use ShoppingCart;
 
 class DaftarMenu extends Component
 {
@@ -71,12 +71,12 @@ class DaftarMenu extends Component
 			if (auth()->check()) {
 				$cartId = auth()->user()->id;
 			} else {
-				$cartId = rand(100,999);
+				$cartId = date('Ymd');
 			}
 
-			$cart = Cart::session(auth()->user()->id);
+			$cart = ShoppingCart::session($cartId);
 			$cart->add([
-				'id' => $cartId,
+				'id' => $menu->FNO_H_MENU,
 				'name' => $menu->header->FN_MENU,
 				'price' => $menu->header->FHARGAJUAL,
 				'quantity' => $this->jml,
@@ -84,7 +84,9 @@ class DaftarMenu extends Component
 				'associatedModel' => $menu,
 			]);
 
-			dd(session()->all());
+			$this->emit('success', 'Pesanan di-Masukan Keranjang !');
+			$this->emit('refresh');
+			$this->emit('tutupModal');
 		} catch (\Exception $e) {
 			dd($e);
 			$this->clear();
@@ -114,5 +116,12 @@ class DaftarMenu extends Component
 		$this->detail['FGAMBAR'] = null;
 		$this->detail['FHARGAJUAL'] = null;
 		$this->jml = 1;
+	}
+
+	public function destroySession()
+	{
+		session()->flush();
+		$this->emit('error', 'OK DESTROYED !!');
+		return redirect(route('index'));
 	}
 }

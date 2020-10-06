@@ -71,6 +71,9 @@
   </div>
 </div>
 
+
+@livewire('frontend.cart')
+
 {{-- Modul --}}
 {{-- https://ourcodeworld.com/articles/read/1093/how-to-access-the-htdocs-directory-of-xampp-from-a-computer-or-mobile-device-in-the-same-local-area-network-lan --}}
 {{-- https://superuser.com/questions/92549/is-xampp-safe-for-use-inside-a-firewall --}}

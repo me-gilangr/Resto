@@ -233,7 +233,7 @@ return [
 
 				// External Service Aliases
 				'DataTables' => Yajra\DataTables\Facades\DataTables::class,
-				'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
+				'ShoppingCart' => Darryldecode\Cart\Facades\CartFacade::class,
     ],
 
 ];
