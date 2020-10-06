@@ -40,10 +40,6 @@
 @endpush
 
 @section('content')
-<script>
-	var FK_GROUP = '';
-	var FNO_KATEGORI = '';
-</script>
 <div class="row" style="font-family: system-ui;">
 	<div class="col-12">
 		<div class="card card-outline card-danger">
@@ -83,40 +79,8 @@
 						<div class="col-md-8 col-lg-8 col-xl-8">
 							<h5 class="pl-2"><i class="fa fa-edit text-primary"></i> &ensp; Detail Menu</h5>
 							<hr>
+							@livewire('menu.kode')
 							<div class="row pr-3 pl-3">
-								<div class="col-5">
-									<div class="form-group">
-										<label for="">Kode Group : <span class="text-danger">*</span></label>
-										<select name="FK_GROUP" id="FK_GROUP" class="select2 form-control" data-placeholder="Pilih Kode Group..." style="width: 100%;" required>
-											<option value=""></option>
-											@foreach ($kodeGroup as $item)
-												<option value="{{ $item->FK_GROUP }}">{{ $item->FK_GROUP }} - {{ $item->FN_GROUP }} </option>
-											@endforeach
-										</select>
-									</div>
-								</div>
-								<div class="col-7">
-									<div class="form-group" wire:ignore>
-										<label for="">Kategori : <span class="text-danger">*</span></label>
-										<select name="FNO_KATEGORI" id="FNO_KATEGORI" class="select2 form-control" style="width: 100%;" data-placeholder="Pilih Kategori..." required>
-											<option value=""></option>
-										</select>
-									</div>
-								</div>
-							</div>
-							<div class="row pr-3 pl-3">
-								<div class="col-12">
-									<div class="form-group">
-										<label for="">Kode Menu : <span class="text-danger">*</span></label>
-										<div class="input-group-prepend">
-											<span class="input-group-text borad-0 kodeDepan">KODE GROUP - KATEGORI</span>
-											<input type="text" name="FNO_Menu" id="FNO_Menu" class="form-control borad-0 {{ $errors->has('FNO_Menu') ? 'is-invalid':'' }}" placeholder="Masukan Kode Menu..." minlength="2" maxlength="2" required>
-										</div>
-										<span class="text-danger">
-											{{ $errors->first('FNO_Menu') }}
-										</span>
-									</div>
-								</div>
 								<div class="col-12">
 									<div class="form-group">
 										<label for="">Nama Menu : <span class="text-danger">*</span></label>
@@ -296,47 +260,12 @@
 		});
 
 		function updateSpan() {
-			console.log(FK_GROUP + '-' + FNO_KATEGORI);
 			if (FK_GROUP !== '' && FNO_KATEGORI !== '') {
-				$('.kodeDepan').text(FK_GROUP + '-' + FNO_KATEGORI);
+				$('.kodeDepan').text(FNO_KATEGORI);
 			} else {
 				$('.kodeDepan').text('KODE GROUP - KATEGORI');
 			}
 		}
-
-		$('#FK_GROUP').on('change', function() {
-			FK_GROUP = $(this).val();
-			$.ajax({
-				url: "{{ route('json.kategori') }}",
-				method: "POST",
-				data: {
-					_token: "{{ csrf_token() }}",
-					FK_GROUP : FK_GROUP,
-				},
-				success: function(data) {
-					console.log(data);
-					$('#FNO_KATEGORI').empty();
-					$('#FNO_KATEGORI').append(`
-						<option value="">== Pilih ==</option>
-					`);
-					data.forEach(item => {
-						updateSpan();
-						$('#FNO_KATEGORI').append(`
-							<option value="${item.FNO_KATEGORI}">${item.FNO_KATEGORI} - ${item.FN_KATEGORI}</option>
-						`);
-					});
-					// $('#FNO_KATEGORI').append(`
-					// 	<option value="1">Test</option>
-					// 	<option value="2">Test 2</option>
-					// `);
-				}
-			});
-		});
-
-		$('#FNO_KATEGORI').on('change', function() {
-			FNO_KATEGORI = $(this).val();
-			updateSpan();
-		});
 	});
 </script>
 @endpush

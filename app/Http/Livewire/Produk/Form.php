@@ -55,6 +55,8 @@ class Form extends Component
 
 	public function updatedFNOKategori($value)
 	{
+		$this->FNO_PRODUK = '';
+
 		$data = Validator::make(
 			[
 				'FNO_KATEGORI' => $this->FNO_KATEGORI,

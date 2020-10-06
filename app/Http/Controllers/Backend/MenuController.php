@@ -12,6 +12,7 @@ use App\Models\Produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class MenuController extends Controller
 {
@@ -26,17 +27,30 @@ class MenuController extends Controller
 	public function create()
 	{
 		$produk = Produk::orderBy('FN_NAMA', 'ASC')->get();
-		$kodeGroup = KodeGroup::get();
 		return view('backend.menu.create', compact('produk', 'kodeGroup'));
 	}
 
 	public function store(Request $request)
 	{
-		dd($request->all());
+		Validator::make(
+			[
+				'FNO_KATEGORI' => $request->FNO_KATEGORI . $request->FNO_H_MENU,
+			],
+			[
+				'FNO_KATEGORI' => 'required|alpha_num|min:5|max:5|unique:t00_h_menu,FNO_H_MENU',
+			],
+			[
+				'alpha_num' => 'Isi Harus Berupa Alphanumeric (A-Z, 0-9, a-z) !',
+				'required' => 'Field Wajib di-Isi / Tidak Boleh Kosong !',
+				'max' => 'Jumlah Huruf Tidak Boleh Lebih Dari :max Karakter (Kategori + Kode Menu)',
+				'min' => 'Jumlah Huruf Harus Berjumlah :min Karakter (Kategori + Kode Menu)',
+				'exists' => 'Data Tidak Ada !',
+			]
+		)->validate();
 
 		$this->validate($request, [
-			'FK_GROUP' => 'required|string|max:3|min:3|exists:t00_ref_kategori,FK_GROUP',
-			'FNO_KATEGORI' => 'required|string|max:3|min:3|exists:t00_ref_produk,FNO_GROUP',
+			'FK_GROUP' => 'required|string|max:1|min:1|exists:t00_ref_kategori,FK_GROUP',
+			'FNO_KATEGORI' => 'required|string|max:3|min:3|exists:t00_ref_produk,FNO_KATEGORI',
 			'FN_MENU' => 'required|string|max:50',
 			'FHARGAPOKOK' => 'required|numeric|min:1',
 			// 'FMARGIN' => 'required|numeric|min:1',
@@ -54,7 +68,6 @@ class MenuController extends Controller
 			'between' => 'Nominal Harus di-Antara :between',
 		]);
 
-
 		try {
 			$this->name = '';
 
@@ -66,25 +79,25 @@ class MenuController extends Controller
 
 			DB::beginTransaction();
 			
-			$date = date('Ym');
-			$date = substr($date, 2, 4);
-			$kode = HeaderMenu::withTrashed()->where('FNO_H_MENU','like',$date.'%')->get();
-			if (count($kode) > 0) {
-				$array = count($kode) - 1;
-				$data = $kode[$array]->FNO_H_MENU;
-				$hapus = (int) substr($data,4,3);
-				$hapus++;
-				$kodemenu = $date . sprintf("%03s", $hapus);
-			}else{
-				$kodemenu = $date.'001';
-			}
+			// $date = date('Ym');
+			// $date = substr($date, 2, 4);
+			// $kode = HeaderMenu::withTrashed()->where('FNO_H_MENU','like',$date.'%')->get();
+			// if (count($kode) > 0) {
+			// 	$array = count($kode) - 1;
+			// 	$data = $kode[$array]->FNO_H_MENU;
+			// 	$hapus = (int) substr($data,4,3);
+			// 	$hapus++;
+			// 	$kodemenu = $date . sprintf("%03s", $hapus);
+			// }else{
+			// 	$kodemenu = $date.'001';
+			// }
 
 			// $hargaMargin = ($request->FHARGAPOKOK * $request->FMARGIN);
 			// $pajak = ($hargaMargin * $request->FPAJAK);
 			// $hargaJual = $hargaMargin + $pajak;
 
 			$header = HeaderMenu::firstOrCreate([
-				'FNO_H_MENU' => $kodemenu,
+				'FNO_H_MENU' => $request->FNO_KATEGORI . $request->FNO_H_MENU,
 				'FN_MENU' => $request->FN_MENU,
 				'FHARGAPOKOK' => $request->FHARGAPOKOK,
 				// 'FMARGIN' => $request->FMARGIN,
@@ -95,7 +108,7 @@ class MenuController extends Controller
 
 			foreach ($request->produk as $item) {
 				$detail = DetailMenu::create([
-					'FNO_H_MENU' => $kodemenu,
+					'FNO_H_MENU' => $request->FNO_KATEGORI . $request->FNO_H_MENU,
 					'FNO_PRODUK' => $item,
 				]);
 			}
@@ -131,8 +144,6 @@ class MenuController extends Controller
 	public function update(Request $request, $id)
 	{
 		$this->validate($request, [
-			'FK_GROUP' => 'required|string|max:3|min:3|exists:t00_ref_kategori,FK_GROUP',
-			'FNO_KATEGORI' => 'required|string|max:3|min:3|exists:t00_ref_produk,FNO_GROUP',
 			'FN_MENU' => 'required|string|max:50',
 			'FHARGAPOKOK' => 'required|numeric|min:1',
 			// 'FMARGIN' => 'required|numeric|min:1',
@@ -152,15 +163,19 @@ class MenuController extends Controller
 
 		try {
 			$menu = HeaderMenu::findOrFail($id);
+
 			DB::beginTransaction();
 
 			$name = $menu->FGAMBAR;
 			$oldImg = $menu->FGAMBAR;
-			if ($request->hasFile('FGAMBAR')) {
-				$name = time() . rand(10, 99) . '.' . $request->file('FGAMBAR')->getClientOriginalExtension();
-				$this->name = $name;
-				$request->file('FGAMBAR')->storeAs('Menu', $name, 'images');
+			if (isset($request->FGAMBAR) && $request->FGAMBAR !== '') {
+				if ($request->hasFile('FGAMBAR')) {
+					$name = time() . rand(10, 99) . '.' . $request->file('FGAMBAR')->getClientOriginalExtension();
+					$this->name = $name;
+					$request->file('FGAMBAR')->storeAs('Menu', $name, 'images');
+				}
 			}
+
 
 			// $hargaMargin = ($request->FHARGAPOKOK * $request->FMARGIN);
 			// $pajak = ($hargaMargin * $request->FPAJAK);
@@ -185,7 +200,9 @@ class MenuController extends Controller
 			}
 
 			DB::commit();
-			Storage::disk('images')->delete('Menu/' . $oldImg);
+			if (isset($request->FGAMBAR) && $request->FGAMBAR !== '') {
+				Storage::disk('images')->delete('Menu/' . $oldImg);
+			}
 
 			$this->name = '';
 			session()->flash('error', 'Data Berhasil di-Ubah !');

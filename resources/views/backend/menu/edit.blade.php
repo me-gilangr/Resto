@@ -70,7 +70,7 @@
 									</div>
 									<div class="form-group">
                     <div class="custom-file">
-                      <input type="file" name="FGAMBAR" id="FGAMBAR" class="custom-file-input" id="customFile" required>
+                      <input type="file" name="FGAMBAR" id="FGAMBAR" class="custom-file-input" id="customFile">
                       <label class="custom-file-label" for="customFile">Upload Gambar</label>
 										</div>
 										<span class="text-danger">
@@ -86,6 +86,18 @@
 							<div class="row pr-3 pl-3">
 								<div class="col-12">
 									<div class="form-group">
+										<label for="">Kode Menu : <span class="text-danger">*</span></label>
+										<div class="input-group-prepend">
+											<span class="input-group-text borad-0 kodeDepan">{{ substr($edit->FNO_H_MENU, 0, 3) }}</span>
+											<input type="text" name="FNO_H_MENU" id="FNO_H_MENU" class="form-control borad-0 {{ $errors->has('FNO_H_MENU') ? 'is-invalid':'' }}" placeholder="Masukan Kode Menu..." minlength="2" maxlength="2" value="{{ substr($edit->FNO_H_MENU, 3, 2) }}" readonly disabled required>
+										</div>
+										<span class="text-danger">
+											{{ $errors->first('FNO_H_MENU') }}
+										</span>
+									</div>
+								</div>
+								<div class="col-12">
+									<div class="form-group">
 										<label for="">Nama Menu : <span class="text-danger">*</span></label>
 										<input type="text" name="FN_MENU" id="FN_MENU" class="form-control borad-0 {{ $errors->has('FN_MENU') ? 'is-invalid':'' }}" placeholder="Masukan Nama Menu..." maxlength="50" value="{{ $edit->FN_MENU }}" autofocus required>
 										<span class="invalid-feedback">
@@ -93,7 +105,7 @@
 										</span>
 									</div>
 								</div>
-								<div class="col-md-3 col-lg-3 col-xl-3">
+								<div class="col-md-5 col-lg-5 col-xl-5">
 									<div class="form-group">
 										<label for="">Harga Pokok : <span class="text-danger">*</span></label>
 										<div class="input-group">
@@ -107,24 +119,15 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-md-2 col-lg-2 col-xl-2">
+								{{-- <div class="col-md-2 col-lg-2 col-xl-2">
 									<div class="form-group">
 										<label for="">Margin : <span class="text-danger">*</span></label>
-										<input type="number" name="FMARGIN" id="FMARGIN" class="form-control borad-0 {{ $errors->has('FMARGIN') ? 'is-invalid':'' }}" min="1" value="{{ $edit->FMARGIN }}" step="0.01" placeholder="Masukan Harga Pokok..." value="{{ $edit->FMARGIN }}" required>
+										<input type="number" name="FMARGIN" id="FMARGIN" class="form-control borad-0 {{ $errors->has('FMARGIN') ? 'is-invalid':'' }}" min="1" value="{{ $errors->has('FMARGIN') ? old('FMARGIN'):'1.00'}}" step="0.01" placeholder="Masukan Harga Pokok..." required>
 										<span class="invalid-feedback">
 											{{ $errors->first('FMARGIN') }}
 										</span>
 									</div>
-								</div>
-								<div class="col-md-3 col-lg-3 col-xl-3">
-									<div class="form-group">
-										<label for="">Pajak : <span class="text-danger">*</span></label>
-										<input type="number" name="FPAJAK" id="FPAJAK" class="form-control borad-0 {{ $errors->has('FPAJAK') ? 'is-invalid':'' }}" min="0.1" value="{{ $edit->FPAJAK }}" step="0.01" placeholder="Masukan Pajak..." value="{{ $edit->FPAJAK }}" required>
-										<span class="invalid-feedback">
-											{{ $errors->first('FPAJAK') }}
-										</span>
-									</div>
-								</div>
+								</div> --}}
 								<div class="col-md-4 col-lg-4 col-xl-4">
 									<div class="form-group">
 										<label for="">Harga Jual : <span class="text-danger">*</span></label>
@@ -132,17 +135,26 @@
 											<div class="input-group-prepend">
 												<span class="input-group-text borad-0">Rp. </span>
 											</div>
-											<input type="number" name="FHARGAJUAL" id="FHARGAJUAL" class="form-control disabled borad-0 {{ $errors->has('FHARGAJUAL') ? 'is-invalid':'' }}" min="1" step="0.01" placeholder="0" readonly value="{{ $edit->FHARGAJUAL }}" required>
+											<input type="number" name="FHARGAJUAL" id="FHARGAJUAL" class="form-control borad-0 {{ $errors->has('FHARGAJUAL') ? 'is-invalid':'' }}" min="1"  value="{{ $edit->FHARGAJUAL }}" placeholder="0" required>
 											<span class="invalid-feedback">
 												{{ $errors->first('FHARGAJUAL') }}
 											</span>
 										</div>
 									</div>
 								</div>
+								<div class="col-md-3 col-lg-3 col-xl-3">
+									<div class="form-group">
+										<label for="">Pajak (10%) : <span class="text-danger">*</span></label>
+										<input type="number" name="FPAJAK" id="FPAJAK" class="form-control borad-0 {{ $errors->has('FPAJAK') ? 'is-invalid':'' }}" value="{{ $edit->FHARGAJUAL * 10 / 100}}" placeholder="Masukan Pajak..." disabled required>
+										<span class="invalid-feedback">
+											{{ $errors->first('FPAJAK') }}
+										</span>
+									</div>
+								</div>
 								<div class="col-12">
 									<div class="form-group {{ $errors->has('produk') ? 'text-danger':'' }}">
 										<label for="">Pilih Data Produk : </label>
-										<select class="select2" name="produk[]" id="produk" multiple="multiple" data-placeholder="== Pilih Data Produk ==" data-dropdown-css-class="select2-red" style="width: 100%;">
+										<select class="select2" name="produk[]" id="produk" multiple="multiple" data-placeholder="== Pilih Data Produk ==" data-dropdown-css-class="select2-red" style="width: 100%;" required>
 											<option value=""></option>
 											@php
 												$items = $edit->detail()->pluck('FNO_PRODUK')->toArray();
@@ -156,10 +168,15 @@
 										</span>
 									</div>
 								</div>
+								{{-- <div class="col-md-4 col-lg-4 col-xl-4" style="padding-top: 31px;">
+									<button type="button" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#modalCreate">
+										<i class="fas fa-plus"></i> &ensp; Tambah Data Produk
+									</button>
+								</div> --}}
 								<div class="col-md-6 col-lg-6 col-xl-6 mt-1">
 									<button type="submit" class="btn btn-success btn-block">
 										<i class="fa fa-check"></i> &ensp;
-											Simpan Perubahan
+										Simpan Perubahan
 									</button>
 								</div>
 								<div class="col-md-6 col-lg-6 col-xl-6 mt-1">
@@ -204,11 +221,11 @@
 
 			reader.readAsDataURL(file);
 		} else {
-			previewDefaultText.style.display = null;
-			previewImage.style.display = null;
-			previewImage.style.display = "block";
-			previewImage.setAttribute("src", "");
-			previewContainer.style.backgroundColor = null;
+			previewDefaultText.style.display = "none";
+			previewNow.style.display = "block";
+			previewImage.style.display = "none";
+			previewImage.setAttribute("src", "{{ asset('images/Menu/'.$edit->FGAMBAR) }}");
+			previewContainer.style.backgroundColor = "#413d3d";
 		}
 	});
 </script>

@@ -14,9 +14,9 @@ class CreateDetailMenusTable extends Migration
     public function up()
     {
         Schema::create('T00_D_MENU', function (Blueprint $table) {
-					$table->char('FNO_H_MENU', 7);
+					$table->char('FNO_H_MENU', 5);
 					$table->foreign('FNO_H_MENU')->references('FNO_H_MENU')->on('T00_H_MENU');
-					$table->char('FNO_PRODUK', 5);
+					$table->char('FNO_PRODUK', 6);
 					$table->foreign('FNO_PRODUK')->references('FNO_PRODUK')->on('T00_M_PRODUK');
 					$table->softDeletes();
 					$table->timestamps();
