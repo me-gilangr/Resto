@@ -6,6 +6,7 @@ use App\Http\Config\JsonDatatable;
 use App\Http\Controllers\Controller;
 use App\Models\DetailMenu;
 use App\Models\HeaderMenu;
+use App\Models\Kategori;
 use App\Models\KodeGroup;
 use App\Models\Produk;
 use Illuminate\Http\Request;
@@ -31,7 +32,11 @@ class MenuController extends Controller
 
 	public function store(Request $request)
 	{
+		dd($request->all());
+
 		$this->validate($request, [
+			'FK_GROUP' => 'required|string|max:3|min:3|exists:t00_ref_kategori,FK_GROUP',
+			'FNO_KATEGORI' => 'required|string|max:3|min:3|exists:t00_ref_produk,FNO_GROUP',
 			'FN_MENU' => 'required|string|max:50',
 			'FHARGAPOKOK' => 'required|numeric|min:1',
 			// 'FMARGIN' => 'required|numeric|min:1',
@@ -48,6 +53,7 @@ class MenuController extends Controller
 			'max' => 'Maksimal Karakter :max !',
 			'between' => 'Nominal Harus di-Antara :between',
 		]);
+
 
 		try {
 			$this->name = '';
@@ -125,6 +131,8 @@ class MenuController extends Controller
 	public function update(Request $request, $id)
 	{
 		$this->validate($request, [
+			'FK_GROUP' => 'required|string|max:3|min:3|exists:t00_ref_kategori,FK_GROUP',
+			'FNO_KATEGORI' => 'required|string|max:3|min:3|exists:t00_ref_produk,FNO_GROUP',
 			'FN_MENU' => 'required|string|max:50',
 			'FHARGAPOKOK' => 'required|numeric|min:1',
 			// 'FMARGIN' => 'required|numeric|min:1',
@@ -283,13 +291,17 @@ class MenuController extends Controller
 	public function kategori(Request $request)
 	{
 		$this->validate($request, [
-			''
+			'FK_GROUP' => 'required|string'
 		]);
-		
+
 		try {
-			
+			$kategori = Kategori::where('FK_GROUP', '=', $request->FK_GROUP)->get();
+			return response()->json($kategori);
 		} catch (\Exception $e) {
-			return response()->json($data, 200, $headers);
+			return response()->json([
+				'alert' => 'error',
+				'message' => 'Terjadi Kesalahan !'
+			], 200);
 		}
 	}
 }

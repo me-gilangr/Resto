@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Kategori;
 use App\Models\Kategori;
 use App\Models\KodeGroup;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 
 class Form extends Component
@@ -34,12 +35,22 @@ class Form extends Component
 
 	public function updatedFNOKategori($value)
 	{
+		$FK_GROUP = $this->FK_GROUP;
+		$FNO_KATEGORI = $this->FNO_KATEGORI;
 		$data = Validator::make(
 			[
-				'FNO_KATEGORI' => $this->FK_GROUP . $this->FNO_KATEGORI,
+				'FNO_KATEGORI' => $this->FNO_KATEGORI,
 			],
 			[
-				'FNO_KATEGORI' => 'required|alpha_num|min:3|max:3|unique:t00_ref_produk,FNO_KATEGORI',
+				'FNO_KATEGORI' => [
+					'required',
+					'alpha_num',
+					'min:2',
+					'max:2', 
+					Rule::unique('t00_ref_produk')->where(function($query) use($FK_GROUP, $FNO_KATEGORI) {
+						return $query->where('FNO_KATEGORI', $FNO_KATEGORI)->where('FK_GROUP', $FK_GROUP);
+					}),
+				],
 			],
 			[
 				'alpha_num' => 'Isi Harus Berupa Alphanumeric (A-Z, 0-9, a-z) !',
@@ -55,6 +66,7 @@ class Form extends Component
 
 	public function updatedFKGroup($value)
 	{
+		$this->FNO_KATEGORI = '';
 		$data = Validator::make(
 			[
 				'FK_GROUP' => $this->FK_GROUP,
@@ -113,14 +125,25 @@ class Form extends Component
 
 	public function validating()
 	{
+		$FK_GROUP = $this->FK_GROUP;
+		$FNO_KATEGORI = $this->FNO_KATEGORI;
+
 		$data = Validator::make(
 			[
-				'FNO_KATEGORI' => $this->FK_GROUP . $this->FNO_KATEGORI,
+				'FNO_KATEGORI' => $this->FNO_KATEGORI,
 				'FK_GROUP' => $this->FK_GROUP,
 				'FN_KATEGORI' => $this->FN_KATEGORI,
 			],
 			[
-				'FNO_KATEGORI' => 'required|string|min:3|max:3|unique:t00_ref_produk,FNO_KATEGORI',
+				'FNO_KATEGORI' => [
+					'required',
+					'alpha_num',
+					'min:2',
+					'max:2', 
+					Rule::unique('t00_ref_produk')->where(function($query) use($FK_GROUP, $FNO_KATEGORI) {
+						return $query->where('FNO_KATEGORI', $FNO_KATEGORI)->where('FK_GROUP', $FK_GROUP);
+					}),
+				],
 				'FK_GROUP' => 'required|alpha_num|min:1|max:1|exists:t00_ref_kategori,FK_GROUP',
 				'FN_KATEGORI' => 'required|string|max:20',
 			],
@@ -137,14 +160,14 @@ class Form extends Component
 		return $data;
 	}
 
-	public function editing($id)
+	public function editing($id, $param1)
 	{
 		try {
 			$this->edit = false;
-			$kategori = Kategori::findOrFail($id);
+			$kategori = Kategori::where('FNO_KATEGORI', '=', $id)->where('FK_GROUP', '=', $param1)->firstOrFail();
 			$this->edit = $kategori;
 			$this->emit('bukaModal');
-			$this->FNO_KATEGORI = substr($kategori->FNO_KATEGORI, 1,2);
+			$this->FNO_KATEGORI = $kategori->FNO_KATEGORI;
 			$this->FK_GROUP = $kategori->FK_GROUP;
 			$this->FN_GROUP = $kategori->group->FN_GROUP;
 			$this->FN_KATEGORI = $kategori->FN_KATEGORI;

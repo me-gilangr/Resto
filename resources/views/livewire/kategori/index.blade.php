@@ -126,17 +126,20 @@
 		
 		$("#isi").on('click', '.edit', function(){
 			var kode = $(this).data('id');
-			window.livewire.emit('edit', kode);
+			var param1 = $(this).data('param1');
+			window.livewire.emit('edit', kode, param1);
 		});
 
 		$('#isi').on('click', '.hapus', function() {
 			var kode = $(this).data('id');
-			window.livewire.emit('hapus', kode);
+			var param1 = $(this).data('param1');
+			window.livewire.emit('hapus', kode, param1);
 		});
 
 		$("#isi-trashed").on('click', '.restore', function(){
 			var kode = $(this).data('id');
-			window.livewire.emit('restore', kode);
+			var param1 = $(this).data('param1');
+			window.livewire.emit('restore', kode, param1);
 		});
 
 		$('#trashed').on('click', function() {

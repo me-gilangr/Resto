@@ -36,6 +36,8 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::put('/menu/{menu}', 'Backend\MenuController@update')->name('menu.update');
 		Route::delete('/menu/{menu}', 'Backend\MenuController@destroy')->name('menu.destroy');
 
+		Route::post('/json/kategori', 'Backend\MenuController@kategori')->name('json.kategori');
+
 		// Route::resource('menu', 'Backend\MenuController');
 	});
 

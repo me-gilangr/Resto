@@ -14,22 +14,22 @@ class KategoriSeeder extends Seeder
     {
 			$kategori = [
 				[
-					'FNO_KATEGORI' => 'B01',
+					'FNO_KATEGORI' => '01',
 					'FK_GROUP' => 'B',
 					'FN_KATEGORI' => 'Expresso Based',
 				],
 				[
-					'FNO_KATEGORI' => 'B02',
+					'FNO_KATEGORI' => '02',
 					'FK_GROUP' => 'B',
 					'FN_KATEGORI' => 'Juice',
 				],
 				[
-					'FNO_KATEGORI' => 'F01',
+					'FNO_KATEGORI' => '01',
 					'FK_GROUP' => 'F',
 					'FN_KATEGORI' => 'Nasi',
 				],
 				[
-					'FNO_KATEGORI' => 'F02',
+					'FNO_KATEGORI' => '02',
 					'FK_GROUP' => 'F',
 					'FN_KATEGORI' => 'Pasta',
 				],

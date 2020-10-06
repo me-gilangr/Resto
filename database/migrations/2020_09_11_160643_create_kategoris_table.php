@@ -14,10 +14,13 @@ class CreateKategorisTable extends Migration
     public function up()
     {
         Schema::create('T00_REF_PRODUK', function (Blueprint $table) {
-					$table->char('FNO_KATEGORI', 3)->primary();
+					$table->char('FNO_KATEGORI', 2);
+					$table->char('FK_GROUP', 1);
 					$table->string('FN_KATEGORI', 20);
 					$table->softDeletes();
 					$table->timestamps();
+
+					$table->primary(['FNO_KATEGORI', 'FK_GROUP']);
         });
     }
 

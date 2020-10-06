@@ -61,18 +61,18 @@ trait JsonDatatable
 		}
 	}
 
-	public function editBtn($id)
+	public function editBtn($id, $param1 = '', $param2 = '', $param3 = '')
 	{
-		return '<a href="#" class="btn btn-sm btn-info borad-0 edit" data-toggle="tooltip" wire:click="edit()" data-placement="top" title="Edit Data" data-original-title="Edit Data" data-id="'.$id.'"> <i class="fa fa-edit"></i> </a>';
+		return '<a href="#" class="btn btn-sm btn-info borad-0 edit" data-toggle="tooltip" wire:click="edit()" data-placement="top" title="Edit Data" data-original-title="Edit Data" data-id="'.$id.'" data-param1="'.$param1.'" data-param2="'.$param2.'" data-param3="'.$param3.'"> <i class="fa fa-edit"></i> </a>';
 	}
 
-	public function delBtn($id)
+	public function delBtn($id, $param1 = '', $param2 = '', $param3 = '')
 	{
-		return '<button type="submit" class="btn btn-sm borad-0 btn-danger hapus" data-id="'.$id.'" style="border-radius: 0px;"><i class="fa fa-trash"></i> </button>';
+		return '<button type="submit" class="btn btn-sm borad-0 btn-danger hapus" data-id="'.$id.'" data-param1="'.$param1.'" data-param2="'.$param2.'" data-param3="'.$param3.'" style="border-radius: 0px;"><i class="fa fa-trash"></i> </button>';
 	}
 
-	public function restoreBtn($id)
+	public function restoreBtn($id, $param1 = '', $param2 = '', $param3 = '')
 	{
-		return '<button type="submit" class="btn btn-sm borad-0 btn-info restore" data-id="'.$id.'" style="border-radius: 0px;"> <i class="fa fa-undo"></i> &ensp; Pulihkan Data </button> ';
+		return '<button type="submit" class="btn btn-sm borad-0 btn-info restore" data-id="'.$id.'" data-param1="'.$param1.'" data-param2="'.$param2.'" data-param3="'.$param3.'" style="border-radius: 0px;"> <i class="fa fa-undo"></i> &ensp; Pulihkan Data </button> ';
 	}
 }

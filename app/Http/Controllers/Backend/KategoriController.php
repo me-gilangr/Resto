@@ -36,4 +36,24 @@ class KategoriController extends Controller
 
 			return $dataTables;
 		}
+
+		public function _button($dataTables, $trashed)
+		{
+			$dataTables->editColumn('action', function($data) use($trashed) {
+				if ($trashed == 'true') {
+					$add = '';
+					$btn = $this->restoreBtn($data[$this->pk], $data->FK_GROUP);
+				} else {
+					$add = '';
+					$btn = $this->editBtn($data[$this->pk], $data->FK_GROUP) . $this->delBtn($data[$this->pk], $data->FK_GROUP); 
+				}
+				return '
+					<div class="btn-group">
+						'.$btn.'
+					</div>
+				';
+			});
+
+			return $dataTables;
+		}
 }
