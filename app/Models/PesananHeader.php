@@ -14,6 +14,6 @@ class PesananHeader extends Model
 	protected $keyType = 'string';
 
 	protected $fillable = [
-		'FNO_PESAN', 'TGL_PESAN', 'FSTATUS_TRANSAKSI'
+		'FNO_PESAN', 'TGL_PESAN', 'FATAS_NAMA', 'FSTATUS_TRANSAKSI'
 	];
 }

@@ -28,6 +28,7 @@ class Cart extends Component
 		'minusQtyE' => 'minusQty',
 		'delItem' => 'deleteItem',
 		'upMeja' => 'upMeja',
+		'updateKet' => 'changeKet',
 	];
 
 	public function hydrate()
@@ -142,6 +143,7 @@ class Cart extends Component
 				$header = PesananHeader::firstOrCreate([
 					'FNO_PESAN' => $kodePesanan,
 					'TGL_PESAN' => date('Ymd'),
+					'FATAS_NAMA' => $this->atasNama,
 					'FSTATUS_TRANSAKSI' => false,
 				]);
 
@@ -213,5 +215,24 @@ class Cart extends Component
 		}
 
 		return $act;
+	}
+
+	public function changeKet($value, $id)
+	{
+		if (auth()->check()) {
+			$cart = ShoppingCart::session(date('Ymd'));
+		} else {
+			$cart = ShoppingCart::session(date('Ymd'));
+		}
+
+		$cart->update($id, [
+			'attributes' => [
+				'keterangan' => $value,
+			],
+		]);
+
+		$this->emit('info', 'Keterangan Pesanan di-Ubah !');
+		$this->refreshCart();
+		$this->emit('reDraw');
 	}
 }
