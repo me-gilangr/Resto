@@ -18,6 +18,7 @@ class DaftarMenu extends Component
 	];
 
 	public $jml = 1;
+	public $ket = '';
 
 	public function render()
 	{
@@ -80,7 +81,9 @@ class DaftarMenu extends Component
 				'name' => $menu->header->FN_MENU,
 				'price' => $menu->header->FHARGAJUAL,
 				'quantity' => $this->jml,
-				'attributes' => [],
+				'attributes' => [
+					'keterangan' => $this->ket,
+				],
 				'associatedModel' => $menu,
 			]);
 

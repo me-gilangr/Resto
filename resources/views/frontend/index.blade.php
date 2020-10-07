@@ -1,6 +1,20 @@
 @extends('frontend.layouts.master')
 
 @section('css')
+<link rel="stylesheet" href="{{ asset('backend') }}/plugins/select2/css/select2.min.css">
+<link rel="stylesheet" href="{{ asset('backend') }}/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+<style>
+	.select2-container--default .select2-selection--multiple .select2-selection__choice {
+		background-color: #ba2121;
+		padding: 0px 15px;
+	}
+
+	.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+		margin-left: 10px;
+		color: #ffffff;
+	}
+</style>
+
 <style>
   .carousel-caption {
     bottom: -15px !important;
@@ -77,4 +91,8 @@
 {{-- Modul --}}
 {{-- https://ourcodeworld.com/articles/read/1093/how-to-access-the-htdocs-directory-of-xampp-from-a-computer-or-mobile-device-in-the-same-local-area-network-lan --}}
 {{-- https://superuser.com/questions/92549/is-xampp-safe-for-use-inside-a-firewall --}}
+@endsection
+
+@section('script')
+<script src="{{ asset('backend') }}/plugins/select2/js/select2.full.min.js"></script>
 @endsection

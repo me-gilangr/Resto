@@ -1,6 +1,6 @@
 <div>
 	<div class="modal fade" id="keranjangModal" tabindex="-1" aria-labelledby="keranjangModalLabel" aria-hidden="true" wire:ignore.self>
-		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+		<div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="keranjangModalLabel"><i class="fa fa-shopping-basket text-danger"></i> &ensp; Menu Yang Akan di-Pesan.</h5>
@@ -51,9 +51,13 @@
 											</button>
 										</td>
 									</tr>
+									<tr>
+										<td colspan="1" class="text-center"><b>Keterangan : </b></td>
+										<td colspan="2">{{ $item['attributes']['keterangan'] != '' ? $item['attributes']['keterangan']:'Tidak Ada Keterangan.' }}</td>
+									</tr>
 								@empty
 									<tr>
-										<td colspan="3" class="text-center">
+										<td colspan="4" class="text-center">
 											Belum Ada Data Pemesanan
 										</td>
 									</tr>
@@ -86,6 +90,27 @@
 				</div>
 				<div class="modal-footer"> 
 					<div class="row">
+						<div class="col-12">
+							<span class="text-danger">
+								{{ $err_message }}
+							</span>
+						</div>
+						<div class="col-12">
+							<div class="form-group">
+								<label for="">Atas Nama : <span class="text-danger">*</span></label>
+								<input type="text" wire:model="atasNama" name="atasNama" id="atasNama" class="form-control {{ $errors->has('atasNama') ? 'is-invalid':'' }}" placeholder="Masukan Atas Nama Pesanan..." style="border: 1px solid #aaa;" required>
+							</div>
+						</div>
+						<div class="col-12">
+							<div class="form-group" wire:ignore>
+								<select class="select2" id="data_meja" multiple="multiple" data-placeholder="== Pilih Meja ==" data-dropdown-css-class="select2-red" style="width: 100%;" required>
+									<option value=""></option>
+									@foreach ($data_meja as $item)
+										<option value="{{ $item['FNO_MEJA'] }}">{{ $item['FNO_MEJA'] }} - {{ $item['FJENIS'] }}</option>
+									@endforeach
+								</select>
+							</div>
+						</div>
 						<div class="col-6 text-center">
 							<b>Total &ensp; : </b>
 						</div>
@@ -94,7 +119,7 @@
 						</div>
 						<div class="col-12 mt-4 text-right">
 							<button type="button" class="btn btn-sm btn-outline-secondary" data-dismiss="modal">Tutup</button>
-							<button type="button" class="btn btn-sm btn-outline-success"><i class="fa fa-paper-plane"></i> &ensp; Lakukan Pemesanan</button>
+							<button type="button" class="btn btn-sm btn-outline-success" wire:click="pesan()"><i class="fa fa-paper-plane"></i> &ensp; Lakukan Pemesanan</button>
 						</div>
 					</div>
 				</div>
@@ -141,7 +166,13 @@
 					console.log(data);
 					var cart = Object.values(data);
 					$('#isi-cart').empty();
-					cart.forEach(item => {
+					var ket = '';
+					cart.reverse().forEach(item => {
+						if (item.attributes.keterangan != '') {
+							ket = item.attributes.keterangan;
+						} else {
+							ket = 'Tidak Ada Keterangan.';
+						}
 						$('#isi-cart').append(`
 							<tr>
 								<td class="pl-3">
@@ -174,6 +205,10 @@
 									</button>
 								</td>
 							</tr>
+							<tr>
+								<td colspan="1" class="text-center"><b>Keterangan : </b></td>
+								<td colspan="2">`+ ket +`</td>
+							</tr>
 						`);
 					});
 				}
@@ -196,6 +231,20 @@
 			var id = $(this).data('id');
 			console.log(id);
 			window.livewire.emit('delItem', $(this).data('id'));
+		});
+
+		$('.select2').select2();
+
+		$('#data_meja').on('change', function() {
+			var data = $(this).val();
+			window.livewire.emit('upMeja', data);
+			console.log(data);
+		});
+
+		window.livewire.on('clearSelect2', function() {
+			$('#data_meja').select2('val', '');
+			$("#data_meja").val("");
+			$("#data_meja").trigger("change");
 		});
 	});
 </script>

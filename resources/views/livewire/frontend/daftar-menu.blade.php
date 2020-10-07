@@ -114,7 +114,7 @@
 										<i class="fa fa-minus"></i>
 									</span>
 								</div>
-								<input type="number" wire:model="jml" class="form-control" min="1" required>
+								<input type="number" wire:model="jml" class="form-control" min="1" style="text-align: center;" required>
 								<div class="input-group-append">
 									<span class="input-group-text d-flex justify-content-center" id="basic-addon2" style="
 										background-color: #04ff32;
@@ -124,6 +124,12 @@
 									</span>
 								</div>
 							</div>
+						</div>
+						<div class="col-12 mt-2">
+							<label for="">Keterangan : <small class="text-secondary">* Opsional</small></label>
+						</div>
+						<div class="col-12">
+							<textarea wire:model="ket" rows="1" class="form-control" placeholder="*Boleh di-Kosongkan"></textarea>
 						</div>
 					</div>
 					<button class="btn btn-outline-success btn-block pr-2 pl-2" wire:click="addCart('{{ $detail['FNO_H_MENU'] }}')">
