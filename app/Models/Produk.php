@@ -26,4 +26,9 @@ class Produk extends Model
 	{
 		return $this->belongsTo('App\Models\DetailMenu', 'FNO_PRODUK', 'FNO_PRODUK');
 	}
+
+	public function groupBuat()
+	{
+		return $this->hasMany('App\Models\GroupPembuatan', 'FNO_PRODUK', 'FNO_PRODUK');
+	}
 }

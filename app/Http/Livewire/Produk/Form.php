@@ -2,8 +2,10 @@
 
 namespace App\Http\Livewire\Produk;
 
+use App\Models\GroupPembuatan;
 use App\Models\Kategori;
 use App\Models\Produk;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 
@@ -13,7 +15,10 @@ class Form extends Component
 	public $FNO_KATEGORI = '';
 	public $FN_KATEGORI = '';
 	public $FN_NAMA = '';
+	public $DAPUR = null;
+	public $BAR = null;	
 	public $edit = false;
+	public $err_area = '';
 
 	protected $listeners = [
 		'edit' => 'editing',
@@ -24,6 +29,7 @@ class Form extends Component
 	{
 		$this->resetErrorBag();
 		$this->resetValidation();
+		$this->err_area = '';
 	}
 
 	public function render()
@@ -96,18 +102,55 @@ class Form extends Component
 		return $data;
 	}
 
+	public function valArea()
+	{
+		$next = false;
+		if ($this->DAPUR == null && $this->BAR == null) {
+			if ($this->DAPUR == false && $this->BAR == false) {
+				$this->err_area = 'Silahkan Pilih Lokasi Pembuatan !';
+			} else {
+				$next = true;
+			}
+		} else {
+			$next = true;
+		} 
+
+		return $next;
+	}
+
 	public function tambah()
 	{
-		$data = $this->validating();
-		try {
-			$simpan = Produk::firstOrCreate($data);
-
-			$this->clear();
-			$this->emit('tutupModal');
-			$this->emit('updatedDataTable');
-			$this->emit('success', 'Berhasil Menambahkan Data !');	
-		} catch (\Exception $e) {
-			dd($e);
+		$next = $this->valArea();
+		if ($next == true) {
+			$data = $this->validating();
+			try {
+				DB::beginTransaction();
+				$simpan = Produk::firstOrCreate($data);
+	
+				if ($this->DAPUR != null && $this->DAPUR != false) {
+					$group = GroupPembuatan::firstOrCreate([
+						'FNO_PRODUK' => $data['FNO_PRODUK'],
+						'FTEMPAT' => $this->DAPUR,
+					]);
+				}
+				
+				if ($this->BAR != null && $this->BAR != false) {
+					$group = GroupPembuatan::firstOrCreate([
+						'FNO_PRODUK' => $data['FNO_PRODUK'],
+						'FTEMPAT' => $this->BAR,
+					]);
+				}
+	
+				DB::commit();
+	
+				$this->clear();
+				$this->emit('tutupModal');
+				$this->emit('updatedDataTable');
+				$this->emit('success', 'Berhasil Menambahkan Data !');	
+			} catch (\Exception $e) {
+				DB::rollBack();
+				$this->emit('error', 'Terjadi Kesalahan !');
+			}
 		}
 	}
 
@@ -144,10 +187,20 @@ class Form extends Component
 			$produk = Produk::findOrFail($id);
 			$this->edit = $produk;
 			$this->emit('bukaModal');
-			$this->FNO_PRODUK = substr($produk->FNO_PRODUK, 2, 3);
+			$this->FNO_PRODUK = substr($produk->FNO_PRODUK, 3, 3);
 			$this->FNO_KATEGORI = $produk->FNO_KATEGORI;
 			$this->FN_KATEGORI = $produk->kategori->FN_KATEGORI;
 			$this->FN_NAMA = $produk->FN_NAMA;
+
+			$group = $produk->groupBuat->pluck('FTEMPAT')->toArray();
+			if (in_array("D", $group)) {
+				$this->DAPUR = "D";
+			}
+
+			if (in_array("B", $group)) {
+				$this->BAR = "B";
+			}
+			
 		} catch (\Exception $e) {
 			$edit = false;
 			$this->emit('error', 'Terjadi Kesalahan !');
@@ -156,20 +209,44 @@ class Form extends Component
 
 	public function updateData($kode)
 	{
-		try {
-			$produk = Produk::findOrFail($kode);
-			$produk->update([
-				'FNO_PRODUK' => $this->FNO_KATEGORI . $this->FNO_PRODUK,
-				'FNO_KATEGORI' => $this->FNO_KATEGORI,
-				'FN_NAMA' => $this->FN_NAMA,
-			]);
+		$next = $this->valArea();
+		if ($next == true) {
+			try {
+				DB::beginTransaction();
+				$produk = Produk::findOrFail($kode);
+				$produk->update([
+					'FN_NAMA' => $this->FN_NAMA,
+				]);
 
-			$this->clear();
-			$this->emit('tutupModal');
-			$this->emit('updatedDataTable');
-			$this->emit('info', 'Data di-Ubah !');
-		} catch (\Exception $e) {
-			$this->emit('error', 'Terjadi Kesalahan !');
+				if ($this->DAPUR != null && $this->DAPUR != false) {
+					$group = GroupPembuatan::firstOrCreate([
+						'FNO_PRODUK' => $produk->FNO_PRODUK,
+						'FTEMPAT' => $this->DAPUR,
+					]);
+				} else {
+					$group = GroupPembuatan::where('FNO_PRODUK', '=', $produk->FNO_PRODUK)->where('FTEMPAT', '=', 'D')->delete();
+				}
+				
+				if ($this->BAR != null && $this->BAR != false) {
+					$group = GroupPembuatan::firstOrCreate([
+						'FNO_PRODUK' => $produk->FNO_PRODUK,
+						'FTEMPAT' => $this->BAR,
+					]);
+				} else {
+					$group = GroupPembuatan::where('FNO_PRODUK', '=', $produk->FNO_PRODUK)->where('FTEMPAT', '=', 'B')->delete();
+				}
+
+				DB::commit();
+
+				$this->clear();
+				$this->emit('tutupModal');
+				$this->emit('updatedDataTable');
+				$this->emit('info', 'Data di-Ubah !');
+			} catch (\Exception $e) {
+				DB::rollBack();
+				$this->emit('error', 'Terjadi Kesalahan !');
+				dd($e);
+			}
 		}
 	}
 
@@ -180,6 +257,8 @@ class Form extends Component
 		$this->FNO_KATEGORI = '';
 		$this->FN_KATEGORI = '';
 		$this->FN_NAMA = '';
+		$this->DAPUR = null;
+		$this->BAR = null;
 	}
 
 	public function editFalse()

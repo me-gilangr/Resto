@@ -52,7 +52,7 @@
 										</td>
 									</tr>
 									<tr>
-										<td colspan="1" class="text-center"><b>Keterangan : </b></td>
+										<td colspan="1" class="text-center"><b>Keterangan </b></td>
 										{{-- <td colspan="2">{{ $item['attributes']['keterangan'] != '' ? $item['attributes']['keterangan']:'Tidak Ada Keterangan.' }}</td> --}}
 										<td class="text-center" colspan="2">
 											<textarea rows="1" class="form-control" wire:change="changeKet($event.target.value, '{{ $item['id'] }}')" placeholder="Tidak Ada Keterangan.">{{ $item['attributes']['keterangan'] }}</textarea>
@@ -209,7 +209,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td colspan="1" class="text-center"><b>Keterangan : </b></td>
+								<td colspan="1" class="text-center"><b>Keterangan </b></td>
 								<td colspan="2">
 									<textarea rows="1" class="form-control keterangan" data-id="`+item.id+`" placeholder="Tidak Ada Keterangan.">`+ ket +`</textarea>
 								</td>

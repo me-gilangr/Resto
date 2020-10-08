@@ -119,6 +119,7 @@ class DaftarMenu extends Component
 		$this->detail['FGAMBAR'] = null;
 		$this->detail['FHARGAJUAL'] = null;
 		$this->jml = 1;
+		$this->ket = '';
 	}
 
 	public function destroySession()

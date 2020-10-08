@@ -53,6 +53,26 @@
 										{{ $errors->first('FN_NAMA') }}
 									</span>
 								</div>
+								<div class="form-group row">
+									<label class="col-12">Area Pembuatan : <span class="text-danger">*</span></label>
+									<div class="col-md-6 col-lg-6 col-xl-6  pl-2 pr-2">
+										<div class="custom-control custom-checkbox">
+											<input class="custom-control-input" type="checkbox" wire:model="DAPUR" name="area" id="Dapur" value="D">
+											<label for="Dapur" class="custom-control-label">Area Dapur</label>
+										</div>
+									</div>
+									<div class="col-md-6 col-lg-6 col-xl-6  pl-2 pr-2">
+										<div class="custom-control custom-checkbox">
+											<input class="custom-control-input" type="checkbox" wire:model="BAR" name="area" id="Bar" value="B">
+											<label for="Bar" class="custom-control-label">Area Bar</label>
+										</div>
+									</div>
+									<div class="col-12">
+										<span class="text-danger">
+											{{ $err_area }}
+										</span>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
