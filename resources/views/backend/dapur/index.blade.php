@@ -122,31 +122,7 @@
 						<h4 class="card-title">Data Pesanan</h4>
 					</div>
 					<div class="card-body">
-						<div class="row">
-							<div class="col-12">
-								<div class="info-box">
-									<span class="info-box-icon bg-info"><i class="fa fa-utensils"></i></span>
-		
-									<div class="info-box-content">
-										<span class="info-box-text"><h4>Nasi Goreng Spesial</h4></span>
-										<table>
-											<tr>
-												<td><b>Jumlah</b></td>
-												<td>:</td>
-												<td>3 Item</td>
-											</tr>
-											<tr>
-												<td><b>Keterangan</b></td>
-												<td>:</td>
-												<td>Tidak Ada Keterangan.</td>
-											</tr>
-										</table>
-									</div>
-									<span class="info-box-number">Meja : P01</span>
-									<!-- /.info-box-content -->
-								</div>
-							</div>
-						</div>
+						@livewire('dapur.pesanan')
 					</div>
 				</div>
 			</div>

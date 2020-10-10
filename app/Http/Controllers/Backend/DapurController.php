@@ -11,4 +11,9 @@ class DapurController extends Controller
 	{
 		return view('backend.dapur.index');
 	}
+
+	public function getDataPesanan(Request $request)
+	{
+		
+	}
 }

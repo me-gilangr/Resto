@@ -33,6 +33,7 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
+  @livewireStyles
   @yield('css')
   @stack('css')
 </head>
@@ -184,6 +185,27 @@
 <!-- AdminLTE App -->
 <script src="{{ asset('backend') }}/dist/js/adminlte.min.js"></script>
 
+
+@livewireScripts
+<script>
+	$(document).ready(function() {
+		window.livewire.on('success', success => {
+			toastr.success(success, 'Berhasil !');
+		});
+		
+		window.livewire.on('info', info => {			
+			toastr.info(info, 'Informasi !');
+		});
+
+		window.livewire.on('warning', warning => {			
+			toastr.warning(warning, 'Peringatan !');
+		});
+
+		window.livewire.on('error', error => {			
+			toastr.error(error, 'Kesalahan !');
+		});
+	});
+</script>
 @yield('script')
 @stack('script')
 </body>

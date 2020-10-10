@@ -27,7 +27,7 @@ class MenuController extends Controller
 	public function create()
 	{
 		$produk = Produk::orderBy('FN_NAMA', 'ASC')->get();
-		return view('backend.menu.create', compact('produk', 'kodeGroup'));
+		return view('backend.menu.create', compact('produk'));
 	}
 
 	public function store(Request $request)

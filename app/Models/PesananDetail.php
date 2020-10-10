@@ -28,4 +28,8 @@ class PesananDetail extends Model
 		'FDISC' => 0,
 	];
 
+	public function menu()
+	{
+		return $this->hasMany('App\Models\DetailMenu', 'FNO_H_MENU', 'FNO_H_MENU');
+	}
 }
