@@ -25,12 +25,11 @@ class Pesanan extends Component
 
 	public function getPesanan()
 	{
-		// $pesanan = PesananDetail::with('menu.produk.groupBuat')->whereHas('menu.produk.groupBuat', function($q) {
-		// 	$q->where('FTEMPAT', '=', 'D');
-		// })->get();
-		$pesanan = PesananDetail::get();
+		$pesanan = PesananDetail::with('menu.header')->with('menu.produk.groupBuat')->whereHas('menu.produk.groupBuat', function($q) {
+			$q->where('FTEMPAT', '=', 'D');
+		})->get()->toArray();
 		$this->fill(['data_pesanan' => $pesanan]);
-		// dd($pesanan->toArray());
+		// dd($pesanan[0]['menu']);
 	}
 
 	public function render()

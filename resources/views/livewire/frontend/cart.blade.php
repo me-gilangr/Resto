@@ -246,10 +246,18 @@
 			console.log(data);
 		});
 
-		window.livewire.on('clearSelect2', function() {
+		window.livewire.on('clearSelect2', function(data) {
 			$('#data_meja').select2('val', '');
 			$("#data_meja").val("");
 			$("#data_meja").trigger("change");
+
+      $("#data_meja").empty();
+      data.forEach(data => {
+        var newOption = new Option(data['FNO_MEJA']+' - '+data['FJENIS'], data['FNO_MEJA'], false, false);
+        $('#data_meja').append(newOption).trigger('change');
+      })
+
+      $('#data_meja').trigger("change");
 		});
 
 		$('#isi-cart').on('change', '.keterangan', function() {

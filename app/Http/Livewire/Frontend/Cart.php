@@ -115,7 +115,7 @@ class Cart extends Component
 	public function upMeja($data)
 	{
 		$this->meja = array_replace($this->meja, $data);
-	}
+  }
 
 	public function pesan()
 	{
@@ -184,9 +184,12 @@ class Cart extends Component
 				} else{
 					ShoppingCart::session(date('Ymd'))->clear();
 				}
-				$this->refreshCart();
+        $this->refreshCart();
+        
+        $newData = Meja::where('STATUS', '=', 1)->get()->toArray();
+
 				$this->emit('reDraw');
-				$this->emit('clearSelect2');
+				$this->emit('clearSelect2', $newData);
 				$this->emit('success', 'Pesanan di-Kirimkan !');
 			} catch (\Exception $e) {
 				DB::rollback();

@@ -6,7 +6,7 @@
 					<div class="info-box">
 						<span class="info-box-icon bg-info"><i class="fa fa-utensils"></i></span>
 						<div class="info-box-content">
-							<span class="info-box-text"><h4>{{ $value['FN_MENU'] }}</h4></span>
+							<span class="info-box-text"><h4>{{ print_r($value['menu']) }}</h4></span>
 							<table>
 								<tr>
 									<td><b>Jumlah</b></td>
