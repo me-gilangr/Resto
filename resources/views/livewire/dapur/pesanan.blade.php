@@ -69,9 +69,13 @@
 		window.livewire.emit('get_pesanan');
 	});
 
-	setTimeout(() => {
+	function getData() {
 		window.livewire.emit('get_pesanan');
 		console.log('getData');
-	}, 5000);
+		setTimeout(getData, 5000);
+	}
+
+	getData();
+
 </script>
 @endpush

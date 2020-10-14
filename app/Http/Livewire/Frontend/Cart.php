@@ -29,6 +29,7 @@ class Cart extends Component
 		'delItem' => 'deleteItem',
 		'upMeja' => 'upMeja',
 		'updateKet' => 'changeKet',
+		'getSelect2Meja' => 'getMeja',
 	];
 
 	public function hydrate()
@@ -237,5 +238,11 @@ class Cart extends Component
 		$this->emit('info', 'Keterangan Pesanan di-Ubah !');
 		$this->refreshCart();
 		$this->emit('reDraw');
+	}
+
+	public function getMeja()
+	{
+		$newData = Meja::where('STATUS', '=', 1)->get()->toArray();
+		$this->emit('clearSelect2', $newData);
 	}
 }

@@ -48,22 +48,11 @@ class Pesanan extends Component
 
 	public function getPemasakan()
 	{
-		// $pesanan = PesananDetail::with('header.meja')
-		// 	->with('header.pemasakan')
-		// 	->with('menu.header')
-		// 	->with('menu.produk.groupBuat')
-		// 	->whereHas('menu.produk.groupBuat', function($q) {
-		// 		$q->where('FTEMPAT', '=', 'D');
-		// 	})->orderBy('created_at', 'ASC')
-		// 	->get();
-		// dd($pesanan->toArray());
-
 		$pemasakan = PemasakanHeader::with('pesananHeader')
 			->with('menuHeader')
 			->where('USER_ID', '=', auth()->user()->id)
 			->get()->toArray();
 		$this->fill(['data_pemasakan' => $pemasakan]);	
-
 	}
 
 	public function ambilPesanan($kodePesanan, $kodeMenu)
@@ -71,6 +60,11 @@ class Pesanan extends Component
 		try {
 			$pesanan = PesananDetail::where('FNO_PESAN', '=', $kodePesanan)->where('FNO_H_MENU', '=', $kodeMenu)->firstOrFail();
 			DB::beginTransaction();
+
+			$updateStatus = PesananDetail::where('FNO_PESAN', '=', $kodePesanan)->where('FNO_H_MENU', '=', $kodeMenu)->update([
+				'FSTATUS_PESAN' => '3',
+			]);
+
 			$masak = PemasakanHeader::firstOrCreate([
 				'FNO_H_PEMASAKAN' => time(),
 				'FNO_PESAN' => $pesanan->FNO_PESAN,

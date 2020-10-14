@@ -166,7 +166,6 @@
 					id: "{{ auth()->check() ? auth()->user()->id:date('Ymd') }}",
 				},
 				success: function (data) {
-					console.log(data);
 					var cart = Object.values(data);
 					$('#isi-cart').empty();
 					var ket = '';
@@ -222,19 +221,16 @@
 
 		$('#isi-cart').on('click', '.add', function() {
 			var id = $(this).data('id');
-			console.log(id);
 			window.livewire.emit('addQtyE', $(this).data('id'));
 		});
 
 		$('#isi-cart').on('click', '.minus', function() {
 			var id = $(this).data('id');
-			console.log(id);
 			window.livewire.emit('minusQtyE', $(this).data('id'));
 		});
 
 		$('#isi-cart').on('click', '.del', function() {
 			var id = $(this).data('id');
-			console.log(id);
 			window.livewire.emit('delItem', $(this).data('id'));
 		});
 
@@ -243,7 +239,6 @@
 		$('#data_meja').on('change', function() {
 			var data = $(this).val();
 			window.livewire.emit('upMeja', data);
-			console.log(data);
 		});
 
 		window.livewire.on('clearSelect2', function(data) {
@@ -258,6 +253,10 @@
       })
 
       $('#data_meja').trigger("change");
+		});
+
+		$('#keranjangModal').on('shown.bs.modal', function() {
+			window.livewire.emit('getSelect2Meja');
 		});
 
 		$('#isi-cart').on('change', '.keterangan', function() {
