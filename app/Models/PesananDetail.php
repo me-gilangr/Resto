@@ -10,7 +10,7 @@ class PesananDetail extends Model
 	use SoftDeletes;
 
 	protected $table = 'T10_D_PESANAN';
-	protected $primaryKey = ['FNO_H_MENU', 'FNO_H_MENU'];
+	protected $primaryKey = ['FNO_PESAN', 'FNO_H_MENU'];
 	protected $keyType = 'string';
 	public $incrementing = false;
 
@@ -30,6 +30,11 @@ class PesananDetail extends Model
 
 	public function menu()
 	{
-		return $this->hasMany('App\Models\DetailMenu', 'FNO_H_MENU', 'FNO_H_MENU');
+		return $this->hasOne('App\Models\DetailMenu', 'FNO_H_MENU', 'FNO_H_MENU');
+	}
+
+	public function header()
+	{
+		return $this->belongsTo('App\Models\PesananHeader', 'FNO_PESAN', 'FNO_PESAN');
 	}
 }

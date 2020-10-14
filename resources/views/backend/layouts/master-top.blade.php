@@ -32,6 +32,8 @@
   <link rel="stylesheet" href="{{ asset('backend') }}/dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <!-- Toastr -->
+  <link rel="stylesheet" href="{{ asset('backend') }}/plugins/toastr/toastr.min.css">
 
   @livewireStyles
   @yield('css')
@@ -184,6 +186,8 @@
 <script src="{{ asset('backend') }}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('backend') }}/dist/js/adminlte.min.js"></script>
+<!-- Toastr -->
+<script src="{{ asset('backend') }}/plugins/toastr/toastr.min.js"></script>
 
 
 @livewireScripts

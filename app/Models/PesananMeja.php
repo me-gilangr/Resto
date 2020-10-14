@@ -17,4 +17,9 @@ class PesananMeja extends Model
 	protected $fillable = [
 		'FNO_PESAN', 'FNO_MEJA'
 	];
+
+	public function header()
+	{
+		return $this->belongsTo('App\Models\PesananMeja', 'FNO_PESAN', 'FNO_PESAN');
+	}
 }

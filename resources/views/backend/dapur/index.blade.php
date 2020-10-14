@@ -10,7 +10,7 @@
 
 @section('content')
 <div class="row">
-  <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+  {{-- <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
 		<div class="card card-info">
       <div class="card-header">
         <h4 class="card-title">Daftar Masak</h4>
@@ -48,8 +48,8 @@
         </ul>
       </div>
     </div>
-  </div>
-  <div class="col-xs-12 col-sm-12 col-md-9 col-lg-6 col-xl-6">
+  </div> --}}
+  <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-7">
     {{-- <div class="row">
       <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-xs-6">
         <div class="card card-success">
@@ -128,10 +128,10 @@
 			</div>
 		</div>
   </div>
-  <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+  <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
     <div class="card card-info">
       <div class="card-header">
-        <h4 class="card-title">Daftar Masak</h4>
+        <h4 class="card-title">Daftar Masak &ensp; - &ensp; {{ auth()->user()->name }}</h4>
       </div>
       <div class="card-body p-0">
         <ul class="list-group" style="border-radius: 0px;">
