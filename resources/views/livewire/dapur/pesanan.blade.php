@@ -1,8 +1,8 @@
 <div>
 	<div class="row">
-		<div class="col-12">
+		{{-- <div class="col-12">
 			<button class="btn btn-info btn-block" wire:click="getPemasakan()">PEMASAKANNN</button>
-		</div>
+		</div> --}}
 		@if ($data_pesanan != null)
 			@foreach ($data_pesanan as $value)
 				@if ($this->cekPemasakan($value['FNO_PESAN'], $value['FNO_H_MENU']) == false)

@@ -25,6 +25,6 @@ class PemasakanDetail extends Model
 
 	public function produk()
 	{
-		return $this->hasMany('App\Models\Produk', 'FNO_PRODUK', 'FNO_PRODUK');
+		return $this->hasOne('App\Models\Produk', 'FNO_PRODUK', 'FNO_PRODUK');
 	}
 }

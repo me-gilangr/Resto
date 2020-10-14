@@ -134,36 +134,7 @@
         <h4 class="card-title">Daftar Masak &ensp; - &ensp; {{ auth()->user()->name }}</h4>
       </div>
       <div class="card-body p-0">
-        <ul class="list-group" style="border-radius: 0px;">
-          <li class="list-group-item d-flex justify-content-between align-items-center">
-            Caffee Latte A
-            <span class="badge badge-info pl-2 pr-2 text-md">2</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between align-items-center">
-            Caffee Latte B
-            <span class="badge badge-info pl-2 pr-2 text-md">2</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between align-items-center">
-            Caffee Latte C
-            <span class="badge badge-info pl-2 pr-2 text-md">1</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between align-items-center">
-            Nasi Goreng A
-            <span class="badge badge-info pl-2 pr-2 text-md">1</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between align-items-center">
-            Nasi Goreng B
-            <span class="badge badge-info pl-2 pr-2 text-md">2</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between align-items-center">
-            Nasi Goreng C
-            <span class="badge badge-info pl-2 pr-2 text-md">5</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between align-items-center">
-            Lemon Tea A
-            <span class="badge badge-info pl-2 pr-2 text-md">3</span>
-          </li>
-        </ul>
+        @livewire('dapur.daftar-pemasakan')	
       </div>
     </div>
   </div>

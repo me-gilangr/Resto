@@ -37,15 +37,6 @@ class Pesanan extends Component
 		$this->fill(['data_pesanan' => $pesanan]);
 	}
 
-	public function cekPemasakan($noPesan, $noMenu)
-	{
-		$found = current(array_filter($this->data_pemasakan, function($item) use($noPesan, $noMenu) {
-			return isset($item['FNO_PESAN']) && $noPesan == $item['FNO_PESAN'] && isset($item['FNO_H_MENU']) && $noMenu == $item['FNO_H_MENU'];
-		}));
-
-		return $found;
-	}
-
 	public function getPemasakan()
 	{
 		$pemasakan = PemasakanHeader::with('pesananHeader')
@@ -53,6 +44,15 @@ class Pesanan extends Component
 			->where('USER_ID', '=', auth()->user()->id)
 			->get()->toArray();
 		$this->fill(['data_pemasakan' => $pemasakan]);	
+	}
+
+	public function cekPemasakan($noPesan, $noMenu)
+	{
+		$found = current(array_filter($this->data_pemasakan, function($item) use($noPesan, $noMenu) {
+			return isset($item['FNO_PESAN']) && $noPesan == $item['FNO_PESAN'] && isset($item['FNO_H_MENU']) && $noMenu == $item['FNO_H_MENU'];
+		}));
+
+		return $found;
 	}
 
 	public function ambilPesanan($kodePesanan, $kodeMenu)
@@ -87,6 +87,7 @@ class Pesanan extends Component
 
 			$this->emit('success', 'Pesanan di-Masukan Daftar Masak.');
 			$this->getPesanan();
+			$this->emit('get_pemasakan');
 
 		} catch (\Exception $e) {
 			DB::rollback();

@@ -10,7 +10,7 @@ class PemasakanHeader extends Model
 	use SoftDeletes;
 
 	protected $table = 'T10_H_PEMASAKAN';
-	protected $primaryKey = 'FNO_PEMASAKAN';
+	protected $primaryKey = 'FNO_H_PEMASAKAN';
 	protected $keyType = 'string';
 	public $incrementing = false;
 	
@@ -26,6 +26,11 @@ class PemasakanHeader extends Model
 	public function pesananHeader()
 	{
 		return $this->hasOne('App\Models\PesananHeader', 'FNO_PESAN', 'FNO_PESAN');
+	}
+
+	public function pesananDetail()
+	{
+		return $this->hasOne('App\Models\PesananDetail', 'FNO_PESAN', 'FNO_PESAN');
 	}
 
 	public function menuHeader()
