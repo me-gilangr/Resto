@@ -46,13 +46,20 @@ class Pesanan extends Component
 				$q->where('FTEMPAT', '=', 'D');
 			})->orderBy('created_at', 'ASC')
 			->get();
-		dd($pesanan->toArray());
+		// dd($pesanan->toArray());
 
 		$pemasakan = PemasakanHeader::with('pesananHeader')
 			->with('menuHeader')
 			->where('USER_ID', '=', auth()->user()->id)
-			->get();
-		$this->fill(['data_pemasakan' => $pemasakan]);
+			->get()->toArray();
+		// $this->fill(['data_pemasakan' => $pemasakan]);
+
+		$found = current(array_filter($pemasakan, function($item) {
+			return isset($item['FNO_PESAN']) && '201007001' == $item['FNO_PESAN'] && isset($item['FNO_H_MENU']) && 'F0101' == $item['FNO_H_MENU'];
+		}));
+		
+		dd($found);
+
 	}
 
 	public function ambilPesanan($kodePesanan, $kodeMenu)
