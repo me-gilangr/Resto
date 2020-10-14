@@ -5,6 +5,7 @@
 		</div>
 		@if ($data_pesanan != null)
 			@foreach ($data_pesanan as $value)
+				@if ($this->cekPemasakan($value['FNO_PESAN'], $value['FNO_H_MENU']) == false)
 				<div class="col-12">
 					<div class="info-box">
 						<span class="info-box-icon bg-info"><i class="fa fa-utensils"></i></span>
@@ -42,7 +43,7 @@
 								</tr>
 								@foreach ($value['menu']['produk'] as $value2)
 								<tr>
-									<td class="p-2" colspan="3" style="border: 1px solid #000000;"><b><u>{{ $value2['FN_NAMA'] }}</u> <small class="badge badge-success float-right"><i class="fa fa-utensils"></i> &ensp; {{ $value['FJML'] }} Item</small></b></td>
+									<td class="p-2" colspan="3" style="border: 1px solid #000000;"><b><u>{{ $value2['FN_NAMA'] }}</u> <small class="badge badge-success float-right"><i class="fa fa-utensils"></i> &ensp; {{ $value['FJML'] }} Porsi</small></b></td>
 								</tr>
 								@endforeach
 								<tr>
@@ -56,6 +57,7 @@
 						</div>
 					</div>
 				</div>
+				@endif
 			@endforeach
 		@endif
 	</div>
@@ -66,5 +68,10 @@
 	document.addEventListener('livewire:load', function(event) {
 		window.livewire.emit('get_pesanan');
 	});
+
+	setTimeout(() => {
+		window.livewire.emit('get_pesanan');
+		console.log('getData');
+	}, 5000);
 </script>
 @endpush

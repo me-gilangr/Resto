@@ -29,6 +29,7 @@ class Pesanan extends Component
 
 	public function getPesanan()
 	{
+		$this->getPemasakan();
 		$pesanan = PesananDetail::with('header.meja')->with('menu.header')->with('menu.produk.groupBuat')->whereHas('menu.produk.groupBuat', function($q) {
 			$q->where('FTEMPAT', '=', 'D');
 		})->orderBy('created_at', 'ASC')->get()->toArray();
@@ -36,29 +37,32 @@ class Pesanan extends Component
 		$this->fill(['data_pesanan' => $pesanan]);
 	}
 
+	public function cekPemasakan($noPesan, $noMenu)
+	{
+		$found = current(array_filter($this->data_pemasakan, function($item) use($noPesan, $noMenu) {
+			return isset($item['FNO_PESAN']) && $noPesan == $item['FNO_PESAN'] && isset($item['FNO_H_MENU']) && $noMenu == $item['FNO_H_MENU'];
+		}));
+
+		return $found;
+	}
+
 	public function getPemasakan()
 	{
-		$pesanan = PesananDetail::with('header.meja')
-			->with('header.pemasakan')
-			->with('menu.header')
-			->with('menu.produk.groupBuat')
-			->whereHas('menu.produk.groupBuat', function($q) {
-				$q->where('FTEMPAT', '=', 'D');
-			})->orderBy('created_at', 'ASC')
-			->get();
+		// $pesanan = PesananDetail::with('header.meja')
+		// 	->with('header.pemasakan')
+		// 	->with('menu.header')
+		// 	->with('menu.produk.groupBuat')
+		// 	->whereHas('menu.produk.groupBuat', function($q) {
+		// 		$q->where('FTEMPAT', '=', 'D');
+		// 	})->orderBy('created_at', 'ASC')
+		// 	->get();
 		// dd($pesanan->toArray());
 
 		$pemasakan = PemasakanHeader::with('pesananHeader')
 			->with('menuHeader')
 			->where('USER_ID', '=', auth()->user()->id)
 			->get()->toArray();
-		// $this->fill(['data_pemasakan' => $pemasakan]);
-
-		$found = current(array_filter($pemasakan, function($item) {
-			return isset($item['FNO_PESAN']) && '201007001' == $item['FNO_PESAN'] && isset($item['FNO_H_MENU']) && 'F0101' == $item['FNO_H_MENU'];
-		}));
-		
-		dd($found);
+		$this->fill(['data_pemasakan' => $pemasakan]);	
 
 	}
 

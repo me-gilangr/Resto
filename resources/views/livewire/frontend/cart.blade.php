@@ -174,7 +174,7 @@
 						if (item.attributes.keterangan != '') {
 							ket = item.attributes.keterangan;
 						} else {
-							ket = 'Tidak Ada Keterangan.';
+							ket = '';
 						}
 						$('#isi-cart').append(`
 							<tr>

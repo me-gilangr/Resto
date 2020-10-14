@@ -223,7 +223,7 @@ class Cart extends Component
 	public function changeKet($value, $id)
 	{
 		if (auth()->check()) {
-			$cart = ShoppingCart::session(date('Ymd'));
+			$cart = ShoppingCart::session(auth()->user()->id);
 		} else {
 			$cart = ShoppingCart::session(date('Ymd'));
 		}
