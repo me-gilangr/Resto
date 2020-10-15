@@ -120,6 +120,9 @@
 				<div class="card">
 					<div class="card-header">
 						<h4 class="card-title">Data Pesanan</h4>
+						<div class="card-tools">
+							<p id="countdown" class="m-0">Bla Bla Bla</p>
+						</div>
 					</div>
 					<div class="card-body">
 						@livewire('dapur.pesanan')
@@ -131,7 +134,7 @@
   <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
     <div class="card card-info">
       <div class="card-header">
-        <h4 class="card-title">Daftar Masak &ensp; - &ensp; {{ auth()->user()->name }}</h4>
+				<h4 class="card-title">Daftar Masak &ensp; - &ensp; {{ auth()->user()->name }}</h4>
       </div>
       <div class="card-body p-0">
         @livewire('dapur.daftar-pemasakan')	
@@ -139,4 +142,18 @@
     </div>
   </div>
 </div>
+@endsection
+@section('script')
+<script>
+$(document).ready(function() {
+	var counter = 10;
+	var interval = setInterval(function() {
+		counter--;
+		$('#countdown').text('Data Akan di-Refresh dalam '+ counter + ' detik');
+		if (counter == 0) {
+				counter = 10;
+		}
+	}, 1000);
+});
+</script>
 @endsection

@@ -22,24 +22,7 @@ class DaftarMenu extends Component
 
 	public function render()
 	{
-		$menu = DB::select( DB::raw('
-		SELECT
-			d.FNO_KATEGORI,
-			d.FN_KATEGORI,
-			b.FN_MENU,
-			b.FHARGAJUAL,
-			b.FGAMBAR,
-			b.FNO_H_MENU
-		FROM t00_d_menu as a
-		INNER JOIN t00_h_menu as b
-		on a.FNO_H_MENU=b.FNO_H_MENU
-		INNER JOIN t00_m_produk as c
-		on c.FNO_PRODUK=a.FNO_PRODUK
-		INNER JOIN t00_ref_produk as d
-		on d.FNO_KATEGORI=c.FNO_KATEGORI
-		WHERE b.deleted_at IS NULL
-		GROUP BY d.FNO_KATEGORI, d.FN_KATEGORI,	b.FN_MENU,	b.FHARGAJUAL,	b.FGAMBAR, b.FNO_H_MENU') );
-
+		$menu = HeaderMenu::where('FSTATUS', '=', 1)->get();
 		return view('livewire.frontend.daftar-menu', compact('menu'));
 	}
 

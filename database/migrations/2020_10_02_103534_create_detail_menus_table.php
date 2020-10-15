@@ -18,6 +18,7 @@ class CreateDetailMenusTable extends Migration
 					$table->foreign('FNO_H_MENU')->references('FNO_H_MENU')->on('T00_H_MENU');
 					$table->char('FNO_PRODUK', 6);
 					$table->foreign('FNO_PRODUK')->references('FNO_PRODUK')->on('T00_M_PRODUK');
+					$table->integer('FJML');
 					$table->softDeletes();
 					$table->timestamps();
 

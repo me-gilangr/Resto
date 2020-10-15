@@ -14,7 +14,7 @@ class CreatePesananHeadersTable extends Migration
     public function up()
     {
         Schema::create('T10_H_PESANAN', function (Blueprint $table) {
-					$table->char('FNO_PESAN', 9)->primary();
+					$table->char('FNO_H_PESAN', 9)->primary();
 					$table->date('TGL_PESAN');
 					$table->string('FATAS_NAMA', 30);
 					$table->boolean('FSTATUS_TRANSAKSI');

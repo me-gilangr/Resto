@@ -10,12 +10,13 @@ class PesananDetail extends Model
 	use SoftDeletes;
 
 	protected $table = 'T10_D_PESANAN';
-	protected $primaryKey = ['FNO_PESAN', 'FNO_H_MENU'];
+	protected $primaryKey = 'FNO_D_PESAN';
 	protected $keyType = 'string';
 	public $incrementing = false;
 
 	protected $fillable = [
-		'FNO_PESAN', 
+		'FNO_D_PESAN', 
+		'FNO_H_PESAN', 
 		'FNO_H_MENU', 
 		'FJML', 
 		'FHARGA', 
@@ -28,13 +29,18 @@ class PesananDetail extends Model
 		'FDISC' => 0,
 	];
 
-	public function menu()
+	public function menuHeader()
 	{
-		return $this->hasOne('App\Models\DetailMenu', 'FNO_H_MENU', 'FNO_H_MENU');
+		return $this->hasOne('App\Models\HeaderMenu', 'FNO_H_MENU', 'FNO_H_MENU');
+	}
+
+	public function menuDetail()
+	{
+		return $this->hasMany('App\Models\DetailMenu', 'FNO_H_MENU', 'FNO_H_MENU');
 	}
 
 	public function header()
 	{
-		return $this->belongsTo('App\Models\PesananHeader', 'FNO_PESAN', 'FNO_PESAN');
+		return $this->belongsTo('App\Models\PesananHeader', 'FNO_H_PESAN', 'FNO_H_PESAN');
 	}
 }

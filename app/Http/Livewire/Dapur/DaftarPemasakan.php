@@ -2,7 +2,10 @@
 
 namespace App\Http\Livewire\Dapur;
 
+use App\Models\PemasakanDetail;
 use App\Models\PemasakanHeader;
+use App\Models\PesananDetail;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class DaftarPemasakan extends Component
@@ -21,12 +24,64 @@ class DaftarPemasakan extends Component
 	public function getPemasakan()
 	{
 		try {
-			$data = PemasakanHeader::where('USER_ID', '=', auth()->user()->id)->get();
+			$data = PemasakanHeader::with('detail.produk.groupBuat')->
+			whereHas('detail', function($q) {
+				$q->where('FSTATUS', '=', 0);
+			})
+			->where('USER_ID', '=', auth()->user()->id)->get();
 			$this->reset(['data_pemasakan']);
 			$this->fill(['data_pemasakan' => $data]);
-			// dd($data);
 		} catch (\Exception $e) {
+			dd($e);
 			$this->emit('error', 'Terjadi Kesalahan !');
+		}
+	}
+
+	public function selesai($kodePemasakan, $kodeProduk)
+	{
+		try {
+			DB::beginTransaction();
+
+			$pemasakan = PemasakanHeader::findOrFail($kodePemasakan);
+			$produk = $pemasakan->detail()->where('FNO_H_PEMASAKAN', '=', $kodePemasakan)->whereHas('produk.groupBuat', function ($q) {
+				$q->where('FTEMPAT', '=', 'D');
+			})->get();
+			
+			foreach ($produk as $key => $value) {
+				$update = PemasakanDetail::where('FNO_H_PEMASAKAN', '=', $value->FNO_H_PEMASAKAN)
+					->where('FNO_PRODUK', '=', $value->FNO_PRODUK)
+					->update([
+						'FSTATUS' => 1,
+					]);
+			}
+
+			$status = 1;
+			foreach ($pemasakan->detail as $key => $value) {
+				if ($status == 1) {
+					if ($value->FSTATUS == 1) {
+						$status = 1;
+					} else {
+						$status = 0;
+					}
+				} else {
+					break;
+				}
+			}
+
+			if ($status == 1) {
+				$pesanan = PesananDetail::where('FNO_D_PESAN', '=', $pemasakan->FNO_D_PESAN)->firstOrFail();
+				$pesanan->update([
+					'FSTATUS_PESAN' => '4',
+				]);
+			}
+
+			DB::commit();
+			$this->emit('success', 'Status Makanan Sudah di-Buat.');
+			$this->emit('get_pemasakan');
+		} catch (\Exception $e) {
+			DB::rollback();
+			$this->emit('error', 'Terjadi Kesalahan !');
+			dd($e);
 		}
 	}
 }

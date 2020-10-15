@@ -26,6 +26,10 @@ class HeaderMenu extends Model
 	public function detail()
 	{
 		return $this->hasMany('App\Models\DetailMenu', 'FNO_H_MENU', 'FNO_H_MENU');
+	}
 
+	public function pesanan()
+	{
+		return $this->belongsTo('App\Models\PesananDetail', 'FNO_H_MENU', 'FNO_H_MENU');
 	}
 }

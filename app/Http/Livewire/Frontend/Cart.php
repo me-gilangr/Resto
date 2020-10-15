@@ -130,10 +130,10 @@ class Cart extends Component
 				$date = date('Y');
 				$tahun = substr($date, 2, 2);
 				$date = date('md');
-				$kode = PesananHeader::withTrashed()->where('FNO_PESAN', 'like', $tahun.$date.'%')->get();
+				$kode = PesananHeader::withTrashed()->where('FNO_H_PESAN', 'like', $tahun.$date.'%')->get();
 				if (count($kode) > 0) {
 					$array = count($kode) - 1;
-					$data = $kode[$array]->FNO_PESAN;
+					$data = $kode[$array]->FNO_H_PESAN;
 					$hapus = (int) substr($data,6,3);
 					$hapus++;
 					$kodePesanan = $tahun . $date . sprintf("%03s", $hapus);
@@ -142,19 +142,31 @@ class Cart extends Component
 				}
 
 				$header = PesananHeader::firstOrCreate([
-					'FNO_PESAN' => $kodePesanan,
+					'FNO_H_PESAN' => $kodePesanan,
 					'TGL_PESAN' => date('Ymd'),
 					'FATAS_NAMA' => $this->atasNama,
 					'FSTATUS_TRANSAKSI' => false,
 				]);
 
 				foreach ($this->cart as $key => $value) {
+					$kodeD = PesananDetail::withTrashed()->where('FNO_D_PESAN', 'like', $kodePesanan.'%')->get();
+					if (count($kodeD) > 0) {
+						$array2 = count($kodeD) - 1;
+						$data2 = $kodeD[$array2]->FNO_D_PESAN;
+						$hapus2 = (int) substr($data2,9,2);
+						$hapus2++;
+						$kodeDPesanan = $kodePesanan . sprintf("%02s", $hapus2);
+					}else{
+						$kodeDPesanan = $kodePesanan . '01';
+					}
+
 					$menu = HeaderMenu::where('FNO_H_MENU', '=', $value['id'])->firstOrFail();
 					$detail = PesananDetail::create([
-						'FNO_PESAN' => $kodePesanan,
+						'FNO_D_PESAN' => $kodeDPesanan,
+						'FNO_H_PESAN' => $kodePesanan,
 						'FNO_H_MENU' => $menu->FNO_H_MENU,
 						'FJML' => $value['quantity'],
-						'FHARGA' => $menu->FHARGAPOKOK,
+						'FHARGA' => $menu->FHARGAJUAL,
 						'FKET' => $value['attributes']['keterangan'],
 						'FSTATUS_PESAN' => '2',
 					]);
@@ -163,7 +175,7 @@ class Cart extends Component
 				foreach ($this->meja as $key => $value) {
 					$meja = Meja::where('FNO_MEJA', '=', $value)->firstOrFail();
 					$mejaPesanan = PesananMeja::create([
-						'FNO_PESAN' => $kodePesanan,
+						'FNO_H_PESAN' => $kodePesanan,
 						'FNO_MEJA' => $meja->FNO_MEJA,
 					]);
 

@@ -12,7 +12,11 @@ class DetailMenu extends Model
 	public $incrementing = false;
 
 	protected $fillable = [
-		'FNO_H_MENU', 'FNO_PRODUK'
+		'FNO_H_MENU', 'FNO_PRODUK', 'FJML'
+	];
+
+	protected $attributes = [
+		'FJML' => 1,
 	];
 
 	public function header()
@@ -22,6 +26,6 @@ class DetailMenu extends Model
 
 	public function produk()
 	{
-		return $this->hasMany('App\Models\Produk', 'FNO_PRODUK', 'FNO_PRODUK');
+		return $this->hasOne('App\Models\Produk', 'FNO_PRODUK', 'FNO_PRODUK');
 	}
 }

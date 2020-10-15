@@ -17,5 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call(KodeGroupSeeder::class);
         $this->call(KategoriSeeder::class);
         $this->call(MejaSeeder::class);
+        $this->call(ProdukTableSeeder::class);
+        $this->call(MenuTableSeeder::class);
     }
 }

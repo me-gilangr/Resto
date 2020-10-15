@@ -15,10 +15,8 @@ class CreatePemasakanHeadersTable extends Migration
     {
         Schema::create('T10_H_PEMASAKAN', function (Blueprint $table) {
 					$table->char('FNO_H_PEMASAKAN', 10)->primary();
-					$table->char('FNO_PESAN', 9);
-					$table->foreign('FNO_PESAN')->references('FNO_PESAN')->on('T10_H_PESANAN');
-					$table->char('FNO_H_MENU', 5);
-					$table->foreign('FNO_H_MENU')->references('FNO_H_MENU')->on('T00_H_MENU');
+					$table->char('FNO_D_PESAN', 11);
+					$table->foreign('FNO_D_PESAN')->references('FNO_D_PESAN')->on('T10_D_PESANAN');
 					$table->bigInteger('USER_ID')->unsigned();
 					$table->foreign('USER_ID')->references('id')->on('users');
 					$table->softDeletes();

@@ -14,8 +14,9 @@ class CreatePesananDetailsTable extends Migration
     public function up()
     {
         Schema::create('T10_D_PESANAN', function (Blueprint $table) {
-					$table->char('FNO_PESAN', 9);
-					$table->foreign('FNO_PESAN')->references('FNO_PESAN')->on('T10_H_PESANAN');
+					$table->char('FNO_D_PESAN', 11)->primary();
+					$table->char('FNO_H_PESAN', 9);
+					$table->foreign('FNO_H_PESAN')->references('FNO_H_PESAN')->on('T10_H_PESANAN');
 					$table->char('FNO_H_MENU', 5);
 					$table->foreign('FNO_H_MENU')->references('FNO_H_MENU')->on('T00_H_MENU');
 					$table->integer('FJML');
@@ -25,8 +26,6 @@ class CreatePesananDetailsTable extends Migration
 					$table->char('FSTATUS_PESAN', 1);
 					$table->softDeletes();
 					$table->timestamps();
-
-					$table->primary(['FNO_PESAN', 'FNO_H_MENU']);
         });
     }
 

@@ -15,7 +15,7 @@ class PemasakanHeader extends Model
 	public $incrementing = false;
 	
 	protected $fillable = [
-		'FNO_H_PEMASAKAN', 'FNO_PESAN', 'FNO_H_MENU', 'USER_ID'
+		'FNO_H_PEMASAKAN', 'FNO_D_PESAN', 'USER_ID'
 	];
 
 	public function detail()
@@ -23,19 +23,9 @@ class PemasakanHeader extends Model
 		return $this->hasMany('App\Models\PemasakanDetail', 'FNO_H_PEMASAKAN', 'FNO_H_PEMASAKAN');
 	}
 
-	public function pesananHeader()
-	{
-		return $this->hasOne('App\Models\PesananHeader', 'FNO_PESAN', 'FNO_PESAN');
-	}
-
 	public function pesananDetail()
 	{
-		return $this->hasOne('App\Models\PesananDetail', 'FNO_PESAN', 'FNO_PESAN');
-	}
-
-	public function menuHeader()
-	{
-		return $this->belongsTo('App\Models\HeaderMenu', 'FNO_H_MENU', 'FNO_H_MENU');
+		return $this->hasOne('App\Models\PesananDetail', 'FNO_D_PESAN', 'FNO_D_PESAN');
 	}
 }
 

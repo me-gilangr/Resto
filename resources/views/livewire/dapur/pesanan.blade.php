@@ -1,65 +1,66 @@
 <div>
 	<div class="row">
-		{{-- <div class="col-12">
-			<button class="btn btn-info btn-block" wire:click="getPemasakan()">PEMASAKANNN</button>
-		</div> --}}
-		@if ($data_pesanan != null)
-			@foreach ($data_pesanan as $value)
-				@if ($this->cekPemasakan($value['FNO_PESAN'], $value['FNO_H_MENU']) == false)
-				<div class="col-12">
-					<div class="info-box">
-						<span class="info-box-icon bg-info"><i class="fa fa-utensils"></i></span>
-						<div class="info-box-content">
-							<span class="info-box-text">
-								<h4>
-									{{ $value['menu']['header']['FN_MENU'] }}
-									<div class="float-right">
-										@php
-											$count = count($value['header']['meja']);
-											$cm = 0;
-										@endphp
-										@foreach ($value['header']['meja'] as $value3)
-											@php
-												$cm += 1;
-											@endphp
-											<u>{{ $value3['FNO_MEJA'] }}{{ $cm != $count ? ', ':'' }}</u>
-										@endforeach
-									</div>
-								</h4>
-							</span>
-							<table>
-								<tr>
-									<td><b>Jumlah</b></td>
-									<td>:</td>
-									<td>{{ $value['FJML'] }} Item</td>
-								</tr>
-								<tr>
-									<td><b>Keterangan</b></td>
-									<td>:</td>
-									<td>{{ $value['FKET'] != '' ? $value['FKET'] : '-' }}</td>
-								</tr>
-								<tr>
-									<td colspan="3" class="pb-2"><b>Data Masakan &ensp; : </b></td>
-								</tr>
-								@foreach ($value['menu']['produk'] as $value2)
-								<tr>
-									<td class="p-2" colspan="3" style="border: 1px solid #000000;"><b><u>{{ $value2['FN_NAMA'] }}</u> <small class="badge badge-success float-right"><i class="fa fa-utensils"></i> &ensp; {{ $value['FJML'] }} Porsi</small></b></td>
-								</tr>
+		@forelse ($data_pesanan as $item)
+		<div class="col-12">
+			<div class="info-box">
+				<span class="info-box-icon bg-info"><i class="fa fa-utensils"></i></span>
+				<div class="info-box-content">
+					<span class="info-box-text">
+						<h4>
+							{{ $item->menuHeader->FN_MENU }}
+							<div class="float-right">
+								@php
+									$count = count($item->header->meja);
+									$cm = 0;
+								@endphp
+								@foreach ($item->header->meja as $item2)
+									@php
+										$cm += 1;
+									@endphp
+									<u>{{ $item2->FNO_MEJA }}{{ $cm != $count ? ', ':'' }}</u>
 								@endforeach
+							</div>
+						</h4>
+					</span>
+					<table>
+						<tr>
+							<td><b>Jumlah</b></td>
+							<td>:</td>
+							<td>{{ $item->FJML }} Item</td>
+						</tr>
+						<tr>
+							<td><b>Keterangan</b></td>
+							<td>:</td>
+							<td>{{ $item->FKET != '' ? $item->FKET : '-' }}</td>
+						</tr>
+						<tr>
+							<td colspan="3" class="pb-2"><b>Data Masakan &ensp; : </b></td>
+						</tr>
+						@foreach ($item->menuDetail as $item2)
+							@foreach ($item2->produk->groupBuat as $item3)
+								@if ($item3->FTEMPAT == 'D')
 								<tr>
-									<td colspan="3" class="pt-2">
-										<button class="btn btn-success btn-sm btn-block" style="border-radius: 0;" wire:click="ambilPesanan('{{ $value['FNO_PESAN'] }}', '{{ $value['FNO_H_MENU'] }}')">
-											Ambil Pesanan
-										</button>
-									</td>
+									<td class="p-2" colspan="3" style="border: 1px solid #000000;"><b><u>{{ $item2->produk->FN_NAMA }}</u> <small class="badge badge-success float-right"><i class="fa fa-utensils"></i> &ensp; {{ $item->FJML }} Porsi</small></b></td>
 								</tr>
-							</table>
-						</div>
-					</div>
+								@endif
+							@endforeach
+						@endforeach
+						<tr>
+							<td colspan="3" class="pt-2">
+								<button class="btn btn-success btn-sm btn-block" style="border-radius: 0;" wire:click="ambilPesanan('{{ $item->FNO_D_PESAN }}', '{{ $item->FNO_H_PESAN }}', '{{ $item->FNO_H_MENU }}')">
+									Ambil Pesanan
+								</button>
+							</td>
+						</tr>
+					</table>
 				</div>
-				@endif
-			@endforeach
-		@endif
+			</div>
+		</div>
+		@empty
+			<div class="col-12">
+				<h5 class="text-center">Belum Ada Pesanan.</h5>
+			</div>
+		@endforelse
 	</div>
 </div>
 
@@ -72,7 +73,7 @@
 	function getData() {
 		window.livewire.emit('get_pesanan');
 		console.log('getData');
-		setTimeout(getData, 5000);
+		setTimeout(getData, 10000);
 	}
 
 	getData();

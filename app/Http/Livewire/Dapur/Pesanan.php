@@ -29,55 +29,37 @@ class Pesanan extends Component
 
 	public function getPesanan()
 	{
-		$this->getPemasakan();
-		$pesanan = PesananDetail::with('header.meja')->with('menu.header')->with('menu.produk.groupBuat')->whereHas('menu.produk.groupBuat', function($q) {
+		$pesanan = PesananDetail::whereHas('menuDetail.produk.groupBuat', function($q) {
 			$q->where('FTEMPAT', '=', 'D');
-		})->orderBy('created_at', 'ASC')->get()->toArray();
-		// dd($pesanan[0]);
+		})->where('FSTATUS_PESAN', '=', '2')->get();
+		$this->reset(['data_pesanan']);
 		$this->fill(['data_pesanan' => $pesanan]);
 	}
-
-	public function getPemasakan()
-	{
-		$pemasakan = PemasakanHeader::with('pesananHeader')
-			->with('menuHeader')
-			->where('USER_ID', '=', auth()->user()->id)
-			->get()->toArray();
-		$this->fill(['data_pemasakan' => $pemasakan]);	
-	}
-
-	public function cekPemasakan($noPesan, $noMenu)
-	{
-		$found = current(array_filter($this->data_pemasakan, function($item) use($noPesan, $noMenu) {
-			return isset($item['FNO_PESAN']) && $noPesan == $item['FNO_PESAN'] && isset($item['FNO_H_MENU']) && $noMenu == $item['FNO_H_MENU'];
-		}));
-
-		return $found;
-	}
-
-	public function ambilPesanan($kodePesanan, $kodeMenu)
+	
+	public function ambilPesanan($kodeDetail, $kodePesanan, $kodeMenu)
 	{
 		try {
-			$pesanan = PesananDetail::where('FNO_PESAN', '=', $kodePesanan)->where('FNO_H_MENU', '=', $kodeMenu)->firstOrFail();
+			$pesanan = PesananDetail::where('FNO_D_PESAN', '=', $kodeDetail)->where('FNO_H_PESAN', '=', $kodePesanan)->where('FNO_H_MENU', '=', $kodeMenu)->firstOrFail();
 			DB::beginTransaction();
 
-			$updateStatus = PesananDetail::where('FNO_PESAN', '=', $kodePesanan)->where('FNO_H_MENU', '=', $kodeMenu)->update([
+			$updateStatus = PesananDetail::where('FNO_H_PESAN', '=', $kodePesanan)
+			->where('FNO_H_MENU', '=', $kodeMenu)
+			->update([
 				'FSTATUS_PESAN' => '3',
 			]);
 
 			$masak = PemasakanHeader::firstOrCreate([
 				'FNO_H_PEMASAKAN' => time(),
-				'FNO_PESAN' => $pesanan->FNO_PESAN,
-				'FNO_H_MENU' => $pesanan->FNO_H_MENU,
+				'FNO_D_PESAN' => $pesanan->FNO_D_PESAN,
 				'USER_ID' => auth()->user()->id,
 			]);
 
 			$jml = $pesanan->FJML;
 
-			foreach ($pesanan->menu->produk as $key => $value) {
+			foreach ($pesanan->menuDetail as $key => $value) {
 				$detail = PemasakanDetail::firstOrCreate([
 					'FNO_H_PEMASAKAN' => $masak->FNO_H_PEMASAKAN,
-					'FNO_PRODUK' => $value->FNO_PRODUK,
+					'FNO_PRODUK' => $value->produk->FNO_PRODUK,
 					'FJML' => $jml,
 					'FSTATUS' => 0,
 				]);

@@ -14,14 +14,14 @@ class CreatePesananMejasTable extends Migration
     public function up()
     {
         Schema::create('T10_D_PESAN_MEJA', function (Blueprint $table) {
-					$table->char('FNO_PESAN', 9);
+					$table->char('FNO_H_PESAN', 9);
 					$table->char('FNO_MEJA', 3);
-					$table->foreign('FNO_PESAN')->references('FNO_PESAN')->on('T10_H_PESANAN');
+					$table->foreign('FNO_H_PESAN')->references('FNO_H_PESAN')->on('T10_H_PESANAN');
 					$table->foreign('FNO_MEJA')->references('FNO_MEJA')->on('T00_M_MEJA');
 					$table->softDeletes();
 					$table->timestamps();
 
-					$table->primary(['FNO_PESAN', 'FNO_MEJA']);
+					$table->primary(['FNO_H_PESAN', 'FNO_MEJA']);
         });
     }
 
