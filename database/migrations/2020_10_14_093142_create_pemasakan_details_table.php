@@ -15,10 +15,14 @@ class CreatePemasakanDetailsTable extends Migration
     {
         Schema::create('T10_D_PEMASAKAN', function (Blueprint $table) {
 					$table->char('FNO_H_PEMASAKAN', 10);
+					$table->foreign('FNO_H_PEMASAKAN')->references('FNO_H_PEMASAKAN')->on('t10_h_pemasakan');
 					$table->char('FNO_PRODUK', 6);
 					$table->foreign('FNO_PRODUK')->references('FNO_PRODUK')->on('t00_m_produk');
+					$table->bigInteger('USER_ID')->nullable()->unsigned();
+					$table->foreign('USER_ID')->references('id')->on('users');
 					$table->integer('FJML');
-					$table->boolean('FSTATUS');
+					$table->boolean('FSTATUS')->default(0);
+					$table->char('FTEMPAT', '1');
 					$table->softDeletes();
 					$table->timestamps();
         });

@@ -1,4 +1,15 @@
 <div>
+	@php
+		// SELECT C.FNO_D_PESAN,E.FN_MENU, A.FNO_PRODUK,B.FN_NAMA,A.FJML
+		// FROM t10_d_pemasakan AS A INNER JOIN t00_m_produk AS B
+		// ON A.FNO_PRODUK=B.FNO_PRODUK
+		// INNER JOIN t10_h_pemasakan as C
+		// ON C.FNO_H_PEMASAKAN=A.FNO_H_PEMASAKAN
+		// INNER JOIN t10_d_pesanan AS D
+		// ON D.FNO_D_PESAN=C.FNO_D_PESAN
+		// INNER JOIN t00_h_menu AS E
+		// ON E.FNO_H_MENU=D.FNO_H_MENU
+	@endphp	
 	<ul class="list-group" style="border-radius: 0px;">
 		@foreach ($data_pemasakan as $item)
 			@foreach ($item->detail as $itemx)
@@ -24,7 +35,7 @@
 														{{ $item->pesananDetail->FJML }} Porsi
 													</li>
 												@endif
-											@endforeach
+												@endforeach
 										@empty
 											<li>
 												Belum Ada Daftar Yang Akan di-Masak.

@@ -38,7 +38,7 @@
 						</tr>
 						@foreach ($item->menuDetail as $item2)
 							@foreach ($item2->produk->groupBuat as $item3)
-								@if ($item3->FTEMPAT == 'D')
+								@if ($item3->FTEMPAT == 'B')
 								<tr>
 									<td class="p-2" colspan="3" style="border: 1px solid #000000;"><b><u>{{ $item2->produk->FN_NAMA }}</u> <small class="badge badge-success float-right"><i class="fa fa-utensils"></i> &ensp; {{ $item->FJML }} Porsi</small></b></td>
 								</tr>

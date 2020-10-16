@@ -15,7 +15,7 @@ class PemasakanHeader extends Model
 	public $incrementing = false;
 	
 	protected $fillable = [
-		'FNO_H_PEMASAKAN', 'FNO_D_PESAN', 'USER_ID'
+		'FNO_H_PEMASAKAN', 'FNO_D_PESAN',
 	];
 
 	public function detail()

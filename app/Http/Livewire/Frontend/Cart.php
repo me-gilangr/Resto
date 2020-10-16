@@ -4,6 +4,8 @@ namespace App\Http\Livewire\Frontend;
 
 use App\Models\HeaderMenu;
 use App\Models\Meja;
+use App\Models\PemasakanDetail;
+use App\Models\PemasakanHeader;
 use App\Models\PesananDetail;
 use App\Models\PesananHeader;
 use App\Models\PesananMeja;
@@ -170,6 +172,25 @@ class Cart extends Component
 						'FKET' => $value['attributes']['keterangan'],
 						'FSTATUS_PESAN' => '2',
 					]);
+
+					$pemasakanH = PemasakanHeader::firstOrCreate([
+						'FNO_H_PEMASAKAN' => time(),
+						'FNO_D_PESAN' => $detail->FNO_D_PESAN,
+					]);
+
+					foreach ($detail->menuDetail as $key => $value) {
+						dd($value->produk->groupBuat);
+						$pemasakanD = PemasakanDetail::firstOrCreate([
+							'FNO_H_PEMASAKAN' => $pemasakanH->FNO_H_PEMASAKAN,
+							'FNO_PRODUK' => $value->produk->FNO_PRODUK,
+							'USER_ID' => null,
+							'FJML' => $detail->FJML,
+							'FSTATUS' => 0,
+							'FTEMPAT' => '',
+						]);
+					}
+					
+					dd($pemasakanD);
 				}
 
 				foreach ($this->meja as $key => $value) {
