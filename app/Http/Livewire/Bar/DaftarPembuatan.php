@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Dapur;
+namespace App\Http\Livewire\Bar;
 
 use App\Models\PemasakanDetail;
 use App\Models\PemasakanHeader;
@@ -8,7 +8,7 @@ use App\Models\PesananDetail;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
-class DaftarPemasakan extends Component
+class DaftarPembuatan extends Component
 {
 	public $data_pemasakan = [];
 
@@ -18,7 +18,7 @@ class DaftarPemasakan extends Component
 
 	public function render()
 	{
-		return view('livewire.dapur.daftar-pemasakan');
+		return view('livewire.bar.daftar-pembuatan');
 	}
 
 	public function getPemasakan()
@@ -41,7 +41,7 @@ class DaftarPemasakan extends Component
 
 			$pemasakan = PemasakanHeader::findOrFail($kodePemasakan);
 			$produk = $pemasakan->detail()->where('FNO_H_PEMASAKAN', '=', $kodePemasakan)->whereHas('produk.groupBuat', function ($q) {
-				$q->where('FTEMPAT', '=', 'D');
+				$q->where('FTEMPAT', '=', 'B');
 			})->get();
 			
 			foreach ($produk as $key => $value) {

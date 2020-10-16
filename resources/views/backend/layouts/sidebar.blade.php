@@ -60,6 +60,15 @@
           </p>
         </a>
       </li>
+      <li class="nav-header pt-2 pl-3"><b><u>Bar</u></b></li>
+      <li class="nav-item">
+        <a href="{{ route('backend.bar') }}" class="nav-link">
+          <i class="nav-icon fa fa-mug-hot"></i>
+          <p>
+            Data Pembuatan
+          </p>
+        </a>
+      </li>
       <li class="nav-header pt-2 pl-3"><b><u>Pelayan</u></b></li>
       <li class="nav-item">
         <a href="{{ route('backend.data-pesanan') }}" class="nav-link">

@@ -3,7 +3,7 @@
 		@foreach ($data_pemasakan as $item)
 			@foreach ($item->detail as $itemx)
 				@foreach ($itemx->produk->groupBuat as $itemxx)
-					@if ($itemxx->FTEMPAT == 'D' && $itemx->FSTATUS == 0)
+					@if ($itemxx->FTEMPAT == 'B' && $itemx->FSTATUS == 0)
 						<li class="list-group-item" style="border-top: 1px solid #000000b3;">
 							<div class="row">
 								<div class="col-12 d-flex justify-content-between align-items-center">
@@ -17,7 +17,7 @@
 									<ul>
 										@forelse ($item->detail as $item3)
 											@foreach ($item3->produk->groupBuat as $item4)
-												@if ($item4->FTEMPAT == 'D')
+												@if ($item4->FTEMPAT == 'B')
 													<li>
 														{{ $item3->produk->FN_NAMA }}
 														&ensp; || &ensp;
@@ -44,7 +44,7 @@
 									@endforeach
 								</div>
 								<div class="col-12 pt-2 pb-2">
-									<button class="btn btn-info btn-block btn-sm" style="border-radius: 0px;" wire:click="selesai('{{ $item->FNO_H_PEMASAKAN }}')">
+									<button class="btn btn-success btn-block btn-sm" style="border-radius: 0px;" wire:click="selesai('{{ $item->FNO_H_PEMASAKAN }}')">
 										Selesai
 									</button>
 								</div>
@@ -57,7 +57,7 @@
 		<li class="list-group-item" style="border-top: 1px solid #000000b3;">
 			<div class="row d-flex justify-content-between align-items-center">
 				<div class="col-12 text-center">
-					<h5>Data Pemasakan Bagian Dapur</h5>
+					<h5>Data Pemasakan Bagian Bar</h5>
 				</div>
 			</div>
 		</li>
@@ -69,13 +69,11 @@
 	document.addEventListener('livewire:load', function(event) {
 		window.livewire.emit('get_pemasakan');
 	});
-
 	
 	function getData() {
 		window.livewire.emit('get_pemasakan');
 		setTimeout(getData, 10000);
 	}
 	getData();
-	
 </script>
 @endpush

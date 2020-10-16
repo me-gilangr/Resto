@@ -24,7 +24,8 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::get('/data-pesanan', 'Backend\IndexController@dataPesanan')->name('backend.data-pesanan');
 		Route::get('/transaksi-meja', 'Backend\IndexController@transaksiMeja')->name('backend.transaksi-meja');
 		
-    Route::get('/dapur', 'Backend\DapurController@index')->name('backend.dapur');
+		Route::get('/dapur', 'Backend\DapurController@index')->name('backend.dapur');
+		Route::get('/bar', 'Backend\BarController@index')->name('backend.bar');
 
 		Route::get('/meja', 'Backend\MejaController@index')->name('meja.index');
 		Route::get('/kode-group', 'Backend\KodeGroupController@index')->name('kode-group.index');
