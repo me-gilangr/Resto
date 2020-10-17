@@ -40,6 +40,9 @@ Route::group(['middleware' => ['auth']], function () {
 
 		Route::post('/json/kategori', 'Backend\MenuController@kategori')->name('json.kategori');
 		// Route::resource('menu', 'Backend\MenuController');
+
+		Route::get('/pesanan', 'Backend\PesananController@index')->name('backend.pesanan');
+		Route::get('/pesanan-meja', 'Backend\PesananController@meja')->name('backend.pesanan-meja');
 	});
 
 	Route::group(['prefix' => 'datatable', 'as' => 'datatable.'], function () {

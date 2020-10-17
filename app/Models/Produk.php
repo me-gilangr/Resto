@@ -14,7 +14,7 @@ class Produk extends Model
 	protected $keyType = 'string';
 
 	protected $fillable = [
-		'FNO_PRODUK', 'FNO_KATEGORI', 'FN_NAMA'
+		'FNO_PRODUK', 'FNO_KATEGORI', 'FN_NAMA', 'FTEMPAT'
 	];
 
 	public function kategori()

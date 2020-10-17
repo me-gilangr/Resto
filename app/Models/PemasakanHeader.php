@@ -10,7 +10,7 @@ class PemasakanHeader extends Model
 	use SoftDeletes;
 
 	protected $table = 'T10_H_PEMASAKAN';
-	protected $primaryKey = 'FNO_H_PEMASAKAN';
+	protected $primaryKey = ['FNO_H_PEMASAKAN', 'FNO_D_PESAN'];
 	protected $keyType = 'string';
 	public $incrementing = false;
 	

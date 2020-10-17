@@ -179,18 +179,16 @@ class Cart extends Component
 					]);
 
 					foreach ($detail->menuDetail as $key => $value) {
-						dd($value->produk->groupBuat);
 						$pemasakanD = PemasakanDetail::firstOrCreate([
+							'FNO_D_PEMASAKAN' => $pemasakanH->FNO_H_PEMASAKAN . rand(10, 99),
 							'FNO_H_PEMASAKAN' => $pemasakanH->FNO_H_PEMASAKAN,
 							'FNO_PRODUK' => $value->produk->FNO_PRODUK,
 							'USER_ID' => null,
 							'FJML' => $detail->FJML,
 							'FSTATUS' => 0,
-							'FTEMPAT' => '',
+							'FTEMPAT' => $value->produk->FTEMPAT,
 						]);
 					}
-					
-					dd($pemasakanD);
 				}
 
 				foreach ($this->meja as $key => $value) {

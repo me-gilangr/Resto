@@ -10,12 +10,13 @@ class PemasakanDetail extends Model
 	use SoftDeletes;
 
 	protected $table = 'T10_D_PEMASAKAN';
-	protected $primaryKey = ['FNO_PEMASAKAN', 'FNO_PRODUK'];
+	// protected $primaryKey = ['FNO_H_PEMASAKAN', 'FNO_PRODUK'];
+	protected $primaryKey = 'FNO_D_PEMASAKAN';
 	protected $keyType = 'string';
 	public $incrementing = false;
 
 	protected $fillable = [
-		'FNO_H_PEMASAKAN', 'FNO_PRODUK', 'USER_ID', 'FJML', 'FSTATUS', 'FTEMPAT'
+		'FNO_D_PEMASAKAN', 'FNO_H_PEMASAKAN', 'FNO_PRODUK', 'USER_ID', 'FJML', 'FSTATUS', 'FTEMPAT'
 	];
 
 	public function header()

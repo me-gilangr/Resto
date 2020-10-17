@@ -71,7 +71,7 @@
       </li>
       <li class="nav-header pt-2 pl-3"><b><u>Pelayan</u></b></li>
       <li class="nav-item">
-        <a href="{{ route('backend.data-pesanan') }}" class="nav-link">
+        <a href="{{ route('backend.pesanan') }}" class="nav-link">
           <i class="nav-icon fa fa-tag"></i>
           <p>
             Pemesanan Customer
@@ -79,7 +79,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="{{ route('backend.transaksi-meja') }}" class="nav-link">
+        <a href="{{ route('backend.pesanan-meja') }}" class="nav-link">
           <i class="nav-icon fa fa-table"></i>
           <p>
             Transaksi Meja

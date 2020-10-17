@@ -14,6 +14,7 @@ class CreatePemasakanDetailsTable extends Migration
     public function up()
     {
         Schema::create('T10_D_PEMASAKAN', function (Blueprint $table) {
+					$table->char('FNO_D_PEMASAKAN', 12)->primary();
 					$table->char('FNO_H_PEMASAKAN', 10);
 					$table->foreign('FNO_H_PEMASAKAN')->references('FNO_H_PEMASAKAN')->on('t10_h_pemasakan');
 					$table->char('FNO_PRODUK', 6);
@@ -25,6 +26,8 @@ class CreatePemasakanDetailsTable extends Migration
 					$table->char('FTEMPAT', '1');
 					$table->softDeletes();
 					$table->timestamps();
+
+					// $table->primary(['FNO_H_PEMASAKAN', 'FNO_PRODUK']);
         });
     }
 

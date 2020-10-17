@@ -55,21 +55,36 @@
 								</div>
 								<div class="form-group row">
 									<label class="col-12">Area Pembuatan : <span class="text-danger">*</span></label>
-									<div class="col-md-6 col-lg-6 col-xl-6  pl-2 pr-2">
+									{{-- <div class="col-md-6 col-lg-6 col-xl-6  pl-2 pr-2">
 										<div class="custom-control custom-checkbox">
-											<input class="custom-control-input" type="checkbox" wire:model="DAPUR" name="area" id="Dapur" value="D">
+											<input class="custom-control-input" type="checkbox" wire:model.debounce.100ms="DAPUR" name="area" id="Dapur" value="D">
 											<label for="Dapur" class="custom-control-label">Area Dapur</label>
 										</div>
 									</div>
 									<div class="col-md-6 col-lg-6 col-xl-6  pl-2 pr-2">
 										<div class="custom-control custom-checkbox">
-											<input class="custom-control-input" type="checkbox" wire:model="BAR" name="area" id="Bar" value="B">
+											<input class="custom-control-input" type="checkbox" wire:model.debounce.100ms="BAR" name="area" id="Bar" value="B">
 											<label for="Bar" class="custom-control-label">Area Bar</label>
+										</div>
+									</div> --}}
+									<div class="col-md-6 col-lg-6 col-xl-6 pl-2 pr-2">
+										<div class="custom-control custom-radio">
+											<input class="custom-control-input" type="radio" id="customRadio1" wire:model="FTEMPAT" name="customRadio" value="D">
+											<label for="customRadio1" class="custom-control-label">Area Dapur</label>
+										</div>
+									</div>
+									<div class="col-md-6 col-lg-6 col-xl-6 pl-2 pr-2">
+										<div class="custom-control custom-radio">
+											<input class="custom-control-input" type="radio" id="customRadio2" wire:model="FTEMPAT" name="customRadio" value="B">
+											<label for="customRadio2" class="custom-control-label">Area Bar</label>
 										</div>
 									</div>
 									<div class="col-12">
-										<span class="text-danger">
+										{{-- <span class="text-danger">
 											{{ $err_area }}
+										</span> --}}
+										<span class="invalid-feedback">
+											{{ $errors->first('FTEMPAT') }}
 										</span>
 									</div>
 								</div>

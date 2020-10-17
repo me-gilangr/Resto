@@ -24,36 +24,32 @@ class DaftarPembuatan extends Component
 	public function getPemasakan()
 	{
 		try {
-			$data = PemasakanHeader::with('detail.produk.groupBuat')
-			->where('USER_ID', '=', auth()->user()->id)->get();
+			$pesanan = PemasakanDetail::where('FTEMPAT', '=', 'B')->where('FSTATUS', '=', '0')->where('USER_ID', '=', auth()->user()->id)->get();
+
+			// dd($pesanan);
+
 			$this->reset(['data_pemasakan']);
-			$this->fill(['data_pemasakan' => $data]);
+			$this->fill(['data_pemasakan' => $pesanan]);
 		} catch (\Exception $e) {
 			dd($e);
 			$this->emit('error', 'Terjadi Kesalahan !');
 		}
 	}
 
-	public function selesai($kodePemasakan, $kodeProduk)
+	public function selesai($kodePemasakan, $kodePesanan)
 	{
 		try {
 			DB::beginTransaction();
 
-			$pemasakan = PemasakanHeader::findOrFail($kodePemasakan);
-			$produk = $pemasakan->detail()->where('FNO_H_PEMASAKAN', '=', $kodePemasakan)->whereHas('produk.groupBuat', function ($q) {
-				$q->where('FTEMPAT', '=', 'B');
-			})->get();
-			
-			foreach ($produk as $key => $value) {
-				$update = PemasakanDetail::where('FNO_H_PEMASAKAN', '=', $value->FNO_H_PEMASAKAN)
-					->where('FNO_PRODUK', '=', $value->FNO_PRODUK)
-					->update([
-						'FSTATUS' => 1,
-					]);
-			}
+			$pemasakan = PemasakanDetail::findOrFail($kodePemasakan);
+			$pemasakan->update([
+				'FSTATUS' => 1,
+			]);
 
+			$header = PemasakanHeader::where('FNO_H_PEMASAKAN', '=', $pemasakan->FNO_H_PEMASAKAN)->where('FNO_D_PESAN', '=', $kodePesanan)->firstOrFail();
+			
 			$status = 1;
-			foreach ($pemasakan->detail as $key => $value) {
+			foreach ($header->detail as $key => $value) {
 				if ($status == 1) {
 					if ($value->FSTATUS == 1) {
 						$status = 1;
@@ -66,7 +62,7 @@ class DaftarPembuatan extends Component
 			}
 
 			if ($status == 1) {
-				$pesanan = PesananDetail::where('FNO_D_PESAN', '=', $pemasakan->FNO_D_PESAN)->firstOrFail();
+				$pesanan = PesananDetail::where('FNO_D_PESAN', '=', $kodePesanan)->firstOrFail();
 				$pesanan->update([
 					'FSTATUS_PESAN' => '4',
 				]);

@@ -1,58 +1,46 @@
 <div>
 	<ul class="list-group" style="border-radius: 0px;">
-		@foreach ($data_pemasakan as $item)
-			@foreach ($item->detail as $itemx)
-				@foreach ($itemx->produk->groupBuat as $itemxx)
-					@if ($itemxx->FTEMPAT == 'D' && $itemx->FSTATUS == 0)
-						<li class="list-group-item" style="border-top: 1px solid #000000b3;">
-							<div class="row">
-								<div class="col-12 d-flex justify-content-between align-items-center">
-									{{ $loop->iteration }}. &ensp;
-									Menu 
-									{{ $item->pesananDetail->menuHeader->FN_MENU }}
+		@foreach ($data_pemasakan as $item) 
+			@if ($item->FTEMPAT == 'D' && $item->FSTATUS == 0)
+				<li class="list-group-item" style="border-top: 1px solid #000000b3;">
+					<div class="row">
+						<div class="col-12 d-flex justify-content-between align-items-center">
+							{{ $loop->iteration }}. &ensp;
+							Menu 
+							{{ $item->header->pesananDetail->menuHeader->FN_MENU }}
 
-									<span class="badge badge-info pl-2 pr-2 text-md float-right">{{ $item->pesananDetail->FJML }} &ensp; Porsi</span>
-								</div>
-								<div class="col-12">
-									<ul>
-										@forelse ($item->detail as $item3)
-											@foreach ($item3->produk->groupBuat as $item4)
-												@if ($item4->FTEMPAT == 'D')
-													<li>
-														{{ $item3->produk->FN_NAMA }}
-														&ensp; || &ensp;
-														{{ $item->pesananDetail->FJML }} Porsi
-													</li>
-												@endif
-											@endforeach
-										@empty
-											<li>
-												Belum Ada Daftar Yang Akan di-Masak.
-											</li>
-										@endforelse
-									</ul>
-								</div>
-								<div class="col-6">
-									Atas Nama : {{ $item->pesananDetail->header->FATAS_NAMA }}
-								</div>
-								<div class="col-6 text-right">
-									Meja &ensp; : &ensp; 
-									@foreach ($item->pesananDetail->header->meja as $item2)
-									<b>
-										{{ $item2->FNO_MEJA }} 
-									</b>
-									@endforeach
-								</div>
-								<div class="col-12 pt-2 pb-2">
-									<button class="btn btn-info btn-block btn-sm" style="border-radius: 0px;" wire:click="selesai('{{ $item->FNO_H_PEMASAKAN }}')">
-										Selesai
-									</button>
-								</div>
-							</div>
-						</li>
-					@endif
-				@endforeach
-			@endforeach
+							<span class="badge badge-info pl-2 pr-2 text-md float-right">{{ $item->header->pesananDetail->FJML }} &ensp; Porsi</span>
+						</div>
+						<div class="col-12">
+							<ul>
+								@if ($item->FTEMPAT == 'D')
+									<li>
+										{{ $item->produk->FN_NAMA }}
+										&ensp; || &ensp;
+										{{ $item->FJML }} Porsi
+									</li>
+								@endif
+							</ul>
+						</div>
+						<div class="col-6">
+							Atas Nama : {{ $item->header->pesananDetail->header->FATAS_NAMA }}
+						</div>
+						<div class="col-6 text-right">
+							Meja &ensp; : &ensp; 
+							@foreach ($item->header->pesananDetail->header->meja as $item2)
+							<b>
+								{{ $item2->FNO_MEJA }} 
+							</b>
+							@endforeach
+						</div>
+						<div class="col-12 pt-2 pb-2">
+							<button class="btn btn-info btn-block btn-sm" style="border-radius: 0px;" wire:click="selesai('{{ $item->FNO_D_PEMASAKAN }}', '{{ $item->header->FNO_D_PESAN }}')">
+								Selesai
+							</button>
+						</div>
+					</div>
+				</li>
+			@endif 
 		@endforeach
 		<li class="list-group-item" style="border-top: 1px solid #000000b3;">
 			<div class="row d-flex justify-content-between align-items-center">

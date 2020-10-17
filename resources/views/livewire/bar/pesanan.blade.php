@@ -7,13 +7,13 @@
 				<div class="info-box-content">
 					<span class="info-box-text">
 						<h4>
-							{{ $item->menuHeader->FN_MENU }}
+							{{ $item->header->pesananDetail->menuHeader->FN_MENU }}
 							<div class="float-right">
 								@php
-									$count = count($item->header->meja);
+									$count = count($item->header->pesananDetail->header->meja);
 									$cm = 0;
 								@endphp
-								@foreach ($item->header->meja as $item2)
+								@foreach ($item->header->pesananDetail->header->meja as $item2)
 									@php
 										$cm += 1;
 									@endphp
@@ -31,23 +31,19 @@
 						<tr>
 							<td><b>Keterangan</b></td>
 							<td>:</td>
-							<td>{{ $item->FKET != '' ? $item->FKET : '-' }}</td>
+							<td>{{ $item->header->pesananDetail->FKET != '' ? $item->header->pesananDetail->FKET : '-' }}</td>
 						</tr>
 						<tr>
 							<td colspan="3" class="pb-2"><b>Data Masakan &ensp; : </b></td>
 						</tr>
-						@foreach ($item->menuDetail as $item2)
-							@foreach ($item2->produk->groupBuat as $item3)
-								@if ($item3->FTEMPAT == 'B')
-								<tr>
-									<td class="p-2" colspan="3" style="border: 1px solid #000000;"><b><u>{{ $item2->produk->FN_NAMA }}</u> <small class="badge badge-success float-right"><i class="fa fa-utensils"></i> &ensp; {{ $item->FJML }} Porsi</small></b></td>
-								</tr>
-								@endif
-							@endforeach
-						@endforeach
+						@if ($item->FTEMPAT == 'B')
+							<tr>
+								<td class="p-2" colspan="3" style="border: 1px solid #000000;"><b><u>{{ $item->produk->FN_NAMA }}</u> <small class="badge badge-success float-right"><i class="fa fa-utensils"></i> &ensp; {{ $item->FJML }} Porsi</small></b></td>
+							</tr>
+						@endif
 						<tr>
 							<td colspan="3" class="pt-2">
-								<button class="btn btn-success btn-sm btn-block" style="border-radius: 0;" wire:click="ambilPesanan('{{ $item->FNO_D_PESAN }}', '{{ $item->FNO_H_PESAN }}', '{{ $item->FNO_H_MENU }}')">
+								<button class="btn btn-success btn-sm btn-block" style="border-radius: 0;" wire:click="ambilPesanan('{{ $item->FNO_D_PEMASAKAN }}')">
 									Ambil Pesanan
 								</button>
 							</td>

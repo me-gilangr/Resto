@@ -22,12 +22,13 @@ class ProdukTableSeeder extends Seeder
 					'deleted_at' => null,
 					'created_at' => now(),
 					'updated_at' => now(),
-					'group' => [
-						[
-							'FNO_PRODUK' => 'B01001',
-							'FTEMPAT' => 'B',
-						]
-					],
+					// 'group' => [
+					// 	[
+					// 		'FNO_PRODUK' => 'B01001',
+					// 		'FTEMPAT' => 'B',
+					// 	]
+					// ],
+					'FTEMPAT' => 'B',
 				],
 				[
 					'FNO_PRODUK' => 'B01002',
@@ -36,12 +37,13 @@ class ProdukTableSeeder extends Seeder
 					'deleted_at' => null,
 					'created_at' => now(),
 					'updated_at' => now(),
-					'group' => [
-						[
-							'FNO_PRODUK' => 'B01002',
-							'FTEMPAT' => 'B',
-						]
-					],
+					// 'group' => [
+					// 	[
+					// 		'FNO_PRODUK' => 'B01002',
+					// 		'FTEMPAT' => 'B',
+					// 	]
+					// ],
+					'FTEMPAT' => 'B',
 				],
 				[
 					'FNO_PRODUK' => 'F01001',
@@ -50,12 +52,13 @@ class ProdukTableSeeder extends Seeder
 					'deleted_at' => null,
 					'created_at' => now(),
 					'updated_at' => now(),
-					'group' => [
-						[
-							'FNO_PRODUK' => 'F01001',
-							'FTEMPAT' => 'D',
-						]
-					],
+					// 'group' => [
+					// 	[
+					// 		'FNO_PRODUK' => 'F01001',
+					// 		'FTEMPAT' => 'D',
+					// 	]
+					// ],
+					'FTEMPAT' => 'D',
 				],
 				[
 					'FNO_PRODUK' => 'F01002',
@@ -64,22 +67,24 @@ class ProdukTableSeeder extends Seeder
 					'deleted_at' => null,
 					'created_at' => now(),
 					'updated_at' => now(),
-					'group' => [
-						[
-							'FNO_PRODUK' => 'F01002',
-							'FTEMPAT' => 'D',
-						]
-					],
+					// 'group' => [
+					// 	[
+					// 		'FNO_PRODUK' => 'F01002',
+					// 		'FTEMPAT' => 'D',
+					// 	]
+					// ],
+					'FTEMPAT' => 'D',
 				],
 			];
 
 			
 			foreach ($produk as $key => $value) {
 				try {
-					$insert = Produk::firstOrCreate(Arr::except($value, ['group']));
-					foreach ($value['group'] as $key => $value2) {
-						$insert2 = GroupPembuatan::firstOrCreate($value2);
-					}
+					$insert = Produk::firstOrCreate($value);
+					// $insert = Produk::firstOrCreate(Arr::except($value, ['group']));
+					// foreach ($value['group'] as $key => $value2) {
+					// 	$insert2 = GroupPembuatan::firstOrCreate($value2);
+					// }
 				} catch (\Exception $e) {
 					//
 				}
