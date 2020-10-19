@@ -174,7 +174,7 @@ class Cart extends Component
 					]);
 
 					$pemasakanH = PemasakanHeader::firstOrCreate([
-						'FNO_H_PEMASAKAN' => time(),
+						'FNO_H_PEMASAKAN' => time() + rand(10, 99),
 						'FNO_D_PESAN' => $detail->FNO_D_PESAN,
 					]);
 

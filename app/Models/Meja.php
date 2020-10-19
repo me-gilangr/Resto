@@ -20,4 +20,10 @@ class Meja extends Model
 	];
 
 	use SoftDeletes;
+
+	public function pesanan()
+	{
+		return $this->belongsTo('App\Models\PesananMeja', 'FNO_MEJA', 'FNO_MEJA')
+			->orderByRaw("ISNULL(created_at), created_at DESC");
+	}
 }

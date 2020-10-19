@@ -20,6 +20,11 @@ class PesananMeja extends Model
 
 	public function header()
 	{
-		return $this->belongsTo('App\Models\PesananMeja', 'FNO_H_PESAN', 'FNO_H_PESAN');
+		return $this->belongsTo('App\Models\PesananHeader', 'FNO_H_PESAN', 'FNO_H_PESAN');
+	}
+
+	public function meja()
+	{
+		return $this->belongsTo('App\Models\Meja', 'FNO_MEJA', 'FNO_MEJA');
 	}
 }

@@ -39,6 +39,7 @@ class Pesanan extends Component
 			$pemasakan = PemasakanDetail::where('FNO_D_PEMASAKAN', '=', $kodePemasakan)->firstOrFail();
 			DB::beginTransaction();
 
+			
 			$pemasakan->header->pesananDetail()->update(['FSTATUS_PESAN' => '3']);
 			$pemasakan->update([
 				'USER_ID' => auth()->user()->id,
