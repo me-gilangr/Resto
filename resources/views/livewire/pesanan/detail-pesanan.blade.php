@@ -74,6 +74,11 @@
 																Pesanan di-Antar
 															</button>
 																@break
+														@case(6)
+															<button class="btn btn-outline-success btn-xs">
+																Pesanan Selesai
+															</button>
+																@break
 														@default
 															<button class="btn btn-outline-secondary btn-xs">
 																No Status
@@ -97,10 +102,10 @@
 															</button>
 																@break
 														@case(5)
-															<button class="btn btn-outline-primary btn-xs">
+															<button class="btn btn-outline-primary btn-xs selesai" data-id="{{ $item->FNO_D_PESAN }}">
 																Selesai
 															</button>
-															<button class="btn btn-outline-danger btn-xs">
+															<button class="btn btn-outline-danger btn-xs komplain" data-id="{{ $item->FNO_D_PESAN }}">
 																Komplain
 															</button>
 																@break
@@ -178,6 +183,12 @@
 		$('#modalTransaksi').on('click', '.antar', function() {
 			var id = $(this).data('id');
 			window.livewire.emit('do_antar', id);
+		});
+		
+
+		$('#modalTransaksi').on('click', '.selesai', function() {
+			var id = $(this).data('id');
+			window.livewire.emit('do_selesai', id);
 		});
 	});
 </script>

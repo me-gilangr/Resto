@@ -43,6 +43,9 @@ Route::group(['middleware' => ['auth']], function () {
 
 		Route::get('/pesanan', 'Backend\PesananController@index')->name('backend.pesanan');
 		Route::get('/pesanan-meja', 'Backend\PesananController@meja')->name('backend.pesanan-meja');
+
+		Route::get('/kasir', 'Backend\KasirController@index')->name('backend.kasir');
+		Route::get('/kasir/bayar/{id}', 'Backend\KasirController@bayar')->name('backend.kasir.bayar');
 	});
 
 	Route::group(['prefix' => 'datatable', 'as' => 'datatable.'], function () {
@@ -51,6 +54,7 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::post('kategori', 'Backend\KategoriController@datatable')->name('kategori');
 		Route::post('produk', 'Backend\ProdukController@datatable')->name('produk');
 		Route::post('menu', 'Backend\MenuController@datatable')->name('menu');
+		Route::post('pesanan', 'Backend\KasirController@datatable')->name('pesanan');
 	});
 });
 

@@ -13,6 +13,7 @@ class DetailPesanan extends Component
 	protected $listeners = [
 		'get_detail' => 'getDetail',
 		'do_antar' => 'doAntar',
+		'do_selesai' => 'doSelesai',
 	];
 
 	public function render()
@@ -41,6 +42,21 @@ class DetailPesanan extends Component
 			]);
 
 			$this->emit('info', 'Status Pesanan di-Antar');
+			$this->emit('get_detail', $pesanan->FNO_H_PESAN);
+		} catch (\Exception $e) {
+			$this->emit('error', 'Terjadi Kesalahan !');
+		}
+	}
+
+	public function doSelesai($id)
+	{
+		try {
+			$pesanan = PesananDetail::findOrFail($id);
+			$pesanan->update([
+				'FSTATUS_PESAN' => '6',
+			]);
+
+			$this->emit('success', 'Status Pesanan Selesai');
 			$this->emit('get_detail', $pesanan->FNO_H_PESAN);
 		} catch (\Exception $e) {
 			$this->emit('error', 'Terjadi Kesalahan !');

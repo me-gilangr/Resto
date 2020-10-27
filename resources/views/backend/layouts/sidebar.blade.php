@@ -85,6 +85,15 @@
             Transaksi Meja
           </p>
         </a>
+			</li>
+      <li class="nav-header pt-2 pl-3"><b><u>Kasir</u></b></li>
+			<li class="nav-item">
+        <a href="{{ route('backend.kasir') }}" class="nav-link">
+          <i class="nav-icon fa fa-coins"></i>
+          <p>
+            Pembayaran
+          </p>
+        </a>
       </li>
     </ul>
   </nav>
