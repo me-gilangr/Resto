@@ -23,7 +23,7 @@
                   <td class="text-center align-middle">{{ $loop->iteration }}. </td>
                   <td class="align-middle">{{ $item['menu_header']['FN_MENU'] }}</td>
                   <td width="15%">
-                    <input type="number" wire:model="menu.{{ $item['FNO_D_PESAN'] }}.FJML" min="1" max="{{ $item['max'] }}" class="form-control form-control-sm" style="border-radius: 0px;" style="text-align: center;" value="{{ $item['FJML'] }}" required>
+                    <input type="number" wire:model="menu.{{ $item['FNO_D_PESAN'] }}.FJML" min="1" max="{{ $item['max'] - $item['terbayar'] }}" class="form-control form-control-sm" style="border-radius: 0px;" style="text-align: center;" value="{{ $item['FJML'] }}" required>
                   </td>
                   <td class="text-center align-middle">Rp. {{ number_format(($item['FHARGA'] * $item['FJML']), 0, ',', '.') }}</td>
                   <td class="text-center align-middle">
@@ -101,10 +101,17 @@
           </h6>
         </div>
         <div class="col-12">
-          <button class="btn btn-outline-success btn-block">
+					<button class="btn btn-success btn-block" wire:click="payBill()" {{ $total == 0 || $kembalian < 0 ? 'disabled':'' }}>
             Bayar Pesanan
           </button>
-        </div>
+				</div>
+				<div class="col-12 mt-2">
+					@if ($end == 1)
+					<button class="btn btn-danger btn-block" wire:click="endTransaction()">
+						Tutup Transaksi
+					</button>
+					@endif
+				</div>
       </div>
     </div>
   </div>

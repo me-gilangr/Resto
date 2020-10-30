@@ -43,4 +43,9 @@ class PesananDetail extends Model
 	{
 		return $this->belongsTo('App\Models\PesananHeader', 'FNO_H_PESAN', 'FNO_H_PESAN');
 	}
+	
+	public function bayar()
+	{
+		return $this->hasMany('App\Models\PembayaranDetail', 'FNO_D_PESAN', 'FNO_D_PESAN');
+	}
 }

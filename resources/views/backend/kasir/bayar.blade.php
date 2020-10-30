@@ -61,7 +61,17 @@
 		</div>
 	</div>
 	<div class="col-md-5 col-lg-5">
-		@livewire('kasir.bayar')
+		@livewire('kasir.bayar', ['kode' => $pesanan->FNO_H_PESAN])
 	</div>
 </div>
 @endsection
+
+@push('script')
+<script>
+  window.livewire.on('end', function() {
+    setTimeout(() => {
+      window.location.replace("{{ route('backend.kasir') }}");
+    }, 1000);
+  });
+</script>
+@endpush

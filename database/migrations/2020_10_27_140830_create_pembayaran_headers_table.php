@@ -13,9 +13,13 @@ class CreatePembayaranHeadersTable extends Migration
      */
     public function up()
     {
-        Schema::create('pembayaran_headers', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->timestamps();
+        Schema::create('t20_h_bayar', function (Blueprint $table) {
+          $table->char('FNO_H_BAYAR', 9)->primary();
+          $table->date('FTGL_BAYAR');
+          $table->unsignedBigInteger('USER_ID');
+          $table->foreign('USER_ID')->references('id')->on('users');
+          $table->double('FTOTAL');
+          $table->timestamps();
         });
     }
 
@@ -26,6 +30,6 @@ class CreatePembayaranHeadersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pembayaran_headers');
+        Schema::dropIfExists('t20_h_bayar');
     }
 }

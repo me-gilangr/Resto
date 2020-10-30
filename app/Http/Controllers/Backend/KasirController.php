@@ -61,8 +61,12 @@ class KasirController extends Controller
 			});
 			
 			$dataTables->addColumn('TOTAL', function ($data) {
-				$total = '<b> Rp. '. number_format($data->detail->sum('FHARGA'), 0, ',', '.') . '</b>';
-				return $total;
+        $total = 0;
+        foreach ($data->detail as $key => $value) {
+          $total += $value->FJML * $value->FHARGA;
+        }
+				$ntotal = '<b> Rp. '. number_format($total, 0, ',', '.') . '</b>';
+				return $ntotal;
 			});
 
 			$this->rawColumns(['TGL_PESAN', 'MEJA', 'MENU', 'TOTAL']);
@@ -79,12 +83,21 @@ class KasirController extends Controller
 					$btn = '';
 				} else {
 					$add = '';
-					// $btn = $this->editBtn($data[$this->pk], $data->FK_GROUP) . $this->delBtn($data[$this->pk], $data->FK_GROUP); 
-					$btn = '
-					<a href="'.route('backend.kasir.bayar', $data->FNO_H_PESAN).'" class="btn btn-info btn-sm">
-						<i class="fa fa-arrow-right"></i> &ensp; Bayar
-					</a>
-					';
+          // $btn = $this->editBtn($data[$this->pk], $data->FK_GROUP) . $this->delBtn($data[$this->pk], $data->FK_GROUP); 
+          if ($data->FSTATUS_TRANSAKSI == 1) {
+            $btn = '
+              <button class="btn btn-outline-secondary btn-sm">
+                <i class="fa fa-check"></i> &ensp; Selesai
+              </button>
+            ';
+          } else {
+            $btn = '
+            <a href="'.route('backend.kasir.bayar', $data->FNO_H_PESAN).'" class="btn btn-info btn-sm">
+              <i class="fa fa-arrow-right"></i> &ensp; Bayar
+            </a>
+            ';
+          }
+            
 				}
 				return '
 					<div class="btn-group">
